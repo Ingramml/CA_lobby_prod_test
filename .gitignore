@@ -1,0 +1,7 @@
+*.txt
+/pubinfo_load 
+/Download*
+/Agenda*
+*.zip
+.vscode
+.venv

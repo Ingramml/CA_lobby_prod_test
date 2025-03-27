@@ -1,0 +1,37 @@
+import csv
+import os
+
+def extract_non_ascii_lines(input_file, output_csv):
+    """
+    Extracts lines containing non-ASCII characters from a file and saves them as a UTF-8 CSV file.
+    
+    Parameters:
+        input_file (str): Path to the input text file.
+        output_csv (str): Path to the output CSV file.
+    """
+    
+    non_ascii_lines = []
+
+    # Read file in binary mode to detect non-ASCII characters
+    with open(input_file, "rb") as f_in:
+        for i, line in enumerate(f_in, start=1):  # Line numbers start at 1
+            try:
+                line.decode("ascii")  # Try decoding as ASCII
+            except UnicodeDecodeError:
+                non_ascii_lines.append([i, line.decode("utf-8", errors="replace")])
+
+    # Save non-ASCII lines to a CSV file
+    with open(output_csv, "w", newline="", encoding="utf-8") as f_out:
+        writer = csv.writer(f_out)
+        writer.writerow(["Line Number", "Text"])
+        writer.writerows(non_ascii_lines)
+
+
+    print(f"Extracted {len(non_ascii_lines)} non-ASCII lines and saved to {output_csv}")
+
+# Example usage
+input_file = "/Users/michaelingram/Downloads/CalAccess/DATA/CVR_LOBBY_DISCLOSURE_CD.TSV"  # Change this to your file path
+filename=os.path.basename(input_file)[:-4]
+output_csv = "non_ascii_lines"+filename+".csv"
+
+extract_non_ascii_lines(input_file, output_csv)
