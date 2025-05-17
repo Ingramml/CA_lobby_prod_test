@@ -5,3 +5,6 @@
 *.zip
 .vscode
 .venv
+.csv
+Download
+Deprecated*

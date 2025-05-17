@@ -1,0 +1,59 @@
+import bln
+import ssl
+import certifi
+import datetime
+from bln import Client
+from dotenv import load_dotenv
+import os
+import pandas as pd
+
+
+def Bignewdoanload(output_dir):
+    #ssl_context = ssl.create_default_context(cafile=certifi.where())
+    today = datetime.date.today()
+    work_dir = os.path.join(output_dir, str(today))
+    if not os.path.exists(work_dir):
+        os.makedirs(work_dir)
+    
+    # Load the .env file
+    load_dotenv()
+    #TODO add the API key to the .env file
+    apiKey= 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczODc3NjE4OSwianRpIjoiNzk4YzUwMzMtNjZmZS00NTUzLThhZjktNjQ3ZTUwOWYyMDBhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjgzYzExNWYzLWQ5ZTMtNDAyMy1hYzYyLTMyNzllNzljOGJiNCIsIm5iZiI6MTczODc3NjE4OX0.d_JOc5ATxy0HSSP0Xkf8l6PdJDHwYWca8YCfRhLeodU'
+    client = Client(apiKey) #loads the client with the API key
+    project_name='California campaign finance data'
+    project_id ='UHJvamVjdDo2MDVjNzdiYS0wODI4LTRlOTEtOGM3OC03ZjA4NGI2ZDEwZWE='
+    bln.pandas.register(pd) #registers the pandas extension
+
+
+    file_names = [
+    "cvr_lobby_disclosure_cd.csv",
+    "cvr_registration_cd.csv",
+    "latt_cd.csv",
+    "latt_cd.csv",
+    "lccm_cd.csv",
+    "lemp_cd.csv",
+    "lexp_cd.csv",
+    "loth_cd.csv",
+    "lpay_cd.csv",
+    "filername_cd.csv"]
+    for names in file_names:
+        if names in file_names:
+            print(names)
+            df=pd.read_bln(project_id,names,apiKey,low_memory=False)
+            df.to_csv(str(work_dir)+'/'+str(today)+'_'+names,index=False)
+        else:
+            print('not found')
+    
+    return
+    
+
+if __name__ == "__main__":
+    output_dir = '/Users/michaelingram/Documents/GitHub/CA_lobby/Downloaded_files'
+    Bignewdoanload(output_dir)
+    #print(project_df)
+    #print(project_df['updated_at'])
+    #print(project_df['name'])
+    #print(project_df['id'])
+    #print(project_df['file_type'])
+    #print(project_df['size'])
+    #print(project_df['download_url'])
