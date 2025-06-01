@@ -4,14 +4,23 @@ from Bigquery_connection import bigquery_connect
 from load_dotenv import load_dotenv
 import os
 import pandas as pd
-import datetime
+from datetime import datetime
 import glob
+from Bignewdownload_2 import Bignewdoanload
 
 
+today= datetime.today().strftime('%Y-%m-%d')
+download_dir = f"/Users/michaelingram/Documents/GitHub/CA_lobby/Downloaded_files/"
+downloaded_files = Bignewdoanload(download_dir)
+if downloaded_files:
+    all_files = downloaded_files
+else:
+    all_files = glob.glob(f"{download_dir}/{today}/*.csv")
 load_dotenv()
-all_files=glob.glob('/Users/michaelingram/Documents/GitHub/CA_lobby/Downloaded_files/*/*.csv')
+#all_files=glob.glob('/Users/michaelingram/Documents/GitHub/CA_lobby/Downloaded_files/*/*.csv')
 files_to_process = [f for f in all_files  if not (os.path.basename(f).startswith("clean") or os.path.basename(f).startswith("project"))]
-
+print(files_to_process)
+client=bigquery_connect(os.getenv('CREDENTIALS_LOCATION'))
 
 for filename in files_to_process:
     print(filename)
@@ -26,7 +35,7 @@ for filename in files_to_process:
     print(tablename)
     # Load environment variables from .env file
     # Load the credentials from the .env file
-    client=bigquery_connect(os.getenv('CREDENTIALS_LOCATION'))
+
     cleanedframe=row_type_force(client, tablename, inputfile)
     # Upload the DataFrame to BigQuery
     project_id = "ca-lobby"  # Replace with your Google Cloud project ID

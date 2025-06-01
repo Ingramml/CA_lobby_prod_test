@@ -36,16 +36,22 @@ def Bignewdoanload(output_dir):
     "loth_cd.csv",
     "lpay_cd.csv",
     "filername_cd.csv"]
+    
+    fileList = []
+
     for names in file_names:
-        if names in file_names:
-            print(names)
-            df=pd.read_bln(project_id,names,apiKey,low_memory=False)
-            df.to_csv(str(work_dir)+'/'+str(today)+'_'+names,index=False)
-        else:
-            print('not found')
-    
-    return
-    
+        downloaded_file = os.path.join(work_dir, f"{today}_{names}")
+        if os.path.exists(downloaded_file):
+            print(f"File {downloaded_file} already exists. Skipping download.")
+            continue
+        print(f"Downloading {names} to {downloaded_file}")
+        df = pd.read_bln(project_id, names, apiKey, low_memory=False)
+        df.to_csv(downloaded_file, index=False)
+        fileList.append(downloaded_file)
+
+    return fileList
+
+
 
 if __name__ == "__main__":
     output_dir = '/Users/michaelingram/Documents/GitHub/CA_lobby/Downloaded_files'
