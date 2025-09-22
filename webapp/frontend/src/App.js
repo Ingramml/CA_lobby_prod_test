@@ -1,18 +1,35 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import {
   SignedIn,
   SignedOut,
   SignInButton,
-  UserButton,
-  useUser
+  UserButton
 } from '@clerk/clerk-react';
 
+// Import page components
+import Dashboard from './components/Dashboard';
+import Analytics from './components/Analytics';
+import Reports from './components/Reports';
+import Search from './components/Search';
+import Settings from './components/Settings';
+
 function App() {
-  const { user } = useUser();
+  return (
+    <Router>
+      <div className="App">
+        <AppContent />
+      </div>
+    </Router>
+  );
+}
+
+function AppContent() {
+  const location = useLocation();
 
   return (
-    <div className="App">
+    <>
       <header className="App-header">
         <div className="header-content">
           <h1>Welcome to TPC's CA lobby search</h1>
@@ -27,6 +44,45 @@ function App() {
         </div>
       </header>
 
+      <SignedIn>
+        <nav className="main-nav">
+          <div className="nav-content">
+            <div className="nav-links">
+              <Link
+                to="/"
+                className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
+              >
+                📊 Dashboard
+              </Link>
+              <Link
+                to="/search"
+                className={`nav-link ${location.pathname === '/search' ? 'active' : ''}`}
+              >
+                🔍 Search
+              </Link>
+              <Link
+                to="/analytics"
+                className={`nav-link ${location.pathname === '/analytics' ? 'active' : ''}`}
+              >
+                📈 Analytics
+              </Link>
+              <Link
+                to="/reports"
+                className={`nav-link ${location.pathname === '/reports' ? 'active' : ''}`}
+              >
+                📄 Reports
+              </Link>
+              <Link
+                to="/settings"
+                className={`nav-link ${location.pathname === '/settings' ? 'active' : ''}`}
+              >
+                ⚙️ Settings
+              </Link>
+            </div>
+          </div>
+        </nav>
+      </SignedIn>
+
       <main className="App-main">
         <SignedOut>
           <div className="welcome-section">
@@ -36,143 +92,18 @@ function App() {
         </SignedOut>
 
         <SignedIn>
-          <div className="dashboard-section">
-            <h2>Welcome back, {user?.firstName || 'User'}!</h2>
-
-            <div className="dashboard-grid">
-              <div className="dashboard-card">
-                <h3>API Health Check</h3>
-                <APIHealthCheck />
-              </div>
-
-              <div className="dashboard-card">
-                <h3>System Status</h3>
-                <SystemStatus />
-              </div>
-
-              <div className="dashboard-card">
-                <h3>Data Access</h3>
-                <DataAccessTest />
-              </div>
-            </div>
-          </div>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
         </SignedIn>
       </main>
-    </div>
+    </>
   );
 }
 
-// API Components
-function APIHealthCheck() {
-  const [health, setHealth] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    fetch('/api/health')
-      .then(res => res.json())
-      .then(data => {
-        setHealth(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Health check failed:', err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
-
-  return (
-    <div className="api-result">
-      {health ? (
-        <div className="success">
-          <p>Status: {health.status}</p>
-          <p>Message: {health.message}</p>
-          <p>Version: {health.version}</p>
-          {health.source && <p>Source: {health.source}</p>}
-        </div>
-      ) : (
-        <div className="error">Failed to load health status</div>
-      )}
-    </div>
-  );
-}
-
-function SystemStatus() {
-  const [status, setStatus] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    fetch('/api/status')
-      .then(res => res.json())
-      .then(data => {
-        setStatus(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Status check failed:', err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
-
-  return (
-    <div className="api-result">
-      {status ? (
-        <div className="success">
-          <p>Environment: {status.environment}</p>
-          <p>Mock Data: {status.mock_data}</p>
-          <p>Debug: {status.debug}</p>
-        </div>
-      ) : (
-        <div className="error">Failed to load system status</div>
-      )}
-    </div>
-  );
-}
-
-function DataAccessTest() {
-  const [data, setData] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    fetch('/api/test-data-access')
-      .then(res => res.json())
-      .then(data => {
-        setData(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Data access test failed:', err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
-
-  return (
-    <div className="api-result">
-      {data ? (
-        <div className="success">
-          <p>Status: {data.status}</p>
-          <p>Message: {data.message}</p>
-          {data.available_modules && (
-            <div>
-              <p>Available Modules:</p>
-              <ul>
-                {data.available_modules.map((module, idx) => (
-                  <li key={idx}>{module}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      ) : (
-        <div className="error">Failed to load data access status</div>
-      )}
-    </div>
-  );
-}
 
 export default App;
