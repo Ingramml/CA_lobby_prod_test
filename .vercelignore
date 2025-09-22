@@ -1,0 +1,63 @@
+# Python files and environments
+*.pyc
+__pycache__/
+.env
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build artifacts
+build/
+dist/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+
+# Large data files
+*.csv
+*.json
+*.sql
+*.db
+*.sqlite
+
+# Logs
+logs/
+*.log
+
+# Coverage
+coverage/
+.coverage
+.nyc_output
+
+# Documentation (already built)
+Documentation/
+
+# Master files (Claude development files)
+master-files/
+
+# Scripts (not needed for deployment)
+scripts/
+
+# Backend (separate deployment)
+webapp/backend/
+
+# Data processing files
+*.py
+!webapp/frontend/
