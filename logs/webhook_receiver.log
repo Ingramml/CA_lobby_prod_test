@@ -1,0 +1,24 @@
+[2025-09-22 11:41:51,605] [WARNING] No webhook secret found - webhook validation disabled
+[2025-09-22 11:41:51,605] [INFO] Simulating deployment webhook...
+[2025-09-22 11:41:51,605] [INFO] Received deployment webhook: {'url': 'https://frontend-hx1b123f3-michaels-projects-73340e30.vercel.app', 'state': 'READY', 'type': 'deployment', 'team': 'test-team', 'project': 'ca-lobby-frontend', 'timestamp': '2025-09-22T11:41:51.605967'}
+[2025-09-22 11:41:51,605] [INFO] Starting deployment validation for: https://frontend-hx1b123f3-michaels-projects-73340e30.vercel.app
+[2025-09-22 11:41:55,529] [ERROR] Deployment validation failed: ./scripts/deployment-validator.sh: line 5: 
+Deployment Validator for CA Lobby Application
+Validates deployment health and functionality after deployment
+: command not found
+Vercel CLI 48.1.0
+
+[2025-09-22 11:41:55,529] [INFO] Webhook result saved to: logs/webhook_result_20250922_114155.json
+[2025-09-22 11:42:07,770] [WARNING] No webhook secret found - webhook validation disabled
+[2025-09-22 11:42:07,770] [INFO] Simulating deployment webhook...
+[2025-09-22 11:42:07,770] [INFO] Received deployment webhook: {'url': 'https://frontend-hx1b123f3-michaels-projects-73340e30.vercel.app', 'state': 'READY', 'type': 'deployment', 'team': 'test-team', 'project': 'ca-lobby-frontend', 'timestamp': '2025-09-22T11:42:07.770513'}
+[2025-09-22 11:42:07,770] [INFO] Starting deployment validation for: https://frontend-hx1b123f3-michaels-projects-73340e30.vercel.app
+[2025-09-22 11:42:11,540] [ERROR] Deployment validation failed: Vercel CLI 48.1.0
+
+[2025-09-22 11:42:11,540] [INFO] Webhook result saved to: logs/webhook_result_20250922_114211.json
+[2025-09-22 11:42:24,747] [WARNING] No webhook secret found - webhook validation disabled
+[2025-09-22 11:42:24,747] [INFO] Simulating deployment webhook...
+[2025-09-22 11:42:24,747] [INFO] Received deployment webhook: {'url': 'https://rtest1-beta.vercel.app', 'state': 'READY', 'type': 'deployment', 'team': 'test-team', 'project': 'ca-lobby-frontend', 'timestamp': '2025-09-22T11:42:24.747885'}
+[2025-09-22 11:42:24,747] [INFO] Starting deployment validation for: https://rtest1-beta.vercel.app
+[2025-09-22 11:42:29,991] [INFO] Deployment validation completed successfully
+[2025-09-22 11:42:29,992] [INFO] Webhook result saved to: logs/webhook_result_20250922_114229.json

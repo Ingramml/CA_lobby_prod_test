@@ -12,3 +12,4 @@ Deprecated*
 # Ignore Python cache files
 __pycache__/
 .master-files/*
+.claude/*

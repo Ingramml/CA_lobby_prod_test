@@ -1,0 +1,56 @@
+[2025-09-22 11:41:51] [INFO] Starting CA Lobby deployment validation
+[2025-09-22 11:41:51] [INFO] Log file: /Users/michaelingram/Documents/GitHub/CA_lobby/logs/deployment_validation_20250922_114151.log
+[2025-09-22 11:41:51] [INFO] === Checking System Requirements ===
+[2025-09-22 11:41:51] [SUCCESS] Node.js available: v22.19.0
+[2025-09-22 11:41:51] [SUCCESS] Python available: Python 3.11.12
+[2025-09-22 11:41:52] [SUCCESS] Vercel CLI available: 48.1.0
+[2025-09-22 11:41:52] [SUCCESS] Git available: git version 2.48.1
+[2025-09-22 11:41:52] [INFO] === Validating Build Process ===
+[2025-09-22 11:41:52] [INFO] Testing frontend build process
+[2025-09-22 11:41:54] [SUCCESS] Frontend build completed successfully
+[2025-09-22 11:41:54] [SUCCESS] Build artifacts created successfully
+[2025-09-22 11:41:54] [INFO] === Validating Local Development Environment ===
+[2025-09-22 11:41:54] [INFO] Testing Local Flask health endpoint: http://localhost:5001/api/health
+[2025-09-22 11:41:54] [SUCCESS] Local Flask health endpoint returned valid JSON
+{
+    "message": "CA Lobby API is running",
+    "source": "GitHub retest branch",
+    "status": "healthy",
+    "timestamp": "2025-09-22T11:41:54.725242",
+    "version": "1.0.0"
+}
+[2025-09-22 11:41:54] [SUCCESS] Health endpoint reports healthy status
+[2025-09-22 11:41:54] [INFO] Testing Local Flask status endpoint: http://localhost:5001/api/status
+[2025-09-22 11:41:54] [SUCCESS] Local Flask status endpoint returned valid JSON
+{
+    "debug": "True",
+    "environment": "development",
+    "mock_data": "true",
+    "timestamp": "2025-09-22T11:41:54.801811",
+    "version": "1.0.0"
+}
+[2025-09-22 11:41:54] [INFO] Testing Local Flask data access endpoint: http://localhost:5001/api/test-data-access
+[2025-09-22 11:41:54] [SUCCESS] Local Flask data access endpoint returned valid JSON
+{
+    "available_modules": [
+        "Bignewdownload_2 (pending)",
+        "Bigquery_connection (pending)",
+        "determine_df (pending)"
+    ],
+    "message": "Data processing integration ready (Phase 2)",
+    "note": "Full data integration will be implemented in Phase 2",
+    "status": "success"
+}
+[2025-09-22 11:41:54] [INFO] === Validating Production Deployment: https://frontend-hx1b123f3-michaels-projects-73340e30.vercel.app ===
+[2025-09-22 11:41:54] [INFO] Validating frontend deployment
+[2025-09-22 11:41:54] [INFO] Checking Frontend homepage: https://frontend-hx1b123f3-michaels-projects-73340e30.vercel.app/
+[2025-09-22 11:41:55] [ERROR] Frontend homepage is not accessible
+[2025-09-22 11:41:55] [ERROR] Frontend validation failed
+[2025-09-22 11:41:55] [INFO] Testing API endpoints (may be protected by authentication)
+[2025-09-22 11:41:55] [INFO] Testing Production Flask health endpoint: https://frontend-hx1b123f3-michaels-projects-73340e30.vercel.app/api/health
+[2025-09-22 11:41:55] [ERROR] Production Flask health endpoint returned invalid JSON: 
+[2025-09-22 11:41:55] [WARNING] API endpoints may be protected by Vercel authentication
+[2025-09-22 11:41:55] [INFO] This is expected for production deployments
+[2025-09-22 11:41:55] [INFO] === Validation Summary ===
+[2025-09-22 11:41:55] [ERROR] Validation completed with 1 error(s)
+[2025-09-22 11:41:55] [ERROR] Review the log file for details: /Users/michaelingram/Documents/GitHub/CA_lobby/logs/deployment_validation_20250922_114151.log

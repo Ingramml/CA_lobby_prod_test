@@ -1,0 +1,5 @@
+{"timestamp": "2025-09-22T11:32:26.549692", "level": "INFO", "message": "Checking local environment: http://localhost:5001", "data": null}
+{"timestamp": "2025-09-22T11:32:26.556020", "level": "SUCCESS", "message": "\u2705 /api/health - 0.002s", "data": null}
+{"timestamp": "2025-09-22T11:32:26.558183", "level": "SUCCESS", "message": "\u2705 /api/status - 0.002s", "data": null}
+{"timestamp": "2025-09-22T11:32:26.559537", "level": "SUCCESS", "message": "\u2705 /api/test-data-access - 0.001s", "data": null}
+{"timestamp": "2025-09-22T11:32:26.559572", "level": "INFO", "message": "Environment local: 3/3 endpoints healthy", "data": null}
