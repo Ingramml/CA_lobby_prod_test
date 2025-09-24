@@ -127,17 +127,126 @@ def register_health_check(app):
 
 def register_api_routes(app):
     """
-    Register basic API routes structure.
-    Placeholder for Phase 1.3b data access layer integration.
+    Register API routes for all Phase 1.3 functionality.
+    Integrates search, authentication, and data access layers.
     """
+    # Import and register search blueprint
+    from api.search import search_bp
+    app.register_blueprint(search_bp)
+
     @app.route('/api/status', methods=['GET'])
     def api_status():
-        """Basic API status endpoint."""
+        """Enhanced API status endpoint with full Phase 1.3 information."""
+        from auth import clerk_auth, get_current_user, is_authenticated
+        from data_service import get_data_service
+
+        # Get system status
+        db = app.db
+        db_health = db.health_check()
+        data_service = get_data_service()
+        cache_stats = data_service.get_cache_stats()
+
+        status_data = {
+            'message': 'CA Lobby API - Full Phase 1.3 Implementation',
+            'version': '1.3.0',
+            'phase': '1.3 - Complete Frontend-Backend Integration',
+            'timestamp': datetime.utcnow().isoformat(),
+            'components': {
+                'backend_api': 'operational',
+                'data_access_layer': 'operational',
+                'search_api': 'operational',
+                'authentication': 'configured' if not clerk_auth.mock_mode else 'mock_mode',
+                'database': db_health['status'],
+                'caching': 'operational'
+            },
+            'performance': {
+                'cache_hit_rate': f"{cache_stats['cache_hit_rate_percent']}%",
+                'cached_queries': cache_stats['total_cached_queries'],
+                'database_status': db_health['status']
+            }
+        }
+
+        # Add user info if authenticated
+        if is_authenticated():
+            current_user = get_current_user()
+            status_data['user'] = {
+                'authenticated': True,
+                'user_id': current_user.get('user_id'),
+                'email': current_user.get('email'),
+                'roles': current_user.get('roles', [])
+            }
+        else:
+            status_data['user'] = {'authenticated': False}
+
+        return jsonify(status_data)
+
+    @app.route('/api/auth/test', methods=['GET'])
+    @handle_api_errors
+    def test_auth():
+        """Test authentication endpoint."""
+        from auth import require_auth, get_current_user
+
+        # This endpoint requires authentication
+        @require_auth()
+        def protected_test():
+            user = get_current_user()
+            return jsonify({
+                'success': True,
+                'message': 'Authentication test successful',
+                'user': {
+                    'id': user.get('user_id'),
+                    'email': user.get('email'),
+                    'roles': user.get('roles', [])
+                },
+                'timestamp': datetime.utcnow().isoformat()
+            })
+
+        return protected_test()
+
+    @app.route('/api/cache/stats', methods=['GET'])
+    @handle_api_errors
+    def cache_stats():
+        """Get cache performance statistics."""
+        data_service = get_data_service()
+        stats = data_service.get_cache_stats()
+
         return jsonify({
-            'message': 'CA Lobby API is running',
-            'phase': '1.3a - Backend API Foundation',
+            'success': True,
+            'cache_statistics': stats,
             'timestamp': datetime.utcnow().isoformat()
         })
+
+    @app.route('/api/cache/clear', methods=['POST'])
+    @handle_api_errors
+    def clear_cache():
+        """Clear cache (admin only in production)."""
+        from auth import require_role
+
+        @require_role('admin')
+        def admin_clear_cache():
+            data_service = get_data_service()
+            result = data_service.clear_cache()
+
+            return jsonify({
+                'success': True,
+                'message': 'Cache cleared successfully',
+                'result': result,
+                'timestamp': datetime.utcnow().isoformat()
+            })
+
+        # For development/testing, allow without auth
+        if os.getenv('FLASK_ENV') == 'development':
+            data_service = get_data_service()
+            result = data_service.clear_cache()
+
+            return jsonify({
+                'success': True,
+                'message': 'Cache cleared successfully (development mode)',
+                'result': result,
+                'timestamp': datetime.utcnow().isoformat()
+            })
+
+        return admin_clear_cache()
 
 if __name__ == '__main__':
     app = create_app()
