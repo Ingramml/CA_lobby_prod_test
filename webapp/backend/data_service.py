@@ -115,13 +115,25 @@ class DataAccessService:
         processed_data = []
 
         for row in results:
-            # Convert BigQuery row to dictionary
-            row_dict = {}
-            for key, value in row.items():
-                # Apply data formatting patterns from Phase 1.1 (Column_rename.py style)
-                formatted_key = self._standardize_column_name(key)
-                formatted_value = self._standardize_value(value)
-                row_dict[formatted_key] = formatted_value
+            # Handle different row types (BigQuery Row objects vs mock data)
+            if hasattr(row, 'items') and callable(row.items):
+                # BigQuery Row object
+                row_dict = {}
+                for key, value in row.items():
+                    formatted_key = self._standardize_column_name(key)
+                    formatted_value = self._standardize_value(value)
+                    row_dict[formatted_key] = formatted_value
+            elif hasattr(row, '_fields'):
+                # Named tuple (mock data)
+                row_dict = {}
+                for field in row._fields:
+                    value = getattr(row, field)
+                    formatted_key = self._standardize_column_name(field)
+                    formatted_value = self._standardize_value(value)
+                    row_dict[formatted_key] = formatted_value
+            else:
+                # Dictionary or other formats
+                row_dict = dict(row) if not isinstance(row, dict) else row
 
             processed_data.append(row_dict)
 

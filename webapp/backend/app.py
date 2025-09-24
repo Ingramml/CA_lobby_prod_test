@@ -207,6 +207,7 @@ def register_api_routes(app):
     @handle_api_errors
     def cache_stats():
         """Get cache performance statistics."""
+        from data_service import get_data_service
         data_service = get_data_service()
         stats = data_service.get_cache_stats()
 
@@ -236,6 +237,7 @@ def register_api_routes(app):
 
         # For development/testing, allow without auth
         if os.getenv('FLASK_ENV') == 'development':
+            from data_service import get_data_service
             data_service = get_data_service()
             result = data_service.clear_cache()
 
