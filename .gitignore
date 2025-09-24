@@ -13,4 +13,7 @@ Deprecated*
 __pycache__/
 .master-files/*
 .claude/*
-.Documenntation/PHASE_1*.md
+master-files/*
+.master-files/*
+./master-files/*
+master-files/agents/specialized

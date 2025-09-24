@@ -11,8 +11,11 @@
 This guide provides multiple execution options for implementing a consistent closing workflow that:
 1. **Archives the current session** with comprehensive documentation
 2. **Syncs Claude_files** to the centralized `~/Github/Claude_files` location
+3. **Preserves context snapshots** with structured session information (ENHANCED)
+4. **Updates knowledge base** with new learnings and patterns (NEW)
+5. **Builds cross-references** to related sessions and projects (NEW)
 
-This workflow ensures knowledge preservation and maintains synchronized documentation across projects.
+This workflow ensures knowledge preservation, maintains synchronized documentation across projects, and builds continuous learning capabilities.
 
 ---
 
@@ -24,6 +27,9 @@ This workflow ensures knowledge preservation and maintains synchronized document
 **Steps:**
 1. Request session archival: "Archive today's session using session-archiver specifications"
 2. Request file sync: "Copy Claude_files to ~/Github/Claude_files"
+3. Request context preservation: "Preserve context snapshot for this session"
+4. Request knowledge update: "Update knowledge base with new learnings"
+5. Request cross-reference building: "Build cross-references to related work"
 
 **Pros:**
 - Full control over each step
@@ -75,13 +81,13 @@ echo "Closing workflow finished!"
 
 **Standard Command:**
 ```
-"Run closing workflow: session archival + sync Claude_files to ~/Github/Claude_files"
+"Run closing workflow: session archival + sync Claude_files + preserve context + update knowledge base + build cross-references"
 ```
 
 **Implementation:**
 1. Use the exact prompt above
-2. Claude will execute both session archival and file synchronization
-3. Consistent results across all sessions
+2. Claude will execute session archival, file synchronization, context preservation, knowledge building, and cross-referencing
+3. Consistent results across all sessions with enhanced learning capabilities
 
 **Pros:**
 - Single command approach
@@ -98,8 +104,13 @@ echo "Closing workflow finished!"
 
 **Usage Example:**
 ```
-User: "Run closing workflow: session archival + sync Claude_files to ~/Github/Claude_files"
-Claude: [Executes session archival] + [Copies Claude_files to ~/Github/Claude_files]
+User: "Run closing workflow: session archival + sync Claude_files + preserve context + update knowledge base + build cross-references"
+Claude:
+1. [Executes session archival with comprehensive documentation]
+2. [Copies Claude_files to ~/Github/Claude_files]
+3. [Creates structured context snapshot]
+4. [Updates knowledge base with new patterns and learnings]
+5. [Builds cross-references to related sessions]
 ```
 
 ---

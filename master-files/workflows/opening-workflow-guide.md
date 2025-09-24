@@ -12,8 +12,10 @@ This guide provides multiple execution options for implementing a consistent ope
 1. **Copies ~/.claude/master-files/** to current project directory (NEW CENTRALIZED SOURCE)
 2. **Executes project-setup-script.sh** for project-specific initialization
 3. **Creates all subject outlines** in @Claude_files/sub-agents-guide.md
+4. **Loads relevant context** from previous sessions and similar projects (ENHANCED)
+5. **Provides pattern recommendations** from accumulated knowledge base (NEW)
 
-This workflow ensures consistent project initialization and maintains synchronized documentation across all Claude-assisted projects.
+This workflow ensures consistent project initialization, maintains synchronized documentation across all Claude-assisted projects, and provides intelligent context continuity from previous work.
 
 ---
 
@@ -26,6 +28,8 @@ This workflow ensures consistent project initialization and maintains synchroniz
 1. Copy centralized files: "Copy ~/.claude/master-files to current project directory"
 2. Execute setup script: "Run project-setup-script.sh from Claude_files"
 3. Create subject outlines: "Generate all specialist agent outlines in Claude_files/sub-agents-guide.md"
+4. Load context: "Load relevant context from previous sessions"
+5. Get recommendations: "Provide pattern recommendations for this project type"
 
 **Pros:**
 - Full control over each step
@@ -97,7 +101,7 @@ echo "Opening workflow complete!"
 
 **Standard Command:**
 ```
-"Run opening workflow: copy ~/.claude/master-files to project + execute project-setup-script.sh + create all subject outlines in Claude_files/sub-agents-guide.md"
+"Run opening workflow: copy ~/.claude/master-files to project + execute project-setup-script.sh + create all subject outlines + load relevant context + provide pattern recommendations"
 ```
 
 **Shorter Alternative:**
@@ -131,7 +135,9 @@ Claude:
 1. Copies ~/.claude/master-files to ./Claude_files
 2. Executes ./Claude_files/project-setup-script.sh
 3. Generates all specialist agent outlines in Claude_files/sub-agents-guide.md
-4. Reports completion status
+4. Loads relevant context from previous sessions (NEW)
+5. Provides pattern recommendations for project type (NEW)
+6. Reports completion status with context summary
 ```
 
 ---
