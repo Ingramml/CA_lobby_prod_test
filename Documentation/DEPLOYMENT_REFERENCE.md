@@ -21,7 +21,10 @@
 ```json
 {
   "version": 2,
-  "framework": "create-react-app"
+  "framework": "create-react-app",
+  "git": {
+    "ref": "working_branch"
+  }
 }
 ```
 
@@ -32,12 +35,25 @@ REACT_APP_CLERK_PUBLISHABLE_KEY=pk_test_c3RyaWtpbmctaWd1YW5hLTgxLmNsZXJrLmFjY291
 CLERK_SECRET_KEY=sk_test_X3r9ydct9z3cCMj1ozWzCtXvHeOYI4HmWuojIQyTaC
 ```
 
+### **Package.json Repository Configuration**
+```json
+{
+  "name": "ca-lobby-deploy",
+  "repository": {
+    "type": "git",
+    "url": "/Users/michaelingram/Documents/GitHub/CA_lobby",
+    "branch": "working_branch"
+  }
+}
+```
+
 ### **Project Structure (Deployment Ready)**
 ```
 ca-lobby-deploy/
-├── package.json          # React app config
-├── vercel.json           # Vercel settings
+├── package.json          # React app config with repository link
+├── vercel.json           # Vercel settings with git branch config
 ├── .env                  # Local env vars
+├── .git/                 # Git repository connected to working_branch
 ├── src/                  # React source
 ├── public/               # Static assets
 └── build/                # Production build
@@ -49,6 +65,9 @@ ca-lobby-deploy/
 
 ### **Before Deployment**
 - [ ] Ensure clean project structure (no duplicates)
+- [ ] Git repository initialized and connected to working_branch
+- [ ] Package.json name set to "ca-lobby-deploy"
+- [ ] Repository configuration pointing to working_branch
 - [ ] Environment variables set in Vercel Dashboard
 - [ ] `npm install` runs successfully
 - [ ] `npm run build` completes without errors
@@ -56,9 +75,15 @@ ca-lobby-deploy/
 
 ### **Deployment Process**
 ```bash
-# From clean deployment directory:
+# From ca-lobby-deploy directory with git configured:
 npm install
-vercel --yes --prod --scope team_agKdPbial8abFCKrGX9IJeU4
+
+# Commit any changes before deployment
+git add .
+git commit -m "Update for deployment"
+
+# Deploy with consistent project name (uses existing ca-lobby-deploy project)
+vercel --prod --scope team_agKdPbial8abFCKrGX9IJeU4
 ```
 
 ### **Success Indicators**

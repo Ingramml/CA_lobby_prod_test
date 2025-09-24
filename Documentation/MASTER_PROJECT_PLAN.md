@@ -100,7 +100,7 @@ Create a comprehensive, publicly accessible search system for California lobby d
 - Trend analysis and historical comparisons
 - Export functionality (PDF, CSV, Excel)
 - Bookmark and sharing capabilities
-- Email notifications for search alerts
+- ~Email notifications for search alerts~
 - Mobile-responsive design optimization
 
 #### **Phase 2.2: Reporting and Visualization** 📅 PLANNED
@@ -110,9 +110,9 @@ Create a comprehensive, publicly accessible search system for California lobby d
 **Planned Features:**
 - Interactive charts and graphs
 - Custom report generation
-- Automated report scheduling
+- ~Automated report scheduling~
 - Data comparison tools
-- Geographic mapping integration
+- ~Geographic mapping integration~
 - Statistical analysis features
 
 #### **Phase 2.3: API and Integration** 📅 PLANNED
