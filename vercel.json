@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "ca-lobby-api",
   "builds": [
     {
       "src": "webapp/backend/app.py",
@@ -28,10 +27,5 @@
     "FLASK_ENV": "production",
     "USE_MOCK_DATA": "true",
     "FLASK_APP": "app.py"
-  },
-  "functions": {
-    "webapp/backend/app.py": {
-      "runtime": "python3.9"
-    }
   }
 }
