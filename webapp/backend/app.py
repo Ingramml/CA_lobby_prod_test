@@ -17,6 +17,10 @@ import os
 import logging
 from datetime import datetime
 
+# Import Phase 1.1 integrated modules
+from database import get_database
+from middleware import setup_middleware, handle_api_errors
+
 # Load environment variables
 load_dotenv()
 
@@ -37,6 +41,12 @@ def create_app():
 
     # Configure logging using Phase 1.1 patterns
     configure_logging(app)
+
+    # Set up middleware (error handling, request logging)
+    setup_middleware(app)
+
+    # Initialize database connection
+    initialize_database(app)
 
     # Register health check endpoint
     register_health_check(app)
@@ -69,36 +79,51 @@ def configure_logging(app):
 
     app.logger.info(f"✅ Logging configured: {log_level} level, file: {log_path}")
 
+def initialize_database(app):
+    """
+    Initialize database connection using Phase 1.1 patterns.
+    Set up connection pooling and validate connectivity.
+    """
+    with app.app_context():
+        db = get_database()
+        client = db.initialize_connection()
+
+        if client:
+            app.logger.info("✅ Database connection initialized successfully")
+        else:
+            app.logger.warning("⚠️ Database connection not available - check configuration")
+
+        # Store database instance in app context
+        app.db = db
+
 def register_health_check(app):
     """
     Register health check endpoint using Phase 1.1 validation patterns.
     Provides system status information for monitoring.
     """
     @app.route('/health', methods=['GET'])
+    @handle_api_errors
     def health_check():
         """
         Health check endpoint for system monitoring.
-        Returns API status and basic system information.
+        Returns API status, database status, and system information.
         """
-        try:
-            health_data = {
-                'status': 'healthy',
-                'timestamp': datetime.utcnow().isoformat(),
-                'service': 'ca-lobby-api',
-                'version': '1.3.0',
-                'environment': os.getenv('FLASK_ENV', 'development')
-            }
+        # Get database health status
+        db_status = app.db.health_check()
 
-            app.logger.info("Health check requested - system healthy")
-            return jsonify(health_data), 200
+        health_data = {
+            'status': 'healthy' if db_status['status'] in ['healthy', 'mock_mode'] else 'degraded',
+            'timestamp': datetime.utcnow().isoformat(),
+            'service': 'ca-lobby-api',
+            'version': '1.3.0',
+            'environment': os.getenv('FLASK_ENV', 'development'),
+            'database': db_status
+        }
 
-        except Exception as e:
-            app.logger.error(f"Health check failed: {str(e)}")
-            return jsonify({
-                'status': 'unhealthy',
-                'error': str(e),
-                'timestamp': datetime.utcnow().isoformat()
-            }), 500
+        status_code = 200 if health_data['status'] in ['healthy', 'degraded'] else 500
+        app.logger.info(f"Health check - status: {health_data['status']}")
+
+        return jsonify(health_data), status_code
 
 def register_api_routes(app):
     """
