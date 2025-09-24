@@ -121,7 +121,7 @@ Create a comprehensive, publicly accessible search system for California lobby d
 
 **Planned Features:**
 - Public API for external developers
-- Third-party service integrations
+- ~Third-party service integrations~
 - Webhook support for data updates
 - API documentation and developer portal
 - Rate limiting and access controls
@@ -146,11 +146,11 @@ Create a comprehensive, publicly accessible search system for California lobby d
 **Status:** 📅 PLANNED
 
 **Planned Features:**
-- Machine learning for trend prediction
+- ~Machine learning for trend prediction~
 - Natural language search queries
 - Document analysis and text mining
 - Automated anomaly detection
-- Integration with news and media sources
+- ~Integration with news and media sources~
 - Advanced user analytics and insights
 
 #### **Phase 3.3: Platform Expansion** 📅 PLANNED
@@ -159,11 +159,11 @@ Create a comprehensive, publicly accessible search system for California lobby d
 
 **Planned Expansions:**
 - Additional state lobby data integration
-- Federal lobbying data incorporation
+- ~Federal lobbying data incorporation~
 - Historical data analysis tools
-- Educational resources and tutorials
-- Community features and collaboration
-- Open source community development
+- ~Educational resources and tutorials~
+- ~Community features and collaboration~
+- ~Open source community development~
 
 ## 🏗️ Technical Architecture
 
