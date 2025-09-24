@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "name": "ca-lobby-api",
+  "builds": [
+    {
+      "src": "webapp/backend/app.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/health",
+      "dest": "webapp/backend/app.py"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "webapp/backend/app.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "webapp/backend/app.py"
+    }
+  ],
+  "env": {
+    "FLASK_ENV": "production",
+    "USE_MOCK_DATA": "true",
+    "FLASK_APP": "app.py"
+  },
+  "functions": {
+    "webapp/backend/app.py": {
+      "runtime": "python3.9"
+    }
+  }
+}
