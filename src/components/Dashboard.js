@@ -1,7 +1,7 @@
 import React from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { useSearchStore, useUserStore, useAppStore } from '../stores';
-import { LobbyTrendsChart, OrganizationChart } from './charts';
+import { LobbyTrendsChart, OrganizationChart, CategoryChart } from './charts';
 import './charts/charts.css';
 
 function Dashboard() {
@@ -33,6 +33,7 @@ function Dashboard() {
           <div className="charts-grid">
             <LobbyTrendsChart />
             <OrganizationChart />
+            <CategoryChart />
           </div>
         </div>
 

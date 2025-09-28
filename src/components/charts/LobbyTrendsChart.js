@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
   LineChart,
   Line,
@@ -12,10 +12,12 @@ import {
 import ChartWrapper from './ChartWrapper';
 import { useSearchStore, useUserStore } from '../../stores';
 import { generateSampleLobbyData, processLobbyTrends } from '../../utils/sampleData';
+import { getMobileChartConfig, getMobileAxisConfig, formatters } from '../../utils/chartConfig';
 
 const LobbyTrendsChart = () => {
   const { results } = useSearchStore();
   const { preferences } = useUserStore();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   // Use sample data for now, will be replaced with real search results
   const sampleData = useMemo(() => generateSampleLobbyData(200), []);
@@ -24,13 +26,18 @@ const LobbyTrendsChart = () => {
     return processLobbyTrends(dataToProcess, 'quarter');
   }, [results, sampleData]);
 
+  // Handle responsive behavior
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const formatCurrency = (value) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(value);
+    return formatters.currency(value, isMobile);
   };
 
   const handleDataClick = (data) => {
@@ -54,31 +61,34 @@ const LobbyTrendsChart = () => {
   };
 
   const theme = chartTheme[preferences.theme] || chartTheme.light;
+  const mobileConfig = getMobileChartConfig(isMobile);
+  const axisConfig = getMobileAxisConfig(isMobile);
 
   return (
     <ChartWrapper
       title="CA Lobby Expenditure Trends"
-      height={350}
+      height={isMobile ? 300 : 350}
       className="lobby-trends-chart"
     >
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={chartData}
-          margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+          margin={mobileConfig.margin}
           onClick={handleDataClick}
         >
           <CartesianGrid strokeDasharray="3 3" stroke={theme.grid} />
           <XAxis
             dataKey="period"
             stroke={theme.text}
-            fontSize={12}
-            angle={-45}
+            tick={axisConfig.tick}
+            angle={isMobile ? -45 : -30}
             textAnchor="end"
-            height={60}
+            height={isMobile ? 50 : 60}
+            interval={isMobile ? 1 : 0}
           />
           <YAxis
             stroke={theme.text}
-            fontSize={12}
+            tick={axisConfig.tick}
             tickFormatter={formatCurrency}
           />
           <Tooltip
