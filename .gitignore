@@ -42,6 +42,19 @@ logs/
 .DS_Store
 Thumbs.db
 
+# Data processing files (kept in main branch only)
+Bigquery_connection.py
+Column_rename.py
+determine_df.py
+fileselector.py
+rowtypeforce.py
+upload.py
+Bignewdownload_2.py
+upload_pipeline.py
+backend-requirements.txt
+SQL\ Queries/
+data_processing/
+
 # Temporary files
 *_FIXES_REQUIRED.md
 *_TEMP.md
