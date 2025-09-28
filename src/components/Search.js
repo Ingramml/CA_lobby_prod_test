@@ -1,18 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSearchStore } from '../stores';
 
 function Search() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filters, setFilters] = useState({
-    dateRange: 'all',
-    organization: '',
-    lobbyist: '',
-    category: 'all'
-  });
+  // Use Zustand store instead of local state
+  const {
+    query,
+    filters,
+    results,
+    loading,
+    error,
+    setQuery,
+    setFilters,
+    addToHistory,
+    searchHistory
+  } = useSearchStore();
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Search functionality will be implemented here
-    console.log('Search query:', searchQuery, 'Filters:', filters);
+
+    // Add current search to history
+    addToHistory({
+      query,
+      filters,
+      resultCount: results.length
+    });
+
+    // Search functionality will be implemented in future phases
+    console.log('Search query:', query, 'Filters:', filters);
+    console.log('Search history:', searchHistory);
   };
 
   return (
@@ -30,8 +45,8 @@ function Search() {
             <div className="search-input-group">
               <input
                 type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search for lobbyists, organizations, bills, or topics..."
                 className="search-input"
               />
@@ -48,7 +63,7 @@ function Search() {
                 <label>Date Range:</label>
                 <select
                   value={filters.dateRange}
-                  onChange={(e) => setFilters({...filters, dateRange: e.target.value})}
+                  onChange={(e) => setFilters({ dateRange: e.target.value })}
                   disabled
                 >
                   <option value="all">All Time</option>
@@ -64,7 +79,7 @@ function Search() {
                 <input
                   type="text"
                   value={filters.organization}
-                  onChange={(e) => setFilters({...filters, organization: e.target.value})}
+                  onChange={(e) => setFilters({ organization: e.target.value })}
                   placeholder="Filter by organization name"
                   disabled
                 />
@@ -75,7 +90,7 @@ function Search() {
                 <input
                   type="text"
                   value={filters.lobbyist}
-                  onChange={(e) => setFilters({...filters, lobbyist: e.target.value})}
+                  onChange={(e) => setFilters({ lobbyist: e.target.value })}
                   placeholder="Filter by lobbyist name"
                   disabled
                 />
@@ -85,7 +100,7 @@ function Search() {
                 <label>Category:</label>
                 <select
                   value={filters.category}
-                  onChange={(e) => setFilters({...filters, category: e.target.value})}
+                  onChange={(e) => setFilters({ category: e.target.value })}
                   disabled
                 >
                   <option value="all">All Categories</option>

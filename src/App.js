@@ -14,6 +14,7 @@ import Analytics from './components/Analytics';
 import Reports from './components/Reports';
 import Search from './components/Search';
 import Settings from './components/Settings';
+import PhaseStatus from './components/PhaseStatus';
 
 function App() {
   return (
@@ -33,14 +34,19 @@ function AppContent() {
       <header className="App-header">
         <div className="header-content">
           <h1>Welcome to TPC's CA lobby search</h1>
-          <SignedOut>
-            <SignInButton mode="modal">
-              <button className="sign-in-btn">Sign In</button>
-            </SignInButton>
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ position: 'relative' }}>
+              <PhaseStatus />
+            </div>
+            <SignedOut>
+              <SignInButton mode="modal">
+                <button className="sign-in-btn">Sign In</button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
         </div>
       </header>
 

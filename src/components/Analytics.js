@@ -1,6 +1,9 @@
 import React from 'react';
+import { useSearchStore, useUserStore } from '../stores';
 
 function Analytics() {
+  const { searchHistory, results } = useSearchStore();
+  const { recentActivity } = useUserStore();
   return (
     <div className="page-container">
       <div className="page-header">

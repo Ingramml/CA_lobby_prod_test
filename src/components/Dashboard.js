@@ -1,8 +1,19 @@
 import React from 'react';
 import { useUser } from '@clerk/clerk-react';
+import { useSearchStore, useUserStore, useAppStore } from '../stores';
 
 function Dashboard() {
   const { user } = useUser();
+
+  // Connect to Zustand stores
+  const { searchHistory, savedSearches } = useSearchStore();
+  const { recentActivity, bookmarks, syncWithClerk } = useUserStore();
+  const { systemStatus, setSystemStatus } = useAppStore();
+
+  // Sync user data with Clerk when user changes
+  React.useEffect(() => {
+    syncWithClerk(user);
+  }, [user, syncWithClerk]);
 
   return (
     <div className="page-container">
@@ -28,6 +39,42 @@ function Dashboard() {
           <div className="dashboard-card">
             <h3>Data Access</h3>
             <DataAccessTest />
+          </div>
+
+          <div className="dashboard-card">
+            <h3>Recent Search Activity</h3>
+            <div className="activity-list">
+              {searchHistory.length > 0 ? (
+                searchHistory.slice(0, 3).map((search, index) => (
+                  <div key={index} className="activity-item">
+                    <span className="search-query">"{search.query || 'Empty query'}"</span>
+                    <span className="search-time">
+                      {new Date(search.timestamp).toLocaleDateString()}
+                    </span>
+                  </div>
+                ))
+              ) : (
+                <p className="no-activity">No recent searches</p>
+              )}
+            </div>
+          </div>
+
+          <div className="dashboard-card">
+            <h3>User Stats</h3>
+            <div className="stats-grid">
+              <div className="stat-item">
+                <span className="stat-label">Saved Searches:</span>
+                <span className="stat-value">{savedSearches.length}</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-label">Bookmarks:</span>
+                <span className="stat-value">{bookmarks.length}</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-label">Recent Activity:</span>
+                <span className="stat-value">{recentActivity.length}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

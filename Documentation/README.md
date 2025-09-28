@@ -1,151 +1,118 @@
-# CA Lobby Search System - Documentation Directory
+# CA Lobby Project Documentation
 
-**Last Updated:** September 22, 2025
-**Status:** Current
+**Project:** California Lobby Search System
+**Documentation Structure Version:** 2.0
+**Organized Date:** September 28, 2025
 
-## 📚 Documentation Overview
+## 📁 Documentation Structure
 
-This directory contains all project documentation for the California Lobby Search System. All documents are maintained with the latest project status and technical specifications.
+This directory contains all project documentation organized by phase and type:
 
-## 📋 Document Index
+```
+Documentation/
+├── General/                    # Project-wide documentation
+├── Phase1/                     # Phase 1 documentation
+│   ├── Plans/                  # Phase 1 planning documents
+│   └── Reports/                # Phase 1 completion reports
+├── Phase2/                     # Phase 2 documentation
+│   ├── Plans/                  # Phase 2 planning documents
+│   └── Reports/                # Phase 2 completion reports
+└── Deployment/                 # Deployment and infrastructure docs
+```
 
-### **Master Planning Documents**
+## 📋 Directory Contents
 
-#### **[MASTER_PROJECT_PLAN.md](./MASTER_PROJECT_PLAN.md)** 🎯
-**Primary project roadmap and comprehensive overview**
-- Complete project phases and timeline
-- Technical architecture and infrastructure
-- Success metrics and targets
-- Phase 1.3 detailed implementation plan
-- 3-year project vision through 2026
+### General/ - Project-Wide Documentation
+- **MASTER_PROJECT_PLAN.md** - Overall project roadmap and status
+- **README.md** - Original project README (now at /Documentation/General/)
+- **COMMIT_STRATEGY.md** - Development workflow and git strategy
+- **CLAUDE_CODE_SETUP_GUIDE.md** - Claude Code configuration guide
 
-### **Phase Completion Reports**
+### Phase1/ - Foundation Development
+**Phase 1.1: Foundation and Data Pipeline** ✅ COMPLETED
+**Phase 1.2: Enhanced Deployment Pipeline** ✅ COMPLETED
+**Phase 1.3: Frontend-Backend Integration** ✅ COMPLETED
 
-#### **[PHASE_1_1_COMPLETION_REPORT.md](./PHASE_1_1_COMPLETION_REPORT.md)** ✅
-**Foundation and Data Pipeline Infrastructure (Completed)**
-- 149-day development retrospective (March-September 2025)
-- 51 files of data infrastructure implementation
-- BLN API integration and BigQuery architecture
-- Automated data processing and validation systems
-- Technical achievements and lessons learned
+#### Plans/
+- **PHASE_1_3_BREAKDOWN_PLAN.md** - Detailed Phase 1.3 breakdown
+- **PHASE_1_3_ENHANCED_PLAN.md** - Enhanced planning approach
+- **phase-1-3-details/** - Micro save point documentation
+  - Phase 1.3a through 1.3h implementation details
+- **phase-1-3-strategy/** - Strategic implementation guides
 
-#### **[PHASE_1_2_COMPLETION_REPORT.md](./PHASE_1_2_COMPLETION_REPORT.md)** ✅
-**Enhanced Deployment Pipeline (Completed)**
-- 6-day intensive implementation sprint
-- Automated deployment scripts and workflow
-- Multi-page React application development
-- Vercel integration and optimization
-- Webhook-driven deployment validation
+#### Reports/
+- **PHASE_1_1_COMPLETION_REPORT.md** - Foundation completion summary
+- **PHASE_1_2_COMPLETION_REPORT.md** - Deployment pipeline results
+- **PHASE_1_2_DEPLOYMENT_TEST_REPORT.md** - Deployment validation
+- **PHASE_1_3_COMPLETION_REPORT_FOR_CLAUDE.md** - Integration completion
+- **PHASE_1_3A_DEPLOYMENT_REPORT.md** - Deployment milestone report
 
-#### **[PHASE_1_2_DEPLOYMENT_TEST_REPORT.md](./PHASE_1_2_DEPLOYMENT_TEST_REPORT.md)** ✅
-**Deployment Pipeline Validation (Completed)**
-- Comprehensive deployment testing results
-- 15 deployment versions with 100% success rate
-- 99.97% file size optimization validation
-- Security and access control testing
-- Performance metrics and optimization results
+### Phase2/ - Feature Enhancement
+**Phase 2a.1: Component Analysis** ✅ COMPLETED
+**Phase 2a.2: Enhancement Strategy** ✅ COMPLETED
+**Phase 2b: State Management** 🎯 NEXT
 
-### **Development Processes**
+#### Plans/
+- Phase 2 planning documents (to be populated)
 
-#### **[COMMIT_STRATEGY.md](./COMMIT_STRATEGY.md)** 🔧
-**Development workflow and Git strategy**
-- Granular commit methodology
-- Micro save points implementation
-- Branching strategy and workflows
-- Automated validation and CI/CD integration
-- Code quality and review processes
+#### Reports/
+- Phase 2 completion reports (to be populated)
 
-## 🗂️ Document Categories
+### Deployment/ - Infrastructure Documentation
+- **DEPLOYMENT_CONFIGURATION_SUMMARY.md** - Deployment setup overview
+- **DEPLOYMENT_REFERENCE.md** - Quick deployment reference
+- **CORRECTED_DEPLOYMENT_COMPARISON_REPORT.md** - Deployment analysis
+- **SUCCESSFUL_DEPLOYMENT_DOCUMENTATION.md** - Successful deployment guide
+- **VERCEL_DEPLOYMENT_REPORT.md** - Vercel-specific deployment info
 
-### **Planning & Strategy**
-- Master project roadmap
-- Phase planning and breakdowns
-- Technical architecture decisions
-- Success metrics and KPIs
+## 🎯 Current Status
 
-### **Implementation Reports**
-- Phase completion summaries
-- Technical achievement documentation
-- Performance and metrics analysis
-- Lessons learned and recommendations
+**Active Phase:** Phase 2b - State Management Implementation
+**Last Completed:** Phase 2a.2 - Enhancement Strategy Definition
+**Next Milestone:** Phase 2b.1 - State Management Decision
 
-### **Operational Guides**
-- Development workflows
-- Deployment procedures
-- Testing strategies
-- Maintenance protocols
+## 📖 Key Documents to Start With
 
-## 📊 Project Status Summary
+1. **[MASTER_PROJECT_PLAN.md](General/MASTER_PROJECT_PLAN.md)** - Start here for project overview
+2. **[PHASE_1_3_COMPLETION_REPORT_FOR_CLAUDE.md](Phase1/Reports/PHASE_1_3_COMPLETION_REPORT_FOR_CLAUDE.md)** - Latest completed phase
+3. **[COMMIT_STRATEGY.md](General/COMMIT_STRATEGY.md)** - Development workflow
 
-### **Current Status (September 22, 2025)**
-- ✅ **Phase 1.1**: Foundation and Data Pipeline - COMPLETED
-- ✅ **Phase 1.2**: Enhanced Deployment Pipeline - COMPLETED
-- 🎯 **Phase 1.3**: Frontend-Backend Integration - READY TO START
+## 🔄 File Organization Principles
 
-### **Key Achievements**
-- **155 development days** completed successfully
-- **51+ infrastructure files** implemented
-- **100% deployment success** rate (15/15 deployments)
-- **99.97% build optimization** achieved
-- **Zero production issues** in data pipeline
+### By Phase
+- **Phase1/**: Foundation development (March-September 2025)
+- **Phase2/**: Feature enhancement (September 2025-June 2026)
+- **Phase3/**: Scale and expansion (July-December 2026)
 
-### **Next Milestone**
-- **Phase 1.3 Start**: Frontend-Backend Integration
-- **Duration**: 23 days estimated
-- **Scope**: Real lobby data search functionality
-- **Target**: Complete MVP application
+### By Type
+- **Plans/**: Forward-looking planning documents, micro save points, strategies
+- **Reports/**: Completion reports, deployment summaries, analysis results
 
-## 🔄 Document Maintenance
+### General Categories
+- **General/**: Cross-phase documentation, project overview, guides
+- **Deployment/**: Infrastructure, deployment processes, configuration
 
-### **Update Schedule**
-- **Weekly**: Phase progress updates
-- **Bi-weekly**: Technical documentation reviews
-- **Monthly**: Master plan revisions
-- **End-of-Phase**: Completion reports and analysis
+## 📝 Document Naming Conventions
 
-### **Version Control**
-- All documents tracked in Git repository
-- Commit messages follow granular strategy
-- Change history preserved for audit trail
-- Regular backups maintained
+- **PHASE_X_Y_**: Phase-specific documents (X=phase, Y=subphase)
+- **MASTER_**: Project-wide strategic documents
+- **DEPLOYMENT_**: Infrastructure and deployment-related
+- **lowercase-with-dashes/**: Directory names for detailed breakdowns
 
-### **Quality Assurance**
-- Technical accuracy verification
-- Stakeholder review process
-- Documentation standards compliance
-- Regular content audits
+## 🔗 Cross-References
 
-## 🎯 Quick Navigation
+When referencing documents across the structure, use relative paths:
+- From General/: `../Phase1/Reports/PHASE_1_1_COMPLETION_REPORT.md`
+- From Phase1/: `../General/MASTER_PROJECT_PLAN.md`
+- Within phase: `Reports/PHASE_1_1_COMPLETION_REPORT.md`
 
-### **For Project Overview**
-→ Start with **[MASTER_PROJECT_PLAN.md](./MASTER_PROJECT_PLAN.md)**
+## 📅 Maintenance
 
-### **For Current Status**
-→ Check latest **Phase Completion Reports**
+This documentation structure is maintained with each phase completion:
+1. Add new phase directories as needed
+2. Move completed phase documents to appropriate Reports/ folders
+3. Update cross-references when files are moved
+4. Update this README with new phases and milestones
 
-### **For Development Process**
-→ Review **[COMMIT_STRATEGY.md](./COMMIT_STRATEGY.md)**
-
-### **For Technical Details**
-→ Examine **Implementation Reports**
-
-## 📞 Document Support
-
-### **Questions or Updates**
-- All documentation maintained by project team
-- Updates coordinated with development phases
-- Feedback and suggestions welcome
-- Technical accuracy verified with implementation
-
-### **Document Requests**
-- Additional documentation created as needed
-- Custom reports available upon request
-- Stakeholder-specific summaries provided
-- Integration with project management tools
-
----
-
-**Documentation Standards:** Technical accuracy, stakeholder clarity, comprehensive coverage
-**Maintenance Responsibility:** CA Lobby Project Team
-**Review Cycle:** Continuous with phase milestones
-**Access Level:** Project team and approved stakeholders
+**Last Updated:** September 28, 2025
+**Next Review:** Phase 2b completion
