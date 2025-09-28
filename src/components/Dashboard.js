@@ -1,6 +1,8 @@
 import React from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { useSearchStore, useUserStore, useAppStore } from '../stores';
+import { LobbyTrendsChart, OrganizationChart } from './charts';
+import './charts/charts.css';
 
 function Dashboard() {
   const { user } = useUser();
@@ -25,54 +27,67 @@ function Dashboard() {
       </div>
 
       <div className="page-content">
-        <div className="dashboard-grid">
-          <div className="dashboard-card">
-            <h3>API Health Check</h3>
-            <APIHealthCheck />
+        {/* Visualization Section */}
+        <div className="dashboard-section">
+          <h2>CA Lobby Data Insights</h2>
+          <div className="charts-grid">
+            <LobbyTrendsChart />
+            <OrganizationChart />
           </div>
+        </div>
 
-          <div className="dashboard-card">
-            <h3>System Status</h3>
-            <SystemStatus />
-          </div>
-
-          <div className="dashboard-card">
-            <h3>Data Access</h3>
-            <DataAccessTest />
-          </div>
-
-          <div className="dashboard-card">
-            <h3>Recent Search Activity</h3>
-            <div className="activity-list">
-              {searchHistory.length > 0 ? (
-                searchHistory.slice(0, 3).map((search, index) => (
-                  <div key={index} className="activity-item">
-                    <span className="search-query">"{search.query || 'Empty query'}"</span>
-                    <span className="search-time">
-                      {new Date(search.timestamp).toLocaleDateString()}
-                    </span>
-                  </div>
-                ))
-              ) : (
-                <p className="no-activity">No recent searches</p>
-              )}
+        {/* System Status Section */}
+        <div className="dashboard-section">
+          <h2>System Status</h2>
+          <div className="dashboard-grid">
+            <div className="dashboard-card">
+              <h3>API Health Check</h3>
+              <APIHealthCheck />
             </div>
-          </div>
 
-          <div className="dashboard-card">
-            <h3>User Stats</h3>
-            <div className="stats-grid">
-              <div className="stat-item">
-                <span className="stat-label">Saved Searches:</span>
-                <span className="stat-value">{savedSearches.length}</span>
+            <div className="dashboard-card">
+              <h3>System Status</h3>
+              <SystemStatus />
+            </div>
+
+            <div className="dashboard-card">
+              <h3>Data Access</h3>
+              <DataAccessTest />
+            </div>
+
+            <div className="dashboard-card">
+              <h3>Recent Search Activity</h3>
+              <div className="activity-list">
+                {searchHistory.length > 0 ? (
+                  searchHistory.slice(0, 3).map((search, index) => (
+                    <div key={index} className="activity-item">
+                      <span className="search-query">"{search.query || 'Empty query'}"</span>
+                      <span className="search-time">
+                        {new Date(search.timestamp).toLocaleDateString()}
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <p className="no-activity">No recent searches</p>
+                )}
               </div>
-              <div className="stat-item">
-                <span className="stat-label">Bookmarks:</span>
-                <span className="stat-value">{bookmarks.length}</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-label">Recent Activity:</span>
-                <span className="stat-value">{recentActivity.length}</span>
+            </div>
+
+            <div className="dashboard-card">
+              <h3>User Stats</h3>
+              <div className="stats-grid">
+                <div className="stat-item">
+                  <span className="stat-label">Saved Searches:</span>
+                  <span className="stat-value">{savedSearches.length}</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-label">Bookmarks:</span>
+                  <span className="stat-value">{bookmarks.length}</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-label">Recent Activity:</span>
+                  <span className="stat-value">{recentActivity.length}</span>
+                </div>
               </div>
             </div>
           </div>
