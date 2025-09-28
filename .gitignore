@@ -35,8 +35,11 @@ bln-*.pdf
 
 # Development files
 .claude/*
-master-files/*
 logs/
+
+# Master files directory (contains nested git repos)
+master-files/
+master-files/agents/specialized/
 
 # OS files
 .DS_Store
