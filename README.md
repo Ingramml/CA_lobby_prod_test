@@ -1,4 +1,4 @@
-# CA Lobby Search System
+# CA Lobby Search System - Production Ready
 
 > A comprehensive, publicly accessible search system for California lobby data that enables transparency and analysis of lobbying activities, expenditures, and associations.
 
