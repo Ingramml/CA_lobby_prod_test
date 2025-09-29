@@ -34,7 +34,7 @@ function AppContent() {
     <>
       <header className="App-header">
         <div className="header-content">
-          <h1>Welcome to TPC's CA lobby search</h1>
+          <h1>Welcome to TPC's CA lobby search_gitdeopoy</h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <div style={{ position: 'relative' }}>
               <PhaseStatus />
@@ -93,7 +93,7 @@ function AppContent() {
       <main className="App-main">
         <SignedOut>
           <div className="welcome-section">
-            <h2>Welcome to TPC's CA lobby search</h2>
+            <h2>Welcome to TPC's CA lobby search_gitdeopoy</h2>
             <p>Please sign in to access the search dashboard.</p>
           </div>
         </SignedOut>
