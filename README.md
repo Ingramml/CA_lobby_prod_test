@@ -2,7 +2,7 @@
 
 > A comprehensive, publicly accessible search system for California lobby data that enables transparency and analysis of lobbying activities, expenditures, and associations.
 
-![Project Status](https://img.shields.io/badge/status-Phase%201.3%20Complete-success)
+![Project Status](https://img.shields.io/badge/status-Phase%202e%20Complete-success)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
@@ -18,6 +18,87 @@ The CA Lobby Search System is a full-stack web application that provides easy ac
 - **👤 User Management**: Clerk-based authentication with role-based access control
 - **📱 Mobile-First Design**: Responsive interface optimized for all devices
 - **⚡ High Performance**: Optimized queries, caching, and efficient data processing
+
+## 🔍 Advanced Search & Filters
+
+### Comprehensive Search Capabilities
+
+The search system supports both **text-based queries** and **advanced filtering**. Users can search with any combination of the following:
+
+#### **Text Search**
+- **Full-text search** across organization names, lobbyist names, and activity descriptions
+- **Case-insensitive** partial matching
+- **Real-time results** as you type
+
+#### **Advanced Filters**
+
+1. **📅 Date Range Filter**
+   - **All Time**: Show all records (default)
+   - **Last Month**: Records from the past 30 days
+   - **Last Quarter**: Records from the past 3 months
+   - **Last Year**: Records from the past 12 months
+
+2. **🏢 Organization Filter**
+   - **Text input** with partial matching
+   - Search by organization name (e.g., "Medical" → California Medical Association)
+   - **Case-insensitive** matching
+
+3. **👤 Lobbyist Filter**
+   - **Text input** with partial matching
+   - Search by lobbyist name (e.g., "John" → John Smith records)
+   - **Case-insensitive** matching
+
+4. **📂 Category Filter**
+   - **Dropdown selection** with exact category matching
+   - **Available categories**: Healthcare, Technology, Environment, Education, Finance
+   - **Filter by industry/topic** for focused searches
+
+5. **💰 Amount Range Filters**
+   - **Min Amount**: Set minimum expenditure threshold (e.g., $50,000)
+   - **Max Amount**: Set maximum expenditure threshold (e.g., $100,000)
+   - **Numeric inputs** for precise range filtering
+
+#### **Search Flexibility**
+
+✅ **Query Only**: Enter search terms without filters
+✅ **Filters Only**: Use advanced filters without entering search terms
+✅ **Combined Search**: Mix text queries with any combination of filters
+✅ **Multiple Filters**: Apply multiple filters simultaneously (AND logic)
+
+#### **Filter Examples**
+
+```
+Example 1: Category-only search
+- Leave search box empty
+- Select Category: "Healthcare"
+- Click Search → Returns all healthcare-related records
+
+Example 2: Amount range search
+- Leave search box empty
+- Min Amount: 75000
+- Max Amount: 125000
+- Click Search → Returns records between $75K-$125K
+
+Example 3: Combined search
+- Search: "policy"
+- Category: "Education"
+- Organization: "Reform"
+- Click Search → Returns education policy records from reform organizations
+```
+
+#### **Demo Data (5 Test Records)**
+
+The system includes representative test data for demonstration:
+
+1. **California Medical Association** - John Smith - $125,000 (Healthcare)
+2. **Tech Innovation Coalition** - Sarah Johnson - $89,000 (Technology)
+3. **Environmental Defense Alliance** - Michael Chen - $67,500 (Environment)
+4. **Education Reform Society** - Emily Rodriguez - $52,000 (Education)
+5. **Small Business Coalition** - David Wilson - $43,200 (Finance)
+
+#### **Filter Reset**
+- **Clear All Filters** button resets all filters to default state
+- **Instant reset** for quick filter adjustments
 
 ## 🏗️ Architecture
 
@@ -133,11 +214,25 @@ The application will be available at:
 - Data visualization components with error boundaries
 - Performance optimization and caching
 
-### 🎯 Next Phase: Phase 2 - Feature Enhancement
-- Advanced search and analytics
-- Export functionality (PDF, CSV, Excel)
-- Enhanced reporting and visualization
-- API documentation and developer portal
+**Phase 2e: API Design Specification** *(1 day)*
+- Complete OpenAPI 3.0 specification (790 lines)
+- Mobile-optimized API client architecture
+- Advanced filters implementation (5 filter types)
+- Filter-only search capability
+- Performance optimization and testing strategy
+
+### ✅ Recent Enhancements
+- **Advanced Filters**: 5 comprehensive filter types (Date, Organization, Lobbyist, Category, Amount)
+- **Filter-Only Search**: Search button works with filters alone (no query required)
+- **Mobile Optimization**: Connection-aware API client with performance monitoring
+- **Git Auto-Deploy**: Automatic deployment from main branch pushes
+- **Production Repository**: Independent CA_lobby_prod_test repository
+
+### 🎯 Next Phase: Backend API Implementation
+- Flask API endpoints matching OpenAPI specification
+- Database integration with filtering logic
+- Performance optimization and caching
+- Rate limiting and security implementation
 
 ## 🔧 Development
 
@@ -220,4 +315,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ for government transparency and public accountability**
 
-*Last updated: September 28, 2025*
+*Last updated: September 29, 2025*
