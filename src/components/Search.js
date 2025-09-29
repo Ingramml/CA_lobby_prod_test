@@ -1,5 +1,73 @@
 import React from 'react';
 import { useSearchStore } from '../stores';
+import { API_ENDPOINTS, apiCall } from '../config/api';
+
+// Generate demo search results for production mode
+const generateDemoSearchResults = (query, filters) => {
+  const demoData = [
+    {
+      organization: 'California Medical Association',
+      lobbyist: 'John Smith',
+      description: 'Healthcare legislation advocacy and medical professional representation',
+      amount: 125000,
+      date: '2024-09-15',
+      filing_date: '2024-09-15',
+      activity_description: 'Lobbying activities related to healthcare reform and medical licensing'
+    },
+    {
+      organization: 'Tech Innovation Coalition',
+      lobbyist: 'Sarah Johnson',
+      description: 'Technology policy development and regulatory advocacy',
+      amount: 89000,
+      date: '2024-09-10',
+      filing_date: '2024-09-10',
+      activity_description: 'Advocacy for technology innovation policies and startup support'
+    },
+    {
+      organization: 'Environmental Defense Alliance',
+      lobbyist: 'Michael Chen',
+      description: 'Environmental protection and climate change policy advocacy',
+      amount: 67500,
+      date: '2024-09-05',
+      filing_date: '2024-09-05',
+      activity_description: 'Climate change legislation and environmental protection lobbying'
+    },
+    {
+      organization: 'Education Reform Society',
+      lobbyist: 'Emily Rodriguez',
+      description: 'Public education policy and funding advocacy',
+      amount: 52000,
+      date: '2024-08-28',
+      filing_date: '2024-08-28',
+      activity_description: 'Educational funding and policy reform advocacy'
+    },
+    {
+      organization: 'Small Business Coalition',
+      lobbyist: 'David Wilson',
+      description: 'Small business interests and regulatory reform',
+      amount: 43200,
+      date: '2024-08-20',
+      filing_date: '2024-08-20',
+      activity_description: 'Small business regulatory relief and economic development'
+    }
+  ];
+
+  // Filter demo data based on search query and filters
+  return demoData.filter(item => {
+    const matchesQuery = !query ||
+      item.organization.toLowerCase().includes(query.toLowerCase()) ||
+      item.lobbyist.toLowerCase().includes(query.toLowerCase()) ||
+      item.description.toLowerCase().includes(query.toLowerCase());
+
+    const matchesOrganization = !filters.organization ||
+      item.organization.toLowerCase().includes(filters.organization.toLowerCase());
+
+    const matchesLobbyist = !filters.lobbyist ||
+      item.lobbyist.toLowerCase().includes(filters.lobbyist.toLowerCase());
+
+    return matchesQuery && matchesOrganization && matchesLobbyist;
+  }).slice(0, 10); // Limit to 10 results for demo
+};
 
 function Search() {
   // Use Zustand store instead of local state
@@ -27,22 +95,16 @@ function Search() {
     setError(null);
 
     try {
-      // Call backend API
-      const searchParams = new URLSearchParams({
-        q: query.trim(),
-        client: filters.organization || '',
-        lobbyist: filters.lobbyist || '',
-        category: filters.category === 'all' ? '' : filters.category || '',
-        date_range: filters.dateRange === 'all' ? '' : filters.dateRange || ''
-      });
+      // Check if we're in production without backend
+      const isProduction = process.env.NODE_ENV === 'production';
 
-      const response = await fetch(`http://localhost:5001/api/search/?${searchParams}`);
-      const data = await response.json();
+      if (isProduction) {
+        // Simulate search with demo data in production
+        const demoResults = generateDemoSearchResults(query, filters);
 
-      if (data.success) {
-        // Update search store with results
+        // Update search store with demo results
         useSearchStore.setState({
-          results: data.data || [],
+          results: demoResults,
           loading: false,
           error: null
         });
@@ -51,22 +113,70 @@ function Search() {
         addToHistory({
           query,
           filters,
-          resultCount: data.data?.length || 0,
+          resultCount: demoResults.length,
           timestamp: new Date().toISOString()
         });
 
-        console.log('Search completed:', data);
+        console.log('Demo search completed:', demoResults);
       } else {
-        throw new Error(data.message || 'Search failed');
+        // Call backend API in development
+        const searchParams = new URLSearchParams({
+          q: query.trim(),
+          client: filters.organization || '',
+          lobbyist: filters.lobbyist || '',
+          category: filters.category === 'all' ? '' : filters.category || '',
+          date_range: filters.dateRange === 'all' ? '' : filters.dateRange || ''
+        });
+
+        const data = await apiCall(`${API_ENDPOINTS.search}?${searchParams}`);
+
+        if (data.success) {
+          // Update search store with results
+          useSearchStore.setState({
+            results: data.data || [],
+            loading: false,
+            error: null
+          });
+
+          // Add current search to history
+          addToHistory({
+            query,
+            filters,
+            resultCount: data.data?.length || 0,
+            timestamp: new Date().toISOString()
+          });
+
+          console.log('Search completed:', data);
+        } else {
+          throw new Error(data.message || 'Search failed');
+        }
       }
     } catch (error) {
       console.error('Search error:', error);
-      setError(error.message || 'Search failed. Please try again.');
-      useSearchStore.setState({
-        results: [],
-        loading: false,
-        error: error.message || 'Search failed'
-      });
+
+      // In production, still show demo results even if API fails
+      if (process.env.NODE_ENV === 'production') {
+        const demoResults = generateDemoSearchResults(query, filters);
+        useSearchStore.setState({
+          results: demoResults,
+          loading: false,
+          error: null
+        });
+
+        addToHistory({
+          query,
+          filters,
+          resultCount: demoResults.length,
+          timestamp: new Date().toISOString()
+        });
+      } else {
+        setError(error.message || 'Search failed. Please try again.');
+        useSearchStore.setState({
+          results: [],
+          loading: false,
+          error: error.message || 'Search failed'
+        });
+      }
     } finally {
       setLoading(false);
     }
@@ -79,6 +189,12 @@ function Search() {
         <p className="page-description">
           Search through CA lobby data with powerful filtering and analysis tools
         </p>
+        {process.env.NODE_ENV === 'production' && (
+          <div className="demo-banner">
+            <p>📝 <strong>Demo Mode:</strong> This is a demonstration of the search functionality with sample data.
+            The full system connects to live California lobby data when deployed with the backend API.</p>
+          </div>
+        )}
       </div>
 
       <div className="page-content">

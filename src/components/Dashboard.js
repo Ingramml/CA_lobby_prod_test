@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { useSearchStore, useUserStore, useAppStore } from '../stores';
 import { LobbyTrendsChart, OrganizationChart, CategoryChart } from './charts';
+import { API_ENDPOINTS, apiCall } from '../config/api';
 import './charts/charts.css';
 
 // Error Boundary component for chart protection
@@ -207,16 +208,27 @@ function APIHealthCheck() {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    fetch('http://localhost:5001/health')
-      .then(res => res.json())
-      .then(data => {
+    const fetchHealth = async () => {
+      try {
+        const data = await apiCall(API_ENDPOINTS.health);
         setHealth(data);
-        setLoading(false);
-      })
-      .catch(err => {
+      } catch (err) {
         console.error('Health check failed:', err);
+        // Provide fallback data for production when backend isn't available
+        setHealth({
+          status: 'demo_mode',
+          service: 'ca-lobby-api',
+          version: '1.3.0',
+          environment: 'production',
+          database: { status: 'demo_mode' },
+          message: 'Running in demo mode - backend not connected'
+        });
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchHealth();
   }, []);
 
   if (loading) return <div>Loading...</div>;
@@ -243,16 +255,31 @@ function SystemStatus() {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    fetch('http://localhost:5001/api/status')
-      .then(res => res.json())
-      .then(data => {
+    const fetchStatus = async () => {
+      try {
+        const data = await apiCall(API_ENDPOINTS.status);
         setStatus(data);
-        setLoading(false);
-      })
-      .catch(err => {
+      } catch (err) {
         console.error('Status check failed:', err);
+        // Provide fallback data for production
+        setStatus({
+          phase: '1.3 - Frontend-Backend Integration (Demo Mode)',
+          components: {
+            backend_api: 'demo_mode',
+            database: 'demo_mode',
+            authentication: 'clerk_active',
+            search_api: 'demo_mode'
+          },
+          performance: {
+            cache_hit_rate: 'N/A'
+          }
+        });
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchStatus();
   }, []);
 
   if (loading) return <div>Loading...</div>;
@@ -279,16 +306,27 @@ function DataAccessTest() {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    fetch('http://localhost:5001/api/cache/stats')
-      .then(res => res.json())
-      .then(data => {
+    const fetchCacheStats = async () => {
+      try {
+        const data = await apiCall(API_ENDPOINTS.cacheStats);
         setData(data);
-        setLoading(false);
-      })
-      .catch(err => {
+      } catch (err) {
         console.error('Cache stats failed:', err);
+        // Provide fallback data for production
+        setData({
+          success: true,
+          cache_hits: 0,
+          cache_misses: 0,
+          hit_rate: '0%',
+          cached_keys: 0,
+          message: 'Demo mode - no backend connected'
+        });
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchCacheStats();
   }, []);
 
   if (loading) return <div>Loading...</div>;
