@@ -59,7 +59,8 @@ const generateDemoSearchResults = (query, filters) => {
 
   // Filter demo data based on search query and filters
   return demoData.filter(item => {
-    const matchesQuery = !query ||
+    // If no query provided, show all items (will be filtered by other criteria)
+    const matchesQuery = !query || !query.trim() ||
       item.organization.toLowerCase().includes(query.toLowerCase()) ||
       item.lobbyist.toLowerCase().includes(query.toLowerCase()) ||
       item.description.toLowerCase().includes(query.toLowerCase());
@@ -124,8 +125,17 @@ function Search() {
   const handleSearch = async (e) => {
     e.preventDefault();
 
-    if (!query.trim()) {
-      console.log('Empty query, skipping search');
+    // Allow search with just filters (no query required)
+    const hasFilters = filters.organization ||
+                      filters.lobbyist ||
+                      (filters.category && filters.category !== 'all') ||
+                      (filters.dateRange && filters.dateRange !== 'all') ||
+                      filters.amountMin ||
+                      filters.amountMax;
+
+    if (!query.trim() && !hasFilters) {
+      console.log('No search query or filters provided');
+      setError('Please enter a search term or select at least one filter.');
       return;
     }
 
