@@ -73,7 +73,35 @@ const generateDemoSearchResults = (query, filters) => {
     const matchesCategory = !filters.category || filters.category === 'all' ||
       item.category === filters.category;
 
-    return matchesQuery && matchesOrganization && matchesLobbyist && matchesCategory;
+    // Date range filtering
+    const matchesDateRange = !filters.dateRange || filters.dateRange === 'all' || (() => {
+      const itemDate = new Date(item.date);
+      const now = new Date();
+
+      switch (filters.dateRange) {
+        case 'last-month':
+          const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+          return itemDate >= lastMonth;
+        case 'last-quarter':
+          const lastQuarter = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
+          return itemDate >= lastQuarter;
+        case 'last-year':
+          const lastYear = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
+          return itemDate >= lastYear;
+        default:
+          return true;
+      }
+    })();
+
+    // Amount range filtering
+    const matchesAmountMin = !filters.amountMin ||
+      item.amount >= parseInt(filters.amountMin);
+
+    const matchesAmountMax = !filters.amountMax ||
+      item.amount <= parseInt(filters.amountMax);
+
+    return matchesQuery && matchesOrganization && matchesLobbyist &&
+           matchesCategory && matchesDateRange && matchesAmountMin && matchesAmountMax;
   }).slice(0, 10); // Limit to 10 results for demo
 };
 
@@ -261,6 +289,46 @@ function Search() {
                   <option value="education">Education</option>
                   <option value="finance">Finance</option>
                 </select>
+              </div>
+
+              <div className="filter-group">
+                <label>Min Amount ($):</label>
+                <input
+                  type="number"
+                  value={filters.amountMin || ''}
+                  onChange={(e) => setFilters({ amountMin: e.target.value })}
+                  placeholder="e.g. 50000"
+                  disabled={loading}
+                />
+              </div>
+
+              <div className="filter-group">
+                <label>Max Amount ($):</label>
+                <input
+                  type="number"
+                  value={filters.amountMax || ''}
+                  onChange={(e) => setFilters({ amountMax: e.target.value })}
+                  placeholder="e.g. 100000"
+                  disabled={loading}
+                />
+              </div>
+
+              <div className="filter-group">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setFilters({
+                    dateRange: 'all',
+                    organization: '',
+                    lobbyist: '',
+                    category: 'all',
+                    amountMin: '',
+                    amountMax: ''
+                  })}
+                  disabled={loading}
+                >
+                  Clear All Filters
+                </button>
               </div>
             </div>
           </div>
