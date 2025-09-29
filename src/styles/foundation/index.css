@@ -5,6 +5,9 @@
 @import './colors.css';
 @import './typography.css';
 
+/* Import layout system */
+@import '../layout/index.css';
+
 /* CSS Reset and base styles */
 *,
 *::before,
