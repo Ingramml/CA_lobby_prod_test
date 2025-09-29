@@ -155,7 +155,7 @@ function Dashboard() {
             </div>
 
             <div className="dashboard-card">
-              <h3>Data Access</h3>
+              <h3>Cache Performance</h3>
               <DataAccessTest />
             </div>
 
@@ -207,7 +207,7 @@ function APIHealthCheck() {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    fetch('/api/health')
+    fetch('http://localhost:5001/health')
       .then(res => res.json())
       .then(data => {
         setHealth(data);
@@ -226,9 +226,10 @@ function APIHealthCheck() {
       {health ? (
         <div className="success">
           <p>Status: {health.status}</p>
-          <p>Message: {health.message}</p>
+          <p>Service: {health.service}</p>
           <p>Version: {health.version}</p>
-          {health.source && <p>Source: {health.source}</p>}
+          <p>Environment: {health.environment}</p>
+          <p>Database: {health.database?.status}</p>
         </div>
       ) : (
         <div className="error">Failed to load health status</div>
@@ -242,7 +243,7 @@ function SystemStatus() {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    fetch('/api/status')
+    fetch('http://localhost:5001/api/status')
       .then(res => res.json())
       .then(data => {
         setStatus(data);
@@ -260,9 +261,11 @@ function SystemStatus() {
     <div className="api-result">
       {status ? (
         <div className="success">
-          <p>Environment: {status.environment}</p>
-          <p>Mock Data: {status.mock_data}</p>
-          <p>Debug: {status.debug}</p>
+          <p>Phase: {status.phase}</p>
+          <p>Backend API: {status.components?.backend_api}</p>
+          <p>Database: {status.components?.database}</p>
+          <p>Authentication: {status.components?.authentication}</p>
+          <p>Cache Hit Rate: {status.performance?.cache_hit_rate}</p>
         </div>
       ) : (
         <div className="error">Failed to load system status</div>
@@ -276,14 +279,14 @@ function DataAccessTest() {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    fetch('/api/test-data-access')
+    fetch('http://localhost:5001/api/cache/stats')
       .then(res => res.json())
       .then(data => {
         setData(data);
         setLoading(false);
       })
       .catch(err => {
-        console.error('Data access test failed:', err);
+        console.error('Cache stats failed:', err);
         setLoading(false);
       });
   }, []);
@@ -294,21 +297,14 @@ function DataAccessTest() {
     <div className="api-result">
       {data ? (
         <div className="success">
-          <p>Status: {data.status}</p>
-          <p>Message: {data.message}</p>
-          {data.available_modules && (
-            <div>
-              <p>Available Modules:</p>
-              <ul>
-                {data.available_modules.map((module, idx) => (
-                  <li key={idx}>{module}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <p>Status: {data.success ? 'Active' : 'Error'}</p>
+          <p>Cache Hits: {data.cache_hits || 0}</p>
+          <p>Cache Misses: {data.cache_misses || 0}</p>
+          <p>Hit Rate: {data.hit_rate || '0%'}</p>
+          <p>Cached Keys: {data.cached_keys || 0}</p>
         </div>
       ) : (
-        <div className="error">Failed to load data access status</div>
+        <div className="error">Failed to load cache stats</div>
       )}
     </div>
   );

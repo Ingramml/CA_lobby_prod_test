@@ -29,8 +29,8 @@ function Search() {
     try {
       // Call backend API
       const searchParams = new URLSearchParams({
-        query: query.trim(),
-        organization: filters.organization || '',
+        q: query.trim(),
+        client: filters.organization || '',
         lobbyist: filters.lobbyist || '',
         category: filters.category === 'all' ? '' : filters.category || '',
         date_range: filters.dateRange === 'all' ? '' : filters.dateRange || ''
@@ -134,7 +134,7 @@ function Search() {
                   value={filters.lobbyist}
                   onChange={(e) => setFilters({ lobbyist: e.target.value })}
                   placeholder="Filter by lobbyist name"
-                  disabled
+                  disabled={loading}
                 />
               </div>
 
@@ -143,7 +143,7 @@ function Search() {
                 <select
                   value={filters.category}
                   onChange={(e) => setFilters({ category: e.target.value })}
-                  disabled
+                  disabled={loading}
                 >
                   <option value="all">All Categories</option>
                   <option value="healthcare">Healthcare</option>
@@ -155,6 +155,45 @@ function Search() {
               </div>
             </div>
           </div>
+
+          {/* Search Results Section */}
+          {error && (
+            <div className="search-error">
+              <h3>Search Error</h3>
+              <p>{error}</p>
+              <button onClick={() => setError(null)} className="btn btn-secondary">
+                Dismiss
+              </button>
+            </div>
+          )}
+
+          {results && results.length > 0 && (
+            <div className="search-results">
+              <h3>Search Results ({results.length} found)</h3>
+              <div className="results-list">
+                {results.slice(0, 10).map((result, index) => (
+                  <div key={index} className="result-item">
+                    <h4>{result.organization || result.lobbyist || 'Lobby Entry'}</h4>
+                    <p>{result.description || result.activity_description || 'No description available'}</p>
+                    <span className="result-meta">
+                      Amount: {result.amount ? `$${result.amount.toLocaleString()}` : 'N/A'} |
+                      Date: {result.date || result.filing_date || 'N/A'}
+                    </span>
+                  </div>
+                ))}
+                {results.length > 10 && (
+                  <p className="results-more">Showing first 10 of {results.length} results</p>
+                )}
+              </div>
+            </div>
+          )}
+
+          {loading && (
+            <div className="search-loading">
+              <h3>Searching...</h3>
+              <div className="loading-spinner"></div>
+            </div>
+          )}
         </div>
 
         <div className="dashboard-grid">
