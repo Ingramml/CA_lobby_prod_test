@@ -12,6 +12,7 @@ const generateDemoSearchResults = (query, filters) => {
       amount: 125000,
       date: '2024-09-15',
       filing_date: '2024-09-15',
+      category: 'healthcare',
       activity_description: 'Lobbying activities related to healthcare reform and medical licensing'
     },
     {
@@ -21,6 +22,7 @@ const generateDemoSearchResults = (query, filters) => {
       amount: 89000,
       date: '2024-09-10',
       filing_date: '2024-09-10',
+      category: 'technology',
       activity_description: 'Advocacy for technology innovation policies and startup support'
     },
     {
@@ -30,6 +32,7 @@ const generateDemoSearchResults = (query, filters) => {
       amount: 67500,
       date: '2024-09-05',
       filing_date: '2024-09-05',
+      category: 'environment',
       activity_description: 'Climate change legislation and environmental protection lobbying'
     },
     {
@@ -39,6 +42,7 @@ const generateDemoSearchResults = (query, filters) => {
       amount: 52000,
       date: '2024-08-28',
       filing_date: '2024-08-28',
+      category: 'education',
       activity_description: 'Educational funding and policy reform advocacy'
     },
     {
@@ -48,6 +52,7 @@ const generateDemoSearchResults = (query, filters) => {
       amount: 43200,
       date: '2024-08-20',
       filing_date: '2024-08-20',
+      category: 'finance',
       activity_description: 'Small business regulatory relief and economic development'
     }
   ];
@@ -65,7 +70,10 @@ const generateDemoSearchResults = (query, filters) => {
     const matchesLobbyist = !filters.lobbyist ||
       item.lobbyist.toLowerCase().includes(filters.lobbyist.toLowerCase());
 
-    return matchesQuery && matchesOrganization && matchesLobbyist;
+    const matchesCategory = !filters.category || filters.category === 'all' ||
+      item.category === filters.category;
+
+    return matchesQuery && matchesOrganization && matchesLobbyist && matchesCategory;
   }).slice(0, 10); // Limit to 10 results for demo
 };
 
