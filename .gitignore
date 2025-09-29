@@ -40,7 +40,7 @@ logs/
 # Master files directory (contains nested git repos)
 master-files/
 master-files/agents/specialized/
-
+master-files*/
 # OS files
 .DS_Store
 Thumbs.db
