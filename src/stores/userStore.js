@@ -71,18 +71,42 @@ const useUserStore = create(
         recentActivity: []
       }),
 
-      // Sync with Clerk authentication
-      syncWithClerk: (clerkUser) => set({
-        isAuthenticated: !!clerkUser,
-        userProfile: clerkUser ? {
-          id: clerkUser.id,
-          email: clerkUser.primaryEmailAddress?.emailAddress,
-          name: clerkUser.fullName || clerkUser.firstName + ' ' + clerkUser.lastName,
-          firstName: clerkUser.firstName,
-          lastName: clerkUser.lastName,
-          imageUrl: clerkUser.imageUrl
-        } : null,
-        lastVisit: new Date().toISOString()
+      // Sync with Clerk authentication (with validation)
+      syncWithClerk: (clerkUser) => set((state) => {
+        try {
+          // Prevent unnecessary updates if user hasn't changed
+          const currentUserId = state.userProfile?.id;
+          const newUserId = clerkUser?.id;
+
+          if (currentUserId === newUserId && !!clerkUser === state.isAuthenticated) {
+            return state; // No change needed
+          }
+
+          const newState = {
+            ...state,
+            isAuthenticated: !!clerkUser,
+            userProfile: clerkUser ? {
+              id: clerkUser.id,
+              email: clerkUser.primaryEmailAddress?.emailAddress || '',
+              name: clerkUser.fullName || `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim() || 'User',
+              firstName: clerkUser.firstName || '',
+              lastName: clerkUser.lastName || '',
+              imageUrl: clerkUser.imageUrl || ''
+            } : null,
+            lastVisit: new Date().toISOString()
+          };
+
+          console.log('User store sync:', {
+            wasAuthenticated: state.isAuthenticated,
+            nowAuthenticated: newState.isAuthenticated,
+            userId: newState.userProfile?.id
+          });
+
+          return newState;
+        } catch (error) {
+          console.error('Error syncing with Clerk:', error);
+          return state; // Return unchanged state on error
+        }
       }),
 
       // Reset user state (logout)

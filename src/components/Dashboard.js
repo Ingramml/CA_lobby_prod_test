@@ -1,21 +1,60 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { useSearchStore, useUserStore, useAppStore } from '../stores';
 import { LobbyTrendsChart, OrganizationChart, CategoryChart } from './charts';
 import './charts/charts.css';
 
 function Dashboard() {
-  const { user } = useUser();
+  const { user, isLoaded: userLoaded } = useUser();
+  const [dashboardLoading, setDashboardLoading] = React.useState(true);
+  const [dashboardError, setDashboardError] = React.useState(null);
 
   // Connect to Zustand stores
   const { searchHistory, savedSearches } = useSearchStore();
-  const { recentActivity, bookmarks, syncWithClerk } = useUserStore();
+  const { recentActivity, bookmarks, syncWithClerk, isAuthenticated } = useUserStore();
   const { systemStatus, setSystemStatus } = useAppStore();
 
   // Sync user data with Clerk when user changes
   React.useEffect(() => {
-    syncWithClerk(user);
-  }, [user, syncWithClerk]);
+    if (userLoaded) {
+      try {
+        syncWithClerk(user);
+        setDashboardLoading(false);
+        setDashboardError(null);
+      } catch (error) {
+        console.error('Dashboard sync error:', error);
+        setDashboardError('Failed to sync user data');
+        setDashboardLoading(false);
+      }
+    }
+  }, [user, userLoaded, syncWithClerk]);
+
+  // Show loading state while Clerk is loading
+  if (!userLoaded || dashboardLoading) {
+    return (
+      <div className="page-container">
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p>Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state if something went wrong
+  if (dashboardError) {
+    return (
+      <div className="page-container">
+        <div className="error-container">
+          <h2>Dashboard Error</h2>
+          <p>{dashboardError}</p>
+          <button onClick={() => window.location.reload()} className="btn btn-primary">
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="page-container">
@@ -30,11 +69,13 @@ function Dashboard() {
         {/* Visualization Section */}
         <div className="dashboard-section">
           <h2>CA Lobby Data Insights</h2>
-          <div className="charts-grid">
-            <LobbyTrendsChart />
-            <OrganizationChart />
-            <CategoryChart />
-          </div>
+          <Suspense fallback={<div className="charts-loading">Loading charts...</div>}>
+            <div className="charts-grid">
+              <LobbyTrendsChart />
+              <OrganizationChart />
+              <CategoryChart />
+            </div>
+          </Suspense>
         </div>
 
         {/* System Status Section */}

@@ -15,6 +15,7 @@ import Reports from './components/Reports';
 import Search from './components/Search';
 import Settings from './components/Settings';
 import PhaseStatus from './components/PhaseStatus';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   return (
@@ -98,13 +99,15 @@ function AppContent() {
         </SignedOut>
 
         <SignedIn>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/reports" element={<Reports />} />
-            <Route path="/settings" element={<Settings />} />
-          </Routes>
+          <ErrorBoundary>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/reports" element={<Reports />} />
+              <Route path="/settings" element={<Settings />} />
+            </Routes>
+          </ErrorBoundary>
         </SignedIn>
       </main>
     </>

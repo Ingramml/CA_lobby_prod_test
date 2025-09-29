@@ -4,6 +4,7 @@
 @import './navigation.css';
 @import '../components/cards.css';
 @import '../components/forms.css';
+@import '../components/loading.css';
 @import '../utilities/interactions.css';
 
 /* Page layout containers */
