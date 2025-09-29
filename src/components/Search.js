@@ -79,8 +79,10 @@ function Search() {
     error,
     setQuery,
     setFilters,
-    addToHistory,
-    searchHistory
+    setResults,
+    setLoading,
+    setError,
+    addToHistory
   } = useSearchStore();
 
   const handleSearch = async (e) => {
@@ -91,6 +93,7 @@ function Search() {
       return;
     }
 
+    // Use store methods properly
     setLoading(true);
     setError(null);
 
@@ -102,12 +105,8 @@ function Search() {
         // Simulate search with demo data in production
         const demoResults = generateDemoSearchResults(query, filters);
 
-        // Update search store with demo results
-        useSearchStore.setState({
-          results: demoResults,
-          loading: false,
-          error: null
-        });
+        // Update search store with demo results using store methods
+        setResults(demoResults);
 
         // Add current search to history
         addToHistory({
@@ -131,12 +130,8 @@ function Search() {
         const data = await apiCall(`${API_ENDPOINTS.search}?${searchParams}`);
 
         if (data.success) {
-          // Update search store with results
-          useSearchStore.setState({
-            results: data.data || [],
-            loading: false,
-            error: null
-          });
+          // Update search store with results using store methods
+          setResults(data.data || []);
 
           // Add current search to history
           addToHistory({
@@ -157,11 +152,7 @@ function Search() {
       // In production, still show demo results even if API fails
       if (process.env.NODE_ENV === 'production') {
         const demoResults = generateDemoSearchResults(query, filters);
-        useSearchStore.setState({
-          results: demoResults,
-          loading: false,
-          error: null
-        });
+        setResults(demoResults);
 
         addToHistory({
           query,
@@ -171,14 +162,8 @@ function Search() {
         });
       } else {
         setError(error.message || 'Search failed. Please try again.');
-        useSearchStore.setState({
-          results: [],
-          loading: false,
-          error: error.message || 'Search failed'
-        });
+        setResults([]);
       }
-    } finally {
-      setLoading(false);
     }
   };
 
