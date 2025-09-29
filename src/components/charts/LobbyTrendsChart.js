@@ -92,7 +92,7 @@ const LobbyTrendsChart = () => {
             tickFormatter={formatCurrency}
           />
           <Tooltip
-            formatter={[formatCurrency, 'Total Amount']}
+            formatter={(value, name) => [formatCurrency(value), name || 'Total Amount']}
             labelStyle={{ color: theme.text }}
             contentStyle={{
               backgroundColor: theme.background,

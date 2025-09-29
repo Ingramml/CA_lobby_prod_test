@@ -92,7 +92,7 @@ const OrganizationChart = () => {
             tickFormatter={formatCurrency}
           />
           <Tooltip
-            formatter={[formatCurrency, 'Total Spending']}
+            formatter={(value, name) => [formatCurrency(value), name || 'Total Spending']}
             labelFormatter={(label) => `Organization: ${label}`}
             labelStyle={{ color: theme.text }}
             contentStyle={{

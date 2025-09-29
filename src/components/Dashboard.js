@@ -4,10 +4,44 @@ import { useSearchStore, useUserStore, useAppStore } from '../stores';
 import { LobbyTrendsChart, OrganizationChart, CategoryChart } from './charts';
 import './charts/charts.css';
 
+// Error Boundary component for chart protection
+class ChartErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Chart error caught by boundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="chart-container error">
+          <h3>Chart Error</h3>
+          <div className="chart-error">
+            <p>Chart temporarily unavailable</p>
+            <button onClick={() => this.setState({ hasError: false, error: null })}>
+              Retry
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 function Dashboard() {
   const { user, isLoaded: userLoaded } = useUser();
   const [dashboardLoading, setDashboardLoading] = React.useState(true);
   const [dashboardError, setDashboardError] = React.useState(null);
+  const [chartsEnabled, setChartsEnabled] = React.useState(true);
 
   // Connect to Zustand stores
   const { searchHistory, savedSearches } = useSearchStore();
@@ -28,6 +62,13 @@ function Dashboard() {
       }
     }
   }, [user, userLoaded, syncWithClerk]);
+
+  // Handle chart stability
+  const handleChartError = React.useCallback((error) => {
+    console.error('Chart rendering error:', error);
+    setChartsEnabled(false);
+    setTimeout(() => setChartsEnabled(true), 2000); // Re-enable after 2 seconds
+  }, []);
 
   // Show loading state while Clerk is loading
   if (!userLoaded || dashboardLoading) {
@@ -69,13 +110,34 @@ function Dashboard() {
         {/* Visualization Section */}
         <div className="dashboard-section">
           <h2>CA Lobby Data Insights</h2>
-          <Suspense fallback={<div className="charts-loading">Loading charts...</div>}>
-            <div className="charts-grid">
-              <LobbyTrendsChart />
-              <OrganizationChart />
-              <CategoryChart />
+          {chartsEnabled ? (
+            <Suspense fallback={<div className="charts-loading">Loading charts...</div>}>
+              <div className="charts-grid">
+                <ChartErrorBoundary>
+                  <LobbyTrendsChart onError={handleChartError} />
+                </ChartErrorBoundary>
+                <ChartErrorBoundary>
+                  <OrganizationChart onError={handleChartError} />
+                </ChartErrorBoundary>
+                <ChartErrorBoundary>
+                  <CategoryChart onError={handleChartError} />
+                </ChartErrorBoundary>
+              </div>
+            </Suspense>
+          ) : (
+            <div className="charts-disabled">
+              <div className="chart-container">
+                <h3>Charts Temporarily Disabled</h3>
+                <p>Charts are being reloaded due to a display issue.</p>
+                <button
+                  onClick={() => setChartsEnabled(true)}
+                  className="btn btn-primary"
+                >
+                  Enable Charts
+                </button>
+              </div>
             </div>
-          </Suspense>
+          )}
         </div>
 
         {/* System Status Section */}

@@ -15,19 +15,61 @@ function Search() {
     searchHistory
   } = useSearchStore();
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
 
-    // Add current search to history
-    addToHistory({
-      query,
-      filters,
-      resultCount: results.length
-    });
+    if (!query.trim()) {
+      console.log('Empty query, skipping search');
+      return;
+    }
 
-    // Search functionality will be implemented in future phases
-    console.log('Search query:', query, 'Filters:', filters);
-    console.log('Search history:', searchHistory);
+    setLoading(true);
+    setError(null);
+
+    try {
+      // Call backend API
+      const searchParams = new URLSearchParams({
+        query: query.trim(),
+        organization: filters.organization || '',
+        lobbyist: filters.lobbyist || '',
+        category: filters.category === 'all' ? '' : filters.category || '',
+        date_range: filters.dateRange === 'all' ? '' : filters.dateRange || ''
+      });
+
+      const response = await fetch(`http://localhost:5001/api/search/?${searchParams}`);
+      const data = await response.json();
+
+      if (data.success) {
+        // Update search store with results
+        useSearchStore.setState({
+          results: data.data || [],
+          loading: false,
+          error: null
+        });
+
+        // Add current search to history
+        addToHistory({
+          query,
+          filters,
+          resultCount: data.data?.length || 0,
+          timestamp: new Date().toISOString()
+        });
+
+        console.log('Search completed:', data);
+      } else {
+        throw new Error(data.message || 'Search failed');
+      }
+    } catch (error) {
+      console.error('Search error:', error);
+      setError(error.message || 'Search failed. Please try again.');
+      useSearchStore.setState({
+        results: [],
+        loading: false,
+        error: error.message || 'Search failed'
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -50,8 +92,8 @@ function Search() {
                 placeholder="Search for lobbyists, organizations, bills, or topics..."
                 className="search-input"
               />
-              <button type="submit" className="search-btn" disabled>
-                🔍 Search
+              <button type="submit" className="search-btn" disabled={loading}>
+                {loading ? '⏳ Searching...' : '🔍 Search'}
               </button>
             </div>
           </form>
@@ -64,7 +106,7 @@ function Search() {
                 <select
                   value={filters.dateRange}
                   onChange={(e) => setFilters({ dateRange: e.target.value })}
-                  disabled
+                  disabled={loading}
                 >
                   <option value="all">All Time</option>
                   <option value="last-month">Last Month</option>
@@ -81,7 +123,7 @@ function Search() {
                   value={filters.organization}
                   onChange={(e) => setFilters({ organization: e.target.value })}
                   placeholder="Filter by organization name"
-                  disabled
+                  disabled={loading}
                 />
               </div>
 
