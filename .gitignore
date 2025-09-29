@@ -62,3 +62,4 @@ data_processing/
 *_FIXES_REQUIRED.md
 *_TEMP.md
 .vercel
+node_modules
