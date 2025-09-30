@@ -96,16 +96,24 @@ src/
 ├── components/                # React components
 │   ├── Dashboard.js          # Main dashboard
 │   ├── Search.js             # Search functionality with clickable org names
-│   ├── OrganizationProfile.js # NEW: Organization profile pages
+│   ├── OrganizationProfile.js # Organization profile pages (Phase 2f complete)
+│   ├── ActivityList.js       # Paginated activity list with export
+│   ├── ActivitySummary.js    # Organization metrics display
+│   ├── LobbyistNetwork.js    # Lobbyist network visualization
+│   ├── RelatedOrganizations.js # Similar organizations
 │   ├── Analytics.js          # Analytics views
 │   ├── Reports.js            # Report generation
 │   └── Settings.js           # User settings
 ├── stores/                    # Zustand state management
+│   ├── organizationStore.js  # Organization profile state (Phase 2f)
 │   ├── searchStore.js        # Search state and results
 │   ├── userStore.js          # User preferences
 │   └── appStore.js           # Application state
-├── App.js                     # Main app component with routing
-├── App.css                    # Global styles (includes org profile styles)
+├── utils/                     # Utility functions
+│   ├── sampleData.js         # Demo data generation
+│   └── exportHelpers.js      # CSV/JSON export utilities (Phase 3)
+├── App.js                     # Main app with lazy-loaded routes
+├── App.css                    # Global styles + accessibility (Phase 3)
 └── index.js                   # Entry point
 ```
 
@@ -287,6 +295,39 @@ When completing any phase:
 - **Implementation**: See `src/` components and `webapp/backend/auth.py`
 
 ## 🔧 Common Tasks
+
+### Organization Profile Feature
+Navigate to organization profiles by clicking organization names in search results.
+
+**URL Pattern**: `/organization/:organizationName`
+
+**Features**:
+- Comprehensive statistics and metrics (6 metric cards)
+- Spending trends visualization (Recharts line chart)
+- Paginated activity list (10 items per page)
+- Lobbyist network display with expand/collapse
+- Related organizations with similarity scoring
+- **Export to CSV/JSON** (Phase 3)
+- **Keyboard navigation** (Escape to return, Enter on breadcrumbs)
+- **WCAG 2.1 AA accessibility compliant**
+
+**Export Functionality**:
+- 📊 Export CSV: Organization summary with key metrics
+- 📁 Export JSON: Complete profile data (all sections)
+- 📥 Export Activities: All activities as CSV
+
+**Testing**:
+```bash
+# Run development server
+npm start
+
+# Navigate to search, click organization name
+# Or access directly:
+# http://localhost:3000/organization/California%20Medical%20Association
+
+# Test exports - files download to ~/Downloads/
+# Test keyboard: Press Escape on profile to return to search
+```
 
 ### Adding New Features
 1. Reference master plan for feature alignment
