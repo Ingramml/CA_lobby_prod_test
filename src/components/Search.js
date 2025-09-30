@@ -6,7 +6,7 @@ import { API_ENDPOINTS, apiCall } from '../config/api';
 // Generate demo search results for production mode
 const generateDemoSearchResults = (query, filters) => {
   const demoData = [
-    // California Medical Association entries
+    // California Medical Association entries (7 total)
     {
       organization: 'California Medical Association',
       lobbyist: 'John Smith',
@@ -37,7 +37,47 @@ const generateDemoSearchResults = (query, filters) => {
       category: 'healthcare',
       activity_description: 'Tort reform and medical malpractice insurance legislation'
     },
-    // Tech Innovation Coalition entries
+    {
+      organization: 'California Medical Association',
+      lobbyist: 'John Smith',
+      description: 'Mental health services expansion and coverage mandates',
+      amount: 98000,
+      date: '2024-06-15',
+      filing_date: '2024-06-15',
+      category: 'healthcare',
+      activity_description: 'Behavioral health integration and parity legislation'
+    },
+    {
+      organization: 'California Medical Association',
+      lobbyist: 'Dr. Maria Garcia',
+      description: 'Prescription drug pricing reform advocacy',
+      amount: 110000,
+      date: '2024-05-20',
+      filing_date: '2024-05-20',
+      category: 'healthcare',
+      activity_description: 'Pharmaceutical cost transparency and affordability measures'
+    },
+    {
+      organization: 'California Medical Association',
+      lobbyist: 'Susan Lee',
+      description: 'Hospital capacity and emergency preparedness',
+      amount: 73000,
+      date: '2024-04-10',
+      filing_date: '2024-04-10',
+      category: 'healthcare',
+      activity_description: 'Emergency medical services and disaster response planning'
+    },
+    {
+      organization: 'California Medical Association',
+      lobbyist: 'Robert Thompson',
+      description: 'Medical education funding and residency programs',
+      amount: 82500,
+      date: '2024-03-25',
+      filing_date: '2024-03-25',
+      category: 'education',
+      activity_description: 'Graduate medical education and training program support'
+    },
+    // Tech Innovation Coalition entries (6 total)
     {
       organization: 'Tech Innovation Coalition',
       lobbyist: 'Sarah Johnson',
@@ -58,7 +98,47 @@ const generateDemoSearchResults = (query, filters) => {
       category: 'technology',
       activity_description: 'Artificial intelligence ethics and consumer data protection'
     },
-    // Environmental Defense Alliance entries
+    {
+      organization: 'Tech Innovation Coalition',
+      lobbyist: 'Sarah Johnson',
+      description: 'Cybersecurity standards and infrastructure protection',
+      amount: 102000,
+      date: '2024-07-05',
+      filing_date: '2024-07-05',
+      category: 'technology',
+      activity_description: 'Critical infrastructure security and cyber defense policy'
+    },
+    {
+      organization: 'Tech Innovation Coalition',
+      lobbyist: 'Kevin Zhang',
+      description: 'Net neutrality and broadband access advocacy',
+      amount: 76000,
+      date: '2024-06-20',
+      filing_date: '2024-06-20',
+      category: 'technology',
+      activity_description: 'Digital equity and internet access for underserved communities'
+    },
+    {
+      organization: 'Tech Innovation Coalition',
+      lobbyist: 'Rachel Park',
+      description: 'Platform liability and Section 230 reform',
+      amount: 115000,
+      date: '2024-05-15',
+      filing_date: '2024-05-15',
+      category: 'technology',
+      activity_description: 'Online content moderation and platform accountability'
+    },
+    {
+      organization: 'Tech Innovation Coalition',
+      lobbyist: 'Sarah Johnson',
+      description: 'Digital economy tax policy and marketplace fairness',
+      amount: 88000,
+      date: '2024-04-18',
+      filing_date: '2024-04-18',
+      category: 'finance',
+      activity_description: 'E-commerce taxation and digital services tax frameworks'
+    },
+    // Environmental Defense Alliance entries (5 total)
     {
       organization: 'Environmental Defense Alliance',
       lobbyist: 'Michael Chen',
@@ -80,6 +160,37 @@ const generateDemoSearchResults = (query, filters) => {
       activity_description: 'Clean energy transition and sustainable infrastructure investment'
     },
     {
+      organization: 'Environmental Defense Alliance',
+      lobbyist: 'Michael Chen',
+      description: 'Water conservation and drought management policy',
+      amount: 58000,
+      date: '2024-06-12',
+      filing_date: '2024-06-12',
+      category: 'environment',
+      activity_description: 'Water resource management and conservation strategies'
+    },
+    {
+      organization: 'Environmental Defense Alliance',
+      lobbyist: 'Jennifer Martinez',
+      description: 'Wildlife protection and habitat preservation',
+      amount: 63500,
+      date: '2024-05-08',
+      filing_date: '2024-05-08',
+      category: 'environment',
+      activity_description: 'Biodiversity conservation and endangered species protection'
+    },
+    {
+      organization: 'Environmental Defense Alliance',
+      lobbyist: 'Carlos Rivera',
+      description: 'Clean air standards and pollution control',
+      amount: 71000,
+      date: '2024-04-22',
+      filing_date: '2024-04-22',
+      category: 'environment',
+      activity_description: 'Air quality improvement and emissions reduction regulations'
+    },
+    // Education Reform Society entries (4 total)
+    {
       organization: 'Education Reform Society',
       lobbyist: 'Emily Rodriguez',
       description: 'Public education policy and funding advocacy',
@@ -90,6 +201,37 @@ const generateDemoSearchResults = (query, filters) => {
       activity_description: 'Educational funding and policy reform advocacy'
     },
     {
+      organization: 'Education Reform Society',
+      lobbyist: 'James Wilson',
+      description: 'Teacher compensation and professional development',
+      amount: 48500,
+      date: '2024-07-15',
+      filing_date: '2024-07-15',
+      category: 'education',
+      activity_description: 'Educator salary increases and training program expansion'
+    },
+    {
+      organization: 'Education Reform Society',
+      lobbyist: 'Emily Rodriguez',
+      description: 'School safety and infrastructure modernization',
+      amount: 61000,
+      date: '2024-06-05',
+      filing_date: '2024-06-05',
+      category: 'education',
+      activity_description: 'Campus security improvements and facility upgrades'
+    },
+    {
+      organization: 'Education Reform Society',
+      lobbyist: 'Amanda Foster',
+      description: 'Early childhood education expansion',
+      amount: 55000,
+      date: '2024-05-10',
+      filing_date: '2024-05-10',
+      category: 'education',
+      activity_description: 'Pre-K program funding and universal early education access'
+    },
+    // Small Business Coalition entries (4 total)
+    {
       organization: 'Small Business Coalition',
       lobbyist: 'David Wilson',
       description: 'Small business interests and regulatory reform',
@@ -98,6 +240,67 @@ const generateDemoSearchResults = (query, filters) => {
       filing_date: '2024-08-20',
       category: 'finance',
       activity_description: 'Small business regulatory relief and economic development'
+    },
+    {
+      organization: 'Small Business Coalition',
+      lobbyist: 'Patricia Lee',
+      description: 'Tax incentives and small business credit access',
+      amount: 51000,
+      date: '2024-07-08',
+      filing_date: '2024-07-08',
+      category: 'finance',
+      activity_description: 'Small business tax credits and lending program expansion'
+    },
+    {
+      organization: 'Small Business Coalition',
+      lobbyist: 'David Wilson',
+      description: 'Workforce development and job training programs',
+      amount: 39500,
+      date: '2024-06-18',
+      filing_date: '2024-06-18',
+      category: 'labor',
+      activity_description: 'Vocational training and skills development initiatives'
+    },
+    {
+      organization: 'Small Business Coalition',
+      lobbyist: 'Marcus Thompson',
+      description: 'Healthcare cost reduction for small employers',
+      amount: 46800,
+      date: '2024-05-25',
+      filing_date: '2024-05-25',
+      category: 'healthcare',
+      activity_description: 'Small business health insurance affordability measures'
+    },
+    // California Hospital Association entries (3 total)
+    {
+      organization: 'California Hospital Association',
+      lobbyist: 'Linda Chen',
+      description: 'Hospital funding and Medicare reimbursement rates',
+      amount: 135000,
+      date: '2024-09-01',
+      filing_date: '2024-09-01',
+      category: 'healthcare',
+      activity_description: 'Hospital payment reform and Medicaid expansion advocacy'
+    },
+    {
+      organization: 'California Hospital Association',
+      lobbyist: 'Dr. Steven Wong',
+      description: 'Emergency department capacity and trauma care',
+      amount: 92000,
+      date: '2024-07-22',
+      filing_date: '2024-07-22',
+      category: 'healthcare',
+      activity_description: 'Emergency medical services funding and trauma center support'
+    },
+    {
+      organization: 'California Hospital Association',
+      lobbyist: 'Linda Chen',
+      description: 'Healthcare workforce shortage solutions',
+      amount: 108000,
+      date: '2024-06-10',
+      filing_date: '2024-06-10',
+      category: 'healthcare',
+      activity_description: 'Nursing and healthcare professional recruitment and retention'
     }
   ];
 

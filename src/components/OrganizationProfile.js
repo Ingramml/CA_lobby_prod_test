@@ -1,94 +1,112 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useSearchStore } from '../stores';
-
-// Memoized ActivityItem component
-const ActivityItem = React.memo(({ activity, getCategoryClass }) => (
-  <div className="result-item">
-    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-      <span className={getCategoryClass(activity.category)}>
-        {activity.category || 'Other'}
-      </span>
-      <h4 style={{ margin: 0, display: 'inline' }}>
-        {activity.lobbyist || 'Unknown Lobbyist'}
-      </h4>
-    </div>
-    <p>{activity.description || activity.activity_description}</p>
-    <span className="result-meta">
-      Amount: ${activity.amount?.toLocaleString() || 'N/A'} |
-      Date: {activity.date || activity.filing_date || 'N/A'}
-    </span>
-  </div>
-));
+import { useOrganizationStore, useSearchStore } from '../stores';
+import {
+  aggregateOrganizationMetrics,
+  extractLobbyistNetwork,
+  calculateSpendingTrends,
+  findRelatedOrganizations
+} from '../utils/sampleData';
+import ActivitySummary from './ActivitySummary';
+import SpendingTrendsChart from './charts/SpendingTrendsChart';
+import ActivityList from './ActivityList';
+import LobbyistNetwork from './LobbyistNetwork';
+import RelatedOrganizations from './RelatedOrganizations';
 
 const OrganizationProfile = React.memo(() => {
   const { organizationName } = useParams();
   const navigate = useNavigate();
-  const { results, loading } = useSearchStore();
 
-  const decodedOrgName = decodeURIComponent(organizationName);
+  const {
+    selectedOrganization,
+    organizationData,
+    activities,
+    loading: orgLoading,
+    error,
+    setSelectedOrganization,
+    setOrganizationData,
+    setLobbyists,
+    setSpendingTrends,
+    setRelatedOrganizations,
+    setActivities,
+    setLoading,
+    setError,
+    clearOrganization
+  } = useOrganizationStore();
 
-  // Helper function to get category badge class
-  const getCategoryClass = (category) => {
-    const normalizedCategory = category?.toLowerCase() || 'default';
-    return `category-badge ${normalizedCategory}`;
-  };
+  const { results } = useSearchStore();
 
-  // Filter results for this organization
-  const organizationData = useMemo(() => {
-    return results.filter(
-      result => result.organization === decodedOrgName
-    );
-  }, [results, decodedOrgName]);
+  const decodedOrgName = useMemo(() =>
+    decodeURIComponent(organizationName),
+    [organizationName]
+  );
+
+  // CRITICAL BUG FIX APPLIED: Added error handling to useEffect
+  useEffect(() => {
+    if (!decodedOrgName) {
+      clearOrganization();
+      return;
+    }
+
+    try {
+      // Set loading state
+      setLoading(true);
+      setSelectedOrganization(decodedOrgName);
+
+      // Filter activities for this organization from search results
+      const orgActivities = results.filter(
+        r => r.organization === decodedOrgName
+      );
+
+      // Aggregate all data
+      const metrics = aggregateOrganizationMetrics(orgActivities);
+      const lobbyists = extractLobbyistNetwork(orgActivities);
+      const trends = calculateSpendingTrends(orgActivities, 'quarter');
+      const related = findRelatedOrganizations(decodedOrgName, results, 5);
+
+      // Update store
+      setOrganizationData(metrics);
+      setActivities(orgActivities);
+      setLobbyists(lobbyists);
+      setSpendingTrends(trends);
+      setRelatedOrganizations(related);
+    } catch (error) {
+      setError(error.message);
+      console.error('Error loading organization data:', error);
+    }
+  }, [decodedOrgName, results, setSelectedOrganization, setOrganizationData,
+      setActivities, setLobbyists, setSpendingTrends, setRelatedOrganizations,
+      setLoading, setError, clearOrganization]);
 
   // Validate organization exists
   const isValidOrganization = useMemo(() => {
     // Don't validate if no search performed
     if (results.length === 0) return null;
-    return organizationData.length > 0;
-  }, [organizationData, results.length]);
+    return activities && activities.length > 0;
+  }, [activities, results.length]);
 
-  // State for sorting
-  const [sortBy, setSortBy] = React.useState('date-desc');
-
-  // Calculate statistics
-  const stats = useMemo(() => {
-    if (organizationData.length === 0) return null;
-
-    const totalAmount = organizationData.reduce((sum, item) => sum + (item.amount || 0), 0);
-    const avgAmount = totalAmount / organizationData.length;
-    const uniqueLobbyists = new Set(organizationData.map(item => item.lobbyist)).size;
-    const categories = [...new Set(organizationData.map(item => item.category))];
-
-    return {
-      totalAmount,
-      avgAmount,
-      activityCount: organizationData.length,
-      uniqueLobbyists,
-      categories
-    };
-  }, [organizationData]);
-
-  // Sort activities
-  const sortedActivities = useMemo(() => {
-    const sorted = [...organizationData];
-
-    switch(sortBy) {
-      case 'date-desc':
-        return sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
-      case 'date-asc':
-        return sorted.sort((a, b) => new Date(a.date) - new Date(b.date));
-      case 'amount-desc':
-        return sorted.sort((a, b) => (b.amount || 0) - (a.amount || 0));
-      case 'amount-asc':
-        return sorted.sort((a, b) => (a.amount || 0) - (b.amount || 0));
-      default:
-        return sorted;
-    }
-  }, [organizationData, sortBy]);
+  // Handle error state
+  if (error) {
+    return (
+      <div className="page-container">
+        <div className="page-header">
+          <h1>Error Loading Profile</h1>
+        </div>
+        <div className="page-content">
+          <div className="dashboard-card">
+            <h3>Something went wrong</h3>
+            <p>{error}</p>
+            <button onClick={() => navigate('/search')} className="btn">
+              Return to Search
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Early return for no data
-  if (results.length === 0 && !loading) {
+  if (results.length === 0 && !orgLoading) {
     return (
       <div className="page-container">
         <div className="page-header">
@@ -195,65 +213,38 @@ const OrganizationProfile = React.memo(() => {
         </button>
         <h1>{decodedOrgName}</h1>
         <p className="page-description">
-          {organizationData.length} lobbying {organizationData.length === 1 ? 'activity' : 'activities'} found
+          {activities?.length || 0} lobbying {activities?.length === 1 ? 'activity' : 'activities'} found
         </p>
       </div>
 
       <div className="page-content">
-        <div className="dashboard-grid">
-          {stats && (
-            <div className="dashboard-card">
-              <h3>Summary Statistics</h3>
-              <div className="placeholder-content">
-                <ul style={{ listStyle: 'none', padding: 0 }}>
-                  <li><strong>Total Activities:</strong> {stats.activityCount}</li>
-                  <li><strong>Total Amount:</strong> ${stats.totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</li>
-                  <li><strong>Average Amount:</strong> ${stats.avgAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</li>
-                  <li><strong>Unique Lobbyists:</strong> {stats.uniqueLobbyists}</li>
-                  <li><strong>Categories:</strong> {stats.categories.join(', ') || 'N/A'}</li>
-                </ul>
-              </div>
-            </div>
-          )}
+        {/* Activity Summary Metrics */}
+        <ActivitySummary />
 
-          <div className="dashboard-card" style={{ gridColumn: '1 / -1' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-            <h3 style={{ margin: 0 }}>Recent Activities</h3>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <label htmlFor="sort-select" style={{ fontSize: '0.9rem', color: '#666' }}>
-                Sort by:
-              </label>
-              <select
-                id="sort-select"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                style={{
-                  padding: '6px 12px',
-                  borderRadius: '4px',
-                  border: '1px solid #ddd',
-                  fontSize: '0.9rem'
-                }}
-              >
-                <option value="date-desc">Date (Newest First)</option>
-                <option value="date-asc">Date (Oldest First)</option>
-                <option value="amount-desc">Amount (Highest First)</option>
-                <option value="amount-asc">Amount (Lowest First)</option>
-              </select>
-            </div>
+        {/* Spending Trends Chart */}
+        <div className="dashboard-card">
+          <SpendingTrendsChart />
+        </div>
+
+        {/* Two-column layout for lists */}
+        <div className="profile-grid">
+          <div className="profile-main">
+            <ActivityList />
           </div>
-          {sortedActivities.length === 0 ? (
-            <p>No data available for this organization. Try searching first.</p>
-          ) : (
-            <div className="result-preview">
-              {sortedActivities.map((activity, index) => (
-                <ActivityItem
-                  key={`${activity.organization}-${activity.lobbyist}-${activity.date}-${index}`}
-                  activity={activity}
-                  getCategoryClass={getCategoryClass}
-                />
-              ))}
+
+          <div className="profile-sidebar">
+            <div className="dashboard-card">
+              <LobbyistNetwork />
             </div>
-          )}
+
+            <div className="dashboard-card">
+              <RelatedOrganizations
+                onOrganizationClick={(orgName) => {
+                  navigate(`/organization/${encodeURIComponent(orgName)}`);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>

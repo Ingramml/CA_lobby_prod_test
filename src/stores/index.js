@@ -4,12 +4,14 @@
 import useSearchStore from './searchStore';
 import useUserStore from './userStore';
 import useAppStore from './appStore';
+import useOrganizationStore from './organizationStore';
 
 // Export individual stores
 export {
   useSearchStore,
   useUserStore,
-  useAppStore
+  useAppStore,
+  useOrganizationStore
 };
 
 // Store utilities and helpers
@@ -82,6 +84,7 @@ export default {
   useSearchStore,
   useUserStore,
   useAppStore,
+  useOrganizationStore,
   selectors: {
     search: searchSelectors,
     user: userSelectors,
