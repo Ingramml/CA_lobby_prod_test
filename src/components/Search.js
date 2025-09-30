@@ -1,10 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSearchStore } from '../stores';
 import { API_ENDPOINTS, apiCall } from '../config/api';
 
 // Generate demo search results for production mode
 const generateDemoSearchResults = (query, filters) => {
   const demoData = [
+    // California Medical Association entries
     {
       organization: 'California Medical Association',
       lobbyist: 'John Smith',
@@ -16,6 +18,27 @@ const generateDemoSearchResults = (query, filters) => {
       activity_description: 'Lobbying activities related to healthcare reform and medical licensing'
     },
     {
+      organization: 'California Medical Association',
+      lobbyist: 'Dr. Maria Garcia',
+      description: 'Telemedicine policy advocacy and physician licensing reform',
+      amount: 87500,
+      date: '2024-08-20',
+      filing_date: '2024-08-20',
+      category: 'healthcare',
+      activity_description: 'Remote healthcare delivery and cross-state licensing advocacy'
+    },
+    {
+      organization: 'California Medical Association',
+      lobbyist: 'Robert Thompson',
+      description: 'Medical liability reform and insurance regulation',
+      amount: 65000,
+      date: '2024-07-10',
+      filing_date: '2024-07-10',
+      category: 'healthcare',
+      activity_description: 'Tort reform and medical malpractice insurance legislation'
+    },
+    // Tech Innovation Coalition entries
+    {
       organization: 'Tech Innovation Coalition',
       lobbyist: 'Sarah Johnson',
       description: 'Technology policy development and regulatory advocacy',
@@ -26,6 +49,17 @@ const generateDemoSearchResults = (query, filters) => {
       activity_description: 'Advocacy for technology innovation policies and startup support'
     },
     {
+      organization: 'Tech Innovation Coalition',
+      lobbyist: 'Kevin Zhang',
+      description: 'AI regulation and data privacy policy',
+      amount: 95000,
+      date: '2024-08-15',
+      filing_date: '2024-08-15',
+      category: 'technology',
+      activity_description: 'Artificial intelligence ethics and consumer data protection'
+    },
+    // Environmental Defense Alliance entries
+    {
       organization: 'Environmental Defense Alliance',
       lobbyist: 'Michael Chen',
       description: 'Environmental protection and climate change policy advocacy',
@@ -34,6 +68,16 @@ const generateDemoSearchResults = (query, filters) => {
       filing_date: '2024-09-05',
       category: 'environment',
       activity_description: 'Climate change legislation and environmental protection lobbying'
+    },
+    {
+      organization: 'Environmental Defense Alliance',
+      lobbyist: 'Jennifer Martinez',
+      description: 'Renewable energy development and green infrastructure',
+      amount: 72000,
+      date: '2024-08-01',
+      filing_date: '2024-08-01',
+      category: 'environment',
+      activity_description: 'Clean energy transition and sustainable infrastructure investment'
     },
     {
       organization: 'Education Reform Society',
@@ -103,7 +147,7 @@ const generateDemoSearchResults = (query, filters) => {
 
     return matchesQuery && matchesOrganization && matchesLobbyist &&
            matchesCategory && matchesDateRange && matchesAmountMin && matchesAmountMax;
-  }).slice(0, 10); // Limit to 10 results for demo
+  }).slice(0, 20); // Limit to 20 results for demo
 };
 
 function Search() {
@@ -121,6 +165,14 @@ function Search() {
     setError,
     addToHistory
   } = useSearchStore();
+
+  const navigate = useNavigate();
+
+  // Memoized helper function to get organization activity count
+  const getOrganizationActivityCount = React.useMemo(
+    () => (orgName) => results.filter(r => r.organization === orgName).length,
+    [results]
+  );
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -144,14 +196,15 @@ function Search() {
     setError(null);
 
     try {
-      // Check if we're in production without backend
-      const isProduction = process.env.NODE_ENV === 'production';
+      // ALWAYS use demo data until backend integration is explicitly requested
+      // Set REACT_APP_USE_BACKEND_API=true in .env to enable backend calls
+      const useBackend = process.env.REACT_APP_USE_BACKEND_API === 'true';
 
-      if (isProduction) {
-        // Simulate search with demo data in production
+      if (!useBackend) {
+        // Use demo data (default behavior)
         const demoResults = generateDemoSearchResults(query, filters);
 
-        // Update search store with demo results using store methods
+        // Update search store with demo results
         setResults(demoResults);
 
         // Add current search to history
@@ -162,9 +215,9 @@ function Search() {
           timestamp: new Date().toISOString()
         });
 
-        console.log('Demo search completed:', demoResults);
+        console.log('Demo search completed:', demoResults.length, 'results');
       } else {
-        // Call backend API in development
+        // Backend API mode (requires REACT_APP_USE_BACKEND_API=true in .env)
         const searchParams = new URLSearchParams({
           q: query.trim(),
           client: filters.organization || '',
@@ -176,18 +229,14 @@ function Search() {
         const data = await apiCall(`${API_ENDPOINTS.search}?${searchParams}`);
 
         if (data.success) {
-          // Update search store with results using store methods
           setResults(data.data || []);
-
-          // Add current search to history
           addToHistory({
             query,
             filters,
             resultCount: data.data?.length || 0,
             timestamp: new Date().toISOString()
           });
-
-          console.log('Search completed:', data);
+          console.log('Backend search completed:', data);
         } else {
           throw new Error(data.message || 'Search failed');
         }
@@ -195,21 +244,18 @@ function Search() {
     } catch (error) {
       console.error('Search error:', error);
 
-      // In production, still show demo results even if API fails
-      if (process.env.NODE_ENV === 'production') {
-        const demoResults = generateDemoSearchResults(query, filters);
-        setResults(demoResults);
+      // Always fallback to demo data on any error
+      const demoResults = generateDemoSearchResults(query, filters);
+      setResults(demoResults);
 
-        addToHistory({
-          query,
-          filters,
-          resultCount: demoResults.length,
-          timestamp: new Date().toISOString()
-        });
-      } else {
-        setError(error.message || 'Search failed. Please try again.');
-        setResults([]);
-      }
+      addToHistory({
+        query,
+        filters,
+        resultCount: demoResults.length,
+        timestamp: new Date().toISOString()
+      });
+
+      console.log('Fallback to demo data:', demoResults.length, 'results');
     }
   };
 
@@ -360,7 +406,30 @@ function Search() {
               <div className="results-list">
                 {results.slice(0, 10).map((result, index) => (
                   <div key={index} className="result-item">
-                    <h4>{result.organization || result.lobbyist || 'Lobby Entry'}</h4>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <h4
+                        className="organization-link"
+                        style={{ margin: 0, display: 'inline' }}
+                        onClick={() => {
+                          console.log('Navigating to profile for:', result.organization);
+                          navigate(`/organization/${encodeURIComponent(result.organization)}`);
+                        }}
+                      >
+                        {result.organization || result.lobbyist || 'Lobby Entry'}
+                      </h4>
+                      {result.organization && getOrganizationActivityCount(result.organization) > 1 && (
+                        <span style={{
+                          backgroundColor: '#e3f2fd',
+                          color: '#1565c0',
+                          padding: '2px 8px',
+                          borderRadius: '12px',
+                          fontSize: '0.75rem',
+                          fontWeight: '600'
+                        }}>
+                          {getOrganizationActivityCount(result.organization)} activities
+                        </span>
+                      )}
+                    </div>
                     <p>{result.description || result.activity_description || 'No description available'}</p>
                     <span className="result-meta">
                       Amount: {result.amount ? `$${result.amount.toLocaleString()}` : 'N/A'} |

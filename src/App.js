@@ -14,6 +14,7 @@ import Analytics from './components/Analytics';
 import Reports from './components/Reports';
 import Search from './components/Search';
 import Settings from './components/Settings';
+import OrganizationProfile from './components/OrganizationProfile';
 import PhaseStatus from './components/PhaseStatus';
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -106,6 +107,7 @@ function AppContent() {
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/organization/:organizationName" element={<OrganizationProfile />} />
             </Routes>
           </ErrorBoundary>
         </SignedIn>
