@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useCallback, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useOrganizationStore, useSearchStore } from '../stores';
 import {
@@ -7,6 +7,12 @@ import {
   calculateSpendingTrends,
   findRelatedOrganizations
 } from '../utils/sampleData';
+import {
+  exportToCSV,
+  exportToJSON,
+  generateOrganizationSummaryCSV,
+  sanitizeFilename
+} from '../utils/exportHelpers';
 import ActivitySummary from './ActivitySummary';
 import SpendingTrendsChart from './charts/SpendingTrendsChart';
 import ActivityList from './ActivityList';
@@ -21,6 +27,9 @@ const OrganizationProfile = React.memo(() => {
     selectedOrganization,
     organizationData,
     activities,
+    lobbyists,
+    spendingTrends,
+    relatedOrganizations,
     loading: orgLoading,
     error,
     setSelectedOrganization,
@@ -35,6 +44,34 @@ const OrganizationProfile = React.memo(() => {
   } = useOrganizationStore();
 
   const { results } = useSearchStore();
+
+  // Ref for heading focus management
+  const headingRef = useRef(null);
+
+  // Export handlers
+  const handleExportCSV = useCallback(() => {
+    const summaryData = generateOrganizationSummaryCSV({
+      selectedOrganization,
+      organizationData,
+      lobbyists
+    });
+    const filename = `${sanitizeFilename(selectedOrganization)}_summary.csv`;
+    exportToCSV([summaryData], filename);
+  }, [selectedOrganization, organizationData, lobbyists]);
+
+  const handleExportJSON = useCallback(() => {
+    const exportData = {
+      organization: selectedOrganization,
+      metadata: organizationData,
+      activities: activities,
+      lobbyists: lobbyists,
+      spendingTrends: spendingTrends,
+      relatedOrganizations: relatedOrganizations,
+      exportDate: new Date().toISOString()
+    };
+    const filename = `${sanitizeFilename(selectedOrganization)}_profile.json`;
+    exportToJSON(exportData, filename);
+  }, [selectedOrganization, organizationData, activities, lobbyists, spendingTrends, relatedOrganizations]);
 
   const decodedOrgName = useMemo(() =>
     decodeURIComponent(organizationName),
@@ -77,6 +114,26 @@ const OrganizationProfile = React.memo(() => {
   }, [decodedOrgName, results, setSelectedOrganization, setOrganizationData,
       setActivities, setLobbyists, setSpendingTrends, setRelatedOrganizations,
       setLoading, setError, clearOrganization]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Escape key to go back to search
+      if (e.key === 'Escape') {
+        navigate('/search');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [navigate]);
+
+  // Focus management - focus heading after data loads
+  useEffect(() => {
+    if (headingRef.current && !orgLoading && selectedOrganization) {
+      headingRef.current.focus();
+    }
+  }, [orgLoading, selectedOrganization]);
 
   // Validate organization exists
   const isValidOrganization = useMemo(() => {
@@ -184,40 +241,74 @@ const OrganizationProfile = React.memo(() => {
   }
 
   return (
-    <div className="page-container">
-      <div className="breadcrumb">
+    <div className="page-container" role="main" aria-label={`Organization profile for ${decodedOrgName}`}>
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+      <nav className="breadcrumb" aria-label="Breadcrumb navigation">
         <span
           className="breadcrumb-link"
           onClick={() => navigate('/')}
+          role="link"
+          tabIndex={0}
+          onKeyPress={(e) => { if (e.key === 'Enter') navigate('/'); }}
+          aria-label="Navigate to home page"
         >
           Home
         </span>
-        <span className="breadcrumb-separator">/</span>
+        <span className="breadcrumb-separator" aria-hidden="true">/</span>
         <span
           className="breadcrumb-link"
           onClick={() => navigate('/search')}
+          role="link"
+          tabIndex={0}
+          onKeyPress={(e) => { if (e.key === 'Enter') navigate('/search'); }}
+          aria-label="Navigate to search page"
         >
           Search
         </span>
-        <span className="breadcrumb-separator">/</span>
-        <span className="breadcrumb-current">{decodedOrgName}</span>
-      </div>
+        <span className="breadcrumb-separator" aria-hidden="true">/</span>
+        <span className="breadcrumb-current" aria-current="page">{decodedOrgName}</span>
+      </nav>
 
       <div className="page-header">
-        <button
-          onClick={() => navigate('/search')}
-          className="btn btn-secondary"
-          style={{ marginBottom: '16px' }}
-        >
-          ← Back to Search
-        </button>
-        <h1>{decodedOrgName}</h1>
-        <p className="page-description">
-          {activities?.length || 0} lobbying {activities?.length === 1 ? 'activity' : 'activities'} found
-        </p>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+          <div style={{ flex: '1', minWidth: '250px' }}>
+            <button
+              onClick={() => navigate('/search')}
+              className="btn btn-secondary"
+              style={{ marginBottom: '16px' }}
+              aria-label="Back to search results (Press Escape as shortcut)"
+            >
+              ← Back to Search
+            </button>
+            <h1 ref={headingRef} tabIndex={-1} style={{ outline: 'none' }} id="org-name">{decodedOrgName}</h1>
+            <p className="page-description">
+              {activities?.length || 0} lobbying {activities?.length === 1 ? 'activity' : 'activities'} found
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <button
+              onClick={handleExportCSV}
+              className="btn btn-secondary"
+              aria-label={`Export ${decodedOrgName} summary as CSV file`}
+              title="Export summary as CSV"
+            >
+              📊 Export CSV
+            </button>
+            <button
+              onClick={handleExportJSON}
+              className="btn btn-secondary"
+              aria-label={`Export complete ${decodedOrgName} profile as JSON file`}
+              title="Export complete profile as JSON"
+            >
+              📁 Export JSON
+            </button>
+          </div>
+        </div>
       </div>
 
-      <div className="page-content">
+      <div className="page-content" id="main-content" aria-live="polite" aria-busy={orgLoading}>
         {/* Activity Summary Metrics */}
         <ActivitySummary />
 

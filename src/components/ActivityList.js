@@ -1,9 +1,11 @@
 import React from 'react';
 import { useOrganizationStore } from '../stores';
+import { exportToCSV, generateActivitiesCSV, sanitizeFilename } from '../utils/exportHelpers';
 
 const ActivityList = () => {
   const {
     activities,
+    selectedOrganization,
     currentPage,
     totalActivities,
     loading,
@@ -19,6 +21,12 @@ const ActivityList = () => {
     setCurrentPage(newPage);
     // Scroll to top of activity list
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleExportActivities = () => {
+    const csvData = generateActivitiesCSV(activities);
+    const filename = `${sanitizeFilename(selectedOrganization)}_activities.csv`;
+    exportToCSV(csvData, filename);
   };
 
   const getCategoryClass = (category) => {
@@ -73,11 +81,21 @@ const ActivityList = () => {
 
   return (
     <div className="dashboard-card">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
         <h3 style={{ margin: 0 }}>Recent Activities</h3>
-        <span style={{ fontSize: '0.9rem', color: '#666' }}>
-          Showing {startIndex}-{endIndex} of {totalActivities}
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <span style={{ fontSize: '0.9rem', color: '#666' }}>
+            Showing {startIndex}-{endIndex} of {totalActivities}
+          </span>
+          <button
+            onClick={handleExportActivities}
+            className="btn btn-sm"
+            aria-label="Export all activities as CSV"
+            title="Export all activities to CSV"
+          >
+            📥 Export
+          </button>
+        </div>
       </div>
 
       <div className="activity-list">

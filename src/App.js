@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import {
@@ -8,15 +8,17 @@ import {
   UserButton
 } from '@clerk/clerk-react';
 
-// Import page components
+// Import core page components
 import Dashboard from './components/Dashboard';
 import Analytics from './components/Analytics';
 import Reports from './components/Reports';
 import Search from './components/Search';
 import Settings from './components/Settings';
-import OrganizationProfile from './components/OrganizationProfile';
 import PhaseStatus from './components/PhaseStatus';
 import ErrorBoundary from './components/ErrorBoundary';
+
+// Lazy load OrganizationProfile for code splitting
+const OrganizationProfile = lazy(() => import('./components/OrganizationProfile'));
 
 function App() {
   return (
@@ -107,7 +109,19 @@ function AppContent() {
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/settings" element={<Settings />} />
-              <Route path="/organization/:organizationName" element={<OrganizationProfile />} />
+              <Route
+                path="/organization/:organizationName"
+                element={
+                  <Suspense fallback={
+                    <div className="loading-container" style={{ padding: '40px', textAlign: 'center' }}>
+                      <div className="loading-spinner"></div>
+                      <p>Loading organization profile...</p>
+                    </div>
+                  }>
+                    <OrganizationProfile />
+                  </Suspense>
+                }
+              />
             </Routes>
           </ErrorBoundary>
         </SignedIn>
