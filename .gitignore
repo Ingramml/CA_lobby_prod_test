@@ -41,6 +41,9 @@ logs/
 master-files/
 master-files/agents/specialized/
 master-files*/
+
+# Claude files (synced from external source, should not be committed)
+Claude_files/
 # OS files
 .DS_Store
 Thumbs.db
