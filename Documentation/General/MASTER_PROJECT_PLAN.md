@@ -4,7 +4,10 @@
 **Project Code:** CA_LOBBY
 **Start Date:** March 26, 2025
 **Current Status:** Phase 2f Complete - UX Design Planning for Landing Page in Progress
-**Last Updated:** September 30, 2025 (End of Day)
+**Last Updated:** October 17, 2025
+**Repository:** https://github.com/Ingramml/CA_lobby_prod_test.git
+
+> **📘 Quick Start:** New to this project? See [PROJECT_ACCESS_GUIDE.md](PROJECT_ACCESS_GUIDE.md) for complete setup instructions
 
 ## 🎯 Project Overview
 
