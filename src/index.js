@@ -7,9 +7,11 @@ import { ClerkProvider } from '@clerk/clerk-react';
 // Import your publishable key
 const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY
 
-console.log('Clerk Key Available:', !!PUBLISHABLE_KEY)
-console.log('Clerk Key Length:', PUBLISHABLE_KEY?.length)
-console.log('Clerk Key Preview:', PUBLISHABLE_KEY?.substring(0, 20) + '...')
+// Only log in development mode
+if (process.env.NODE_ENV === 'development') {
+  console.log('Clerk Key Available:', !!PUBLISHABLE_KEY)
+  console.log('Clerk Key Length:', PUBLISHABLE_KEY?.length)
+}
 
 if (!PUBLISHABLE_KEY) {
   console.error("Missing Publishable Key - showing fallback content")

@@ -96,12 +96,6 @@ const useUserStore = create(
             lastVisit: new Date().toISOString()
           };
 
-          console.log('User store sync:', {
-            wasAuthenticated: state.isAuthenticated,
-            nowAuthenticated: newState.isAuthenticated,
-            userId: newState.userProfile?.id
-          });
-
           return newState;
         } catch (error) {
           console.error('Error syncing with Clerk:', error);

@@ -149,7 +149,7 @@ function Search() {
           timestamp: new Date().toISOString()
         });
 
-        console.log('Real lobby data search completed:', searchResults.length, 'results');
+        // Search completed - results updated in store
       } else {
         // Backend API mode (requires REACT_APP_USE_BACKEND_API=true in .env)
         const searchParams = new URLSearchParams({

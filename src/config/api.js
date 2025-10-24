@@ -38,7 +38,14 @@ export const apiCall = async (url, options = {}) => {
 
     return await response.json();
   } catch (error) {
-    console.error('API call failed:', error);
+    // Silently fail in production demo mode - don't clutter console
+    // These errors are expected when backend is not available
+    if (process.env.NODE_ENV === 'production' && !process.env.REACT_APP_USE_BACKEND_API) {
+      // Suppress console.error for expected API failures in demo mode
+      // Component fallbacks will handle this gracefully
+    } else {
+      console.error('API call failed:', error);
+    }
     throw error;
   }
 };

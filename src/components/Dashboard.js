@@ -213,7 +213,7 @@ function APIHealthCheck() {
         const data = await apiCall(API_ENDPOINTS.health);
         setHealth(data);
       } catch (err) {
-        console.error('Health check failed:', err);
+        // Health check failed - handled silently in demo mode
         // Provide fallback data for production when backend isn't available
         setHealth({
           status: 'demo_mode',
@@ -260,7 +260,7 @@ function SystemStatus() {
         const data = await apiCall(API_ENDPOINTS.status);
         setStatus(data);
       } catch (err) {
-        console.error('Status check failed:', err);
+        // Status check failed - handled silently in demo mode
         // Provide fallback data for production
         setStatus({
           phase: '1.3 - Frontend-Backend Integration (Demo Mode)',
@@ -311,7 +311,7 @@ function DataAccessTest() {
         const data = await apiCall(API_ENDPOINTS.cacheStats);
         setData(data);
       } catch (err) {
-        console.error('Cache stats failed:', err);
+        // Cache stats failed - handled silently in demo mode
         // Provide fallback data for production
         setData({
           success: true,
