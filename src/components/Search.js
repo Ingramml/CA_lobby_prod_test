@@ -190,6 +190,9 @@ function Search() {
       });
 
       console.log('Fallback to real data:', fallbackResults.length, 'results');
+    } finally {
+      // Always stop loading regardless of success or error
+      setLoading(false);
     }
   };
 
