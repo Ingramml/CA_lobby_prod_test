@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "totalOrganizations": 6,
+    "lastUpdated": "2025-10-24",
+    "dataVersion": "1.0",
+    "dataSource": "Alameda County Lobby Data Sample",
+    "description": "Sample dataset for CA Lobby application testing - 6 representative organizations"
+  },
+  "organizations": [
+    {
+      "id": "org_C00235",
+      "filer_id": "C00235",
+      "name": "ALAMEDA COUNTY",
+      "organization_type": "PURCHASER",
+      "category": "County Government",
+      "totalSpending": 0.0,
+      "activityCount": 875,
+      "registrationCount": 56,
+      "firstActivity": "2000-04-01",
+      "lastActivity": "2025-06-30",
+      "lobbyistCount": 0
+    },
+    {
+      "id": "org_C27075",
+      "filer_id": "C27075",
+      "name": "ALAMEDA, CITY OF",
+      "organization_type": "PURCHASER",
+      "category": "City Government",
+      "totalSpending": 0.0,
+      "activityCount": 406,
+      "registrationCount": 77,
+      "firstActivity": "2012-01-01",
+      "lastActivity": "2025-06-30",
+      "lobbyistCount": 0
+    },
+    {
+      "id": "org_1250137",
+      "filer_id": "1250137",
+      "name": "ALAMEDA COUNTY WASTE MANAGEMENT AUTHORITY",
+      "organization_type": "PURCHASER",
+      "category": "County Department",
+      "totalSpending": 0.0,
+      "activityCount": 611,
+      "registrationCount": 42,
+      "firstActivity": "2002-10-01",
+      "lastActivity": "2025-06-30",
+      "lobbyistCount": 0
+    },
+    {
+      "id": "org_1356003",
+      "filer_id": "1356003",
+      "name": "ALAMEDA UNIFIED SCHOOL DISTRICT",
+      "organization_type": "PURCHASER",
+      "category": "City Department",
+      "totalSpending": 0.0,
+      "activityCount": 77,
+      "registrationCount": 0,
+      "firstActivity": "2013-01-01",
+      "lastActivity": "2019-03-31",
+      "lobbyistCount": 0
+    },
+    {
+      "id": "org_1276637",
+      "filer_id": "1276637",
+      "name": "ALAMEDA ALLIANCE FOR HEALTH",
+      "organization_type": "PURCHASER",
+      "category": "Health Organization",
+      "totalSpending": 0.0,
+      "activityCount": 266,
+      "registrationCount": 21,
+      "firstActivity": "2005-04-01",
+      "lastActivity": "2014-06-30",
+      "lobbyistCount": 0
+    },
+    {
+      "id": "org_C28290",
+      "filer_id": "C28290",
+      "name": "ALAMEDA CORRIDOR-EAST CONSTRUCTION AUTHORITY",
+      "organization_type": "PURCHASER",
+      "category": "Construction Authority",
+      "totalSpending": 0.0,
+      "activityCount": 588,
+      "registrationCount": 21,
+      "firstActivity": "2000-07-01",
+      "lastActivity": "2019-09-30",
+      "lobbyistCount": 0
+    }
+  ]
+}

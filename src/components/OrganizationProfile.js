@@ -78,39 +78,77 @@ const OrganizationProfile = React.memo(() => {
     [organizationName]
   );
 
-  // CRITICAL BUG FIX APPLIED: Added error handling to useEffect
+  // Load organization profile data (lazy loaded from JSON files)
   useEffect(() => {
     if (!decodedOrgName) {
       clearOrganization();
       return;
     }
 
-    try {
-      // Set loading state
-      setLoading(true);
-      setSelectedOrganization(decodedOrgName);
+    const loadOrganizationProfile = async () => {
+      try {
+        // Set loading state
+        setLoading(true);
+        setSelectedOrganization(decodedOrgName);
 
-      // Filter activities for this organization from search results
-      const orgActivities = results.filter(
-        r => r.organization === decodedOrgName
-      );
+        // Sanitize organization name to match filename
+        const filename = decodedOrgName
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '')
+          .substring(0, 50);
 
-      // Aggregate all data
-      const metrics = aggregateOrganizationMetrics(orgActivities);
-      const lobbyists = extractLobbyistNetwork(orgActivities);
-      const trends = calculateSpendingTrends(orgActivities, 'quarter');
-      const related = findRelatedOrganizations(decodedOrgName, results, 5);
+        console.log(`Loading profile for: ${decodedOrgName} (${filename})`);
 
-      // Update store
-      setOrganizationData(metrics);
-      setActivities(orgActivities);
-      setLobbyists(lobbyists);
-      setSpendingTrends(trends);
-      setRelatedOrganizations(related);
-    } catch (error) {
-      setError(error.message);
-      console.error('Error loading organization data:', error);
-    }
+        try {
+          // Try to load from JSON profile file (Tier 2 data)
+          const profileModule = await import(`../data/profiles/${filename}.json`);
+          const profileData = profileModule.default || profileModule;
+
+          console.log('Profile loaded:', profileData);
+
+          // Use profile data directly
+          setOrganizationData(profileData.summary);
+          setActivities(profileData.activities || []);
+          setLobbyists(profileData.lobbyists || []);
+          setSpendingTrends(profileData.spendingTrends || []);
+          setRelatedOrganizations(profileData.relatedOrganizations || []);
+
+        } catch (fileError) {
+          console.warn(`Profile file not found for ${filename}, falling back to search results`, fileError);
+
+          // Fallback: Filter activities from search results
+          const orgActivities = results.filter(
+            r => r.organization === decodedOrgName
+          );
+
+          if (orgActivities.length === 0) {
+            throw new Error(`No data found for organization: ${decodedOrgName}`);
+          }
+
+          // Aggregate data from search results
+          const metrics = aggregateOrganizationMetrics(orgActivities);
+          const lobbyists = extractLobbyistNetwork(orgActivities);
+          const trends = calculateSpendingTrends(orgActivities, 'quarter');
+          const related = findRelatedOrganizations(decodedOrgName, results, 5);
+
+          // Update store with fallback data
+          setOrganizationData(metrics);
+          setActivities(orgActivities);
+          setLobbyists(lobbyists);
+          setSpendingTrends(trends);
+          setRelatedOrganizations(related);
+        }
+
+      } catch (error) {
+        setError(error.message);
+        console.error('Error loading organization data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadOrganizationProfile();
   }, [decodedOrgName, results, setSelectedOrganization, setOrganizationData,
       setActivities, setLobbyists, setSpendingTrends, setRelatedOrganizations,
       setLoading, setError, clearOrganization]);

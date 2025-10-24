@@ -3,9 +3,34 @@ import { useNavigate } from 'react-router-dom';
 import { useSearchStore } from '../stores';
 import { API_ENDPOINTS, apiCall } from '../config/api';
 
-// Generate demo search results for production mode
-const generateDemoSearchResults = (query, filters) => {
-  const demoData = [
+// Import real Alameda County lobby data
+import organizationsSummary from '../data/organizations-summary.json';
+
+// Generate search results from real lobby data
+const generateSearchResults = (query, filters) => {
+  // Use real organizations data
+  const organizations = organizationsSummary.organizations;
+
+  // Transform organizations into searchable results format
+  // Each organization becomes a result with its summary info
+  const searchableData = organizations.map(org => ({
+    organization: org.name,
+    filer_id: org.filer_id,
+    lobbyist: '', // Will be populated from profile data when needed
+    description: `${org.category} - ${org.activityCount} activities from ${org.firstActivity} to ${org.lastActivity}`,
+    amount: org.totalSpending,
+    date: org.lastActivity,
+    filing_date: org.lastActivity,
+    category: org.category.toLowerCase().replace(/\s+/g, '-'),
+    activity_description: `${org.organization_type} with ${org.registrationCount} registrations`,
+    activityCount: org.activityCount,
+    registrationCount: org.registrationCount,
+    firstActivity: org.firstActivity,
+    organization_type: org.organization_type
+  }));
+
+  // Keep old demo data as fallback for variety
+  const legacyDemoData = [
     // California Medical Association entries (7 total)
     {
       organization: 'California Medical Association',
@@ -304,8 +329,11 @@ const generateDemoSearchResults = (query, filters) => {
     }
   ];
 
-  // Filter demo data based on search query and filters
-  return demoData.filter(item => {
+  // Combine real data with legacy demo data for variety
+  const allData = [...searchableData, ...legacyDemoData];
+
+  // Filter data based on search query and filters
+  return allData.filter(item => {
     // If no query provided, show all items (will be filtered by other criteria)
     const matchesQuery = !query || !query.trim() ||
       item.organization.toLowerCase().includes(query.toLowerCase()) ||
@@ -404,21 +432,21 @@ function Search() {
       const useBackend = process.env.REACT_APP_USE_BACKEND_API === 'true';
 
       if (!useBackend) {
-        // Use demo data (default behavior)
-        const demoResults = generateDemoSearchResults(query, filters);
+        // Use real lobby data (default behavior)
+        const searchResults = generateSearchResults(query, filters);
 
-        // Update search store with demo results
-        setResults(demoResults);
+        // Update search store with results
+        setResults(searchResults);
 
         // Add current search to history
         addToHistory({
           query,
           filters,
-          resultCount: demoResults.length,
+          resultCount: searchResults.length,
           timestamp: new Date().toISOString()
         });
 
-        console.log('Demo search completed:', demoResults.length, 'results');
+        console.log('Real lobby data search completed:', searchResults.length, 'results');
       } else {
         // Backend API mode (requires REACT_APP_USE_BACKEND_API=true in .env)
         const searchParams = new URLSearchParams({
@@ -447,18 +475,18 @@ function Search() {
     } catch (error) {
       console.error('Search error:', error);
 
-      // Always fallback to demo data on any error
-      const demoResults = generateDemoSearchResults(query, filters);
-      setResults(demoResults);
+      // Always fallback to real data on any error
+      const fallbackResults = generateSearchResults(query, filters);
+      setResults(fallbackResults);
 
       addToHistory({
         query,
         filters,
-        resultCount: demoResults.length,
+        resultCount: fallbackResults.length,
         timestamp: new Date().toISOString()
       });
 
-      console.log('Fallback to demo data:', demoResults.length, 'results');
+      console.log('Fallback to real data:', fallbackResults.length, 'results');
     }
   };
 

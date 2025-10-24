@@ -1,0 +1,1440 @@
+{
+  "id": "org_C27075",
+  "filer_id": "C27075",
+  "name": "ALAMEDA, CITY OF",
+  "category": "City Government",
+  "summary": {
+    "totalSpending": 0.0,
+    "totalFees": 0.0,
+    "totalReimbursements": 0.0,
+    "totalAdvances": 0.0,
+    "activityCount": 406,
+    "averageSpending": 0.0,
+    "firstActivity": "2012-07-01",
+    "lastActivity": "2021-06-30",
+    "registrationCount": 77,
+    "lobbyistCount": 0
+  },
+  "activities": [
+    {
+      "id": "act_1700790",
+      "filing_id": 1700790,
+      "amend_id": 0,
+      "from_date": "2012-07-01",
+      "thru_date": "2012-09-30",
+      "report_date": "2012-10-22",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1672646",
+      "filing_id": 1672646,
+      "amend_id": 0,
+      "from_date": "2012-04-01",
+      "thru_date": "2012-06-30",
+      "report_date": "2012-07-19",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1650802",
+      "filing_id": 1650802,
+      "amend_id": 0,
+      "from_date": "2012-01-01",
+      "thru_date": "2012-03-31",
+      "report_date": "2012-04-05",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1728400",
+      "filing_id": 1728400,
+      "amend_id": 0,
+      "from_date": "2012-10-01",
+      "thru_date": "2012-12-31",
+      "report_date": "2013-01-17",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1774891",
+      "filing_id": 1774891,
+      "amend_id": 1,
+      "from_date": "2013-04-01",
+      "thru_date": "2013-06-30",
+      "report_date": "2013-08-22",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1798481",
+      "filing_id": 1798481,
+      "amend_id": 0,
+      "from_date": "2013-07-01",
+      "thru_date": "2013-09-30",
+      "report_date": "2013-10-29",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1774891",
+      "filing_id": 1774891,
+      "amend_id": 0,
+      "from_date": "2013-04-01",
+      "thru_date": "2013-06-30",
+      "report_date": "2013-07-11",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1755597",
+      "filing_id": 1755597,
+      "amend_id": 0,
+      "from_date": "2013-01-01",
+      "thru_date": "2013-03-31",
+      "report_date": "2013-04-10",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1814656",
+      "filing_id": 1814656,
+      "amend_id": 0,
+      "from_date": "2013-10-01",
+      "thru_date": "2013-12-31",
+      "report_date": "2014-01-28",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1898266",
+      "filing_id": 1898266,
+      "amend_id": 0,
+      "from_date": "2014-07-01",
+      "thru_date": "2014-09-30",
+      "report_date": "2014-10-15",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1925514",
+      "filing_id": 1925514,
+      "amend_id": 0,
+      "from_date": "2014-10-01",
+      "thru_date": "2014-12-31",
+      "report_date": "2015-01-15",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1863950",
+      "filing_id": 1863950,
+      "amend_id": 0,
+      "from_date": "2014-04-01",
+      "thru_date": "2014-06-30",
+      "report_date": "2014-07-17",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1837538",
+      "filing_id": 1837538,
+      "amend_id": 0,
+      "from_date": "2014-01-01",
+      "thru_date": "2014-03-31",
+      "report_date": "2014-04-10",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1976154",
+      "filing_id": 1976154,
+      "amend_id": 0,
+      "from_date": "2015-04-01",
+      "thru_date": "2015-06-30",
+      "report_date": "2015-07-22",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1956280",
+      "filing_id": 1956280,
+      "amend_id": 0,
+      "from_date": "2015-01-01",
+      "thru_date": "2015-03-31",
+      "report_date": "2015-04-07",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1997785",
+      "filing_id": 1997785,
+      "amend_id": 0,
+      "from_date": "2015-07-01",
+      "thru_date": "2015-09-30",
+      "report_date": "2015-11-02",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2064636",
+      "filing_id": 2064636,
+      "amend_id": 0,
+      "from_date": "2016-04-01",
+      "thru_date": "2016-06-30",
+      "report_date": "2016-08-01",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2012875",
+      "filing_id": 2012875,
+      "amend_id": 0,
+      "from_date": "2015-10-01",
+      "thru_date": "2015-12-31",
+      "report_date": "2016-02-01",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1997785",
+      "filing_id": 1997785,
+      "amend_id": 1,
+      "from_date": "2015-07-01",
+      "thru_date": "2015-09-30",
+      "report_date": "2016-02-02",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2037868",
+      "filing_id": 2037868,
+      "amend_id": 0,
+      "from_date": "2016-01-01",
+      "thru_date": "2016-03-31",
+      "report_date": "2016-05-02",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1976154",
+      "filing_id": 1976154,
+      "amend_id": 1,
+      "from_date": "2015-04-01",
+      "thru_date": "2015-06-30",
+      "report_date": "2016-02-02",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2131166",
+      "filing_id": 2131166,
+      "amend_id": 0,
+      "from_date": "2016-10-01",
+      "thru_date": "2016-12-31",
+      "report_date": "2017-01-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2101796",
+      "filing_id": 2101796,
+      "amend_id": 0,
+      "from_date": "2016-07-01",
+      "thru_date": "2016-09-30",
+      "report_date": "2016-10-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2175247",
+      "filing_id": 2175247,
+      "amend_id": 0,
+      "from_date": "2017-04-01",
+      "thru_date": "2017-06-30",
+      "report_date": "2017-07-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2156355",
+      "filing_id": 2156355,
+      "amend_id": 0,
+      "from_date": "2017-01-01",
+      "thru_date": "2017-03-31",
+      "report_date": "2017-04-29",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2275170",
+      "filing_id": 2275170,
+      "amend_id": 0,
+      "from_date": "2018-04-01",
+      "thru_date": "2018-06-30",
+      "report_date": "2018-07-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2210512",
+      "filing_id": 2210512,
+      "amend_id": 0,
+      "from_date": "2017-10-01",
+      "thru_date": "2017-12-31",
+      "report_date": "2018-01-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2193106",
+      "filing_id": 2193106,
+      "amend_id": 0,
+      "from_date": "2017-07-01",
+      "thru_date": "2017-09-30",
+      "report_date": "2017-10-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2241871",
+      "filing_id": 2241871,
+      "amend_id": 0,
+      "from_date": "2018-01-01",
+      "thru_date": "2018-03-31",
+      "report_date": "2018-04-30",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2347065",
+      "filing_id": 2347065,
+      "amend_id": 0,
+      "from_date": "2018-10-01",
+      "thru_date": "2018-12-31",
+      "report_date": "2019-01-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2380299",
+      "filing_id": 2380299,
+      "amend_id": 0,
+      "from_date": "2019-01-01",
+      "thru_date": "2019-03-31",
+      "report_date": "2019-04-30",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2320876",
+      "filing_id": 2320876,
+      "amend_id": 0,
+      "from_date": "2018-07-01",
+      "thru_date": "2018-09-30",
+      "report_date": "2018-10-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2470133",
+      "filing_id": 2470133,
+      "amend_id": 0,
+      "from_date": "2020-01-01",
+      "thru_date": "2020-03-31",
+      "report_date": "2020-04-30",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2398873",
+      "filing_id": 2398873,
+      "amend_id": 0,
+      "from_date": "2019-04-01",
+      "thru_date": "2019-06-30",
+      "report_date": "2019-07-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2439507",
+      "filing_id": 2439507,
+      "amend_id": 0,
+      "from_date": "2019-10-01",
+      "thru_date": "2019-12-31",
+      "report_date": "2020-01-30",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2417549",
+      "filing_id": 2417549,
+      "amend_id": 0,
+      "from_date": "2019-07-01",
+      "thru_date": "2019-09-30",
+      "report_date": "2019-10-30",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2548891",
+      "filing_id": 2548891,
+      "amend_id": 0,
+      "from_date": "2020-10-01",
+      "thru_date": "2020-12-31",
+      "report_date": "2021-01-28",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2531132",
+      "filing_id": 2531132,
+      "amend_id": 0,
+      "from_date": "2020-07-01",
+      "thru_date": "2020-09-30",
+      "report_date": "2020-11-02",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2483914",
+      "filing_id": 2483914,
+      "amend_id": 0,
+      "from_date": "2020-04-01",
+      "thru_date": "2020-06-30",
+      "report_date": "2020-07-30",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2624805",
+      "filing_id": 2624805,
+      "amend_id": 0,
+      "from_date": "2021-07-01",
+      "thru_date": "2021-09-30",
+      "report_date": "2021-10-20",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": "ALAMEDA, CITY OF"
+    },
+    {
+      "id": "act_2599745",
+      "filing_id": 2599745,
+      "amend_id": 0,
+      "from_date": "2021-04-01",
+      "thru_date": "2021-06-30",
+      "report_date": "2021-07-19",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": "ALAMEDA, CITY OF"
+    },
+    {
+      "id": "act_2580617",
+      "filing_id": 2580617,
+      "amend_id": 0,
+      "from_date": "2021-01-01",
+      "thru_date": "2021-03-31",
+      "report_date": "2021-04-16",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": "ALAMEDA, CITY OF"
+    },
+    {
+      "id": "act_2580617",
+      "filing_id": 2580617,
+      "amend_id": 1,
+      "from_date": "2021-01-01",
+      "thru_date": "2021-03-31",
+      "report_date": "2021-10-29",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": "ALAMEDA, CITY OF"
+    },
+    {
+      "id": "act_2599745",
+      "filing_id": 2599745,
+      "amend_id": 1,
+      "from_date": "2021-04-01",
+      "thru_date": "2021-06-30",
+      "report_date": "2021-10-29",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": "ALAMEDA, CITY OF"
+    },
+    {
+      "id": "act_2677446",
+      "filing_id": 2677446,
+      "amend_id": 0,
+      "from_date": "2022-01-01",
+      "thru_date": "2022-03-31",
+      "report_date": "2022-04-20",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": "ALAMEDA, CITY OF"
+    },
+    {
+      "id": "act_2644946",
+      "filing_id": 2644946,
+      "amend_id": 0,
+      "from_date": "2021-10-01",
+      "thru_date": "2021-12-31",
+      "report_date": "2022-01-21",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": "ALAMEDA, CITY OF"
+    },
+    {
+      "id": "act_2707465",
+      "filing_id": 2707465,
+      "amend_id": 0,
+      "from_date": "2022-04-01",
+      "thru_date": "2022-06-30",
+      "report_date": "2022-07-22",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": "ALAMEDA, CITY OF"
+    },
+    {
+      "id": "act_2782032",
+      "filing_id": 2782032,
+      "amend_id": 0,
+      "from_date": "2022-10-01",
+      "thru_date": "2022-12-31",
+      "report_date": "2023-01-23",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2749220",
+      "filing_id": 2749220,
+      "amend_id": 0,
+      "from_date": "2022-07-01",
+      "thru_date": "2022-09-30",
+      "report_date": "2022-10-25",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": "ALAMEDA, CITY OF"
+    },
+    {
+      "id": "act_2809297",
+      "filing_id": 2809297,
+      "amend_id": 0,
+      "from_date": "2023-01-01",
+      "thru_date": "2023-03-31",
+      "report_date": "2023-01-23",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2883003",
+      "filing_id": 2883003,
+      "amend_id": 0,
+      "from_date": "2023-10-01",
+      "thru_date": "2023-12-31",
+      "report_date": "2023-10-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2835699",
+      "filing_id": 2835699,
+      "amend_id": 0,
+      "from_date": "2023-04-01",
+      "thru_date": "2023-06-30",
+      "report_date": "2023-07-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2852607",
+      "filing_id": 2852607,
+      "amend_id": 0,
+      "from_date": "2023-07-01",
+      "thru_date": "2023-09-30",
+      "report_date": "2023-10-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2911344",
+      "filing_id": 2911344,
+      "amend_id": 0,
+      "from_date": "2024-01-01",
+      "thru_date": "2024-03-31",
+      "report_date": "2024-04-30",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2936550",
+      "filing_id": 2936550,
+      "amend_id": 0,
+      "from_date": "2024-04-01",
+      "thru_date": "2024-06-30",
+      "report_date": "2024-07-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2980170",
+      "filing_id": 2980170,
+      "amend_id": 0,
+      "from_date": "2024-07-01",
+      "thru_date": "2024-09-30",
+      "report_date": "2024-07-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_3069659",
+      "filing_id": 3069659,
+      "amend_id": 0,
+      "from_date": "2025-04-01",
+      "thru_date": "2025-06-30",
+      "report_date": "2025-07-16",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_3012213",
+      "filing_id": 3012213,
+      "amend_id": 0,
+      "from_date": "2024-10-01",
+      "thru_date": "2024-12-31",
+      "report_date": "2024-07-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_3041551",
+      "filing_id": 3041551,
+      "amend_id": 0,
+      "from_date": "2025-01-01",
+      "thru_date": "2025-03-31",
+      "report_date": "2024-07-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1700790",
+      "filing_id": 1700790,
+      "amend_id": 0,
+      "from_date": "2012-07-01",
+      "thru_date": "2012-09-30",
+      "report_date": "2012-10-22",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1672646",
+      "filing_id": 1672646,
+      "amend_id": 0,
+      "from_date": "2012-04-01",
+      "thru_date": "2012-06-30",
+      "report_date": "2012-07-19",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1650802",
+      "filing_id": 1650802,
+      "amend_id": 0,
+      "from_date": "2012-01-01",
+      "thru_date": "2012-03-31",
+      "report_date": "2012-04-05",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1728400",
+      "filing_id": 1728400,
+      "amend_id": 0,
+      "from_date": "2012-10-01",
+      "thru_date": "2012-12-31",
+      "report_date": "2013-01-17",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1774891",
+      "filing_id": 1774891,
+      "amend_id": 1,
+      "from_date": "2013-04-01",
+      "thru_date": "2013-06-30",
+      "report_date": "2013-08-22",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1798481",
+      "filing_id": 1798481,
+      "amend_id": 0,
+      "from_date": "2013-07-01",
+      "thru_date": "2013-09-30",
+      "report_date": "2013-10-29",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1774891",
+      "filing_id": 1774891,
+      "amend_id": 0,
+      "from_date": "2013-04-01",
+      "thru_date": "2013-06-30",
+      "report_date": "2013-07-11",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1755597",
+      "filing_id": 1755597,
+      "amend_id": 0,
+      "from_date": "2013-01-01",
+      "thru_date": "2013-03-31",
+      "report_date": "2013-04-10",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1814656",
+      "filing_id": 1814656,
+      "amend_id": 0,
+      "from_date": "2013-10-01",
+      "thru_date": "2013-12-31",
+      "report_date": "2014-01-28",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1898266",
+      "filing_id": 1898266,
+      "amend_id": 0,
+      "from_date": "2014-07-01",
+      "thru_date": "2014-09-30",
+      "report_date": "2014-10-15",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1925514",
+      "filing_id": 1925514,
+      "amend_id": 0,
+      "from_date": "2014-10-01",
+      "thru_date": "2014-12-31",
+      "report_date": "2015-01-15",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1863950",
+      "filing_id": 1863950,
+      "amend_id": 0,
+      "from_date": "2014-04-01",
+      "thru_date": "2014-06-30",
+      "report_date": "2014-07-17",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1837538",
+      "filing_id": 1837538,
+      "amend_id": 0,
+      "from_date": "2014-01-01",
+      "thru_date": "2014-03-31",
+      "report_date": "2014-04-10",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1976154",
+      "filing_id": 1976154,
+      "amend_id": 0,
+      "from_date": "2015-04-01",
+      "thru_date": "2015-06-30",
+      "report_date": "2015-07-22",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1956280",
+      "filing_id": 1956280,
+      "amend_id": 0,
+      "from_date": "2015-01-01",
+      "thru_date": "2015-03-31",
+      "report_date": "2015-04-07",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1997785",
+      "filing_id": 1997785,
+      "amend_id": 0,
+      "from_date": "2015-07-01",
+      "thru_date": "2015-09-30",
+      "report_date": "2015-11-02",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2064636",
+      "filing_id": 2064636,
+      "amend_id": 0,
+      "from_date": "2016-04-01",
+      "thru_date": "2016-06-30",
+      "report_date": "2016-08-01",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2012875",
+      "filing_id": 2012875,
+      "amend_id": 0,
+      "from_date": "2015-10-01",
+      "thru_date": "2015-12-31",
+      "report_date": "2016-02-01",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1997785",
+      "filing_id": 1997785,
+      "amend_id": 1,
+      "from_date": "2015-07-01",
+      "thru_date": "2015-09-30",
+      "report_date": "2016-02-02",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2037868",
+      "filing_id": 2037868,
+      "amend_id": 0,
+      "from_date": "2016-01-01",
+      "thru_date": "2016-03-31",
+      "report_date": "2016-05-02",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_1976154",
+      "filing_id": 1976154,
+      "amend_id": 1,
+      "from_date": "2015-04-01",
+      "thru_date": "2015-06-30",
+      "report_date": "2016-02-02",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2131166",
+      "filing_id": 2131166,
+      "amend_id": 0,
+      "from_date": "2016-10-01",
+      "thru_date": "2016-12-31",
+      "report_date": "2017-01-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2101796",
+      "filing_id": 2101796,
+      "amend_id": 0,
+      "from_date": "2016-07-01",
+      "thru_date": "2016-09-30",
+      "report_date": "2016-10-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2175247",
+      "filing_id": 2175247,
+      "amend_id": 0,
+      "from_date": "2017-04-01",
+      "thru_date": "2017-06-30",
+      "report_date": "2017-07-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2156355",
+      "filing_id": 2156355,
+      "amend_id": 0,
+      "from_date": "2017-01-01",
+      "thru_date": "2017-03-31",
+      "report_date": "2017-04-29",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2275170",
+      "filing_id": 2275170,
+      "amend_id": 0,
+      "from_date": "2018-04-01",
+      "thru_date": "2018-06-30",
+      "report_date": "2018-07-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2210512",
+      "filing_id": 2210512,
+      "amend_id": 0,
+      "from_date": "2017-10-01",
+      "thru_date": "2017-12-31",
+      "report_date": "2018-01-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2193106",
+      "filing_id": 2193106,
+      "amend_id": 0,
+      "from_date": "2017-07-01",
+      "thru_date": "2017-09-30",
+      "report_date": "2017-10-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2241871",
+      "filing_id": 2241871,
+      "amend_id": 0,
+      "from_date": "2018-01-01",
+      "thru_date": "2018-03-31",
+      "report_date": "2018-04-30",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2347065",
+      "filing_id": 2347065,
+      "amend_id": 0,
+      "from_date": "2018-10-01",
+      "thru_date": "2018-12-31",
+      "report_date": "2019-01-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2380299",
+      "filing_id": 2380299,
+      "amend_id": 0,
+      "from_date": "2019-01-01",
+      "thru_date": "2019-03-31",
+      "report_date": "2019-04-30",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2320876",
+      "filing_id": 2320876,
+      "amend_id": 0,
+      "from_date": "2018-07-01",
+      "thru_date": "2018-09-30",
+      "report_date": "2018-10-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2470133",
+      "filing_id": 2470133,
+      "amend_id": 0,
+      "from_date": "2020-01-01",
+      "thru_date": "2020-03-31",
+      "report_date": "2020-04-30",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2398873",
+      "filing_id": 2398873,
+      "amend_id": 0,
+      "from_date": "2019-04-01",
+      "thru_date": "2019-06-30",
+      "report_date": "2019-07-31",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2439507",
+      "filing_id": 2439507,
+      "amend_id": 0,
+      "from_date": "2019-10-01",
+      "thru_date": "2019-12-31",
+      "report_date": "2020-01-30",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2417549",
+      "filing_id": 2417549,
+      "amend_id": 0,
+      "from_date": "2019-07-01",
+      "thru_date": "2019-09-30",
+      "report_date": "2019-10-30",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2548891",
+      "filing_id": 2548891,
+      "amend_id": 0,
+      "from_date": "2020-10-01",
+      "thru_date": "2020-12-31",
+      "report_date": "2021-01-28",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2531132",
+      "filing_id": 2531132,
+      "amend_id": 0,
+      "from_date": "2020-07-01",
+      "thru_date": "2020-09-30",
+      "report_date": "2020-11-02",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2483914",
+      "filing_id": 2483914,
+      "amend_id": 0,
+      "from_date": "2020-04-01",
+      "thru_date": "2020-06-30",
+      "report_date": "2020-07-30",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": null
+    },
+    {
+      "id": "act_2624805",
+      "filing_id": 2624805,
+      "amend_id": 0,
+      "from_date": "2021-07-01",
+      "thru_date": "2021-09-30",
+      "report_date": "2021-10-20",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": "ALAMEDA, CITY OF"
+    },
+    {
+      "id": "act_2599745",
+      "filing_id": 2599745,
+      "amend_id": 0,
+      "from_date": "2021-04-01",
+      "thru_date": "2021-06-30",
+      "report_date": "2021-07-19",
+      "amount": 0.0,
+      "organization_type": "PURCHASER",
+      "form_type": "F635",
+      "firm_name": "ALAMEDA, CITY OF"
+    }
+  ],
+  "lobbyists": [],
+  "spendingTrends": [
+    {
+      "period": "Q1 2012",
+      "amount": 0.0
+    },
+    {
+      "period": "Q1 2013",
+      "amount": 0.0
+    },
+    {
+      "period": "Q1 2014",
+      "amount": 0.0
+    },
+    {
+      "period": "Q1 2015",
+      "amount": 0.0
+    },
+    {
+      "period": "Q1 2016",
+      "amount": 0.0
+    },
+    {
+      "period": "Q1 2017",
+      "amount": 0.0
+    },
+    {
+      "period": "Q1 2018",
+      "amount": 0.0
+    },
+    {
+      "period": "Q1 2019",
+      "amount": 0.0
+    },
+    {
+      "period": "Q1 2020",
+      "amount": 0.0
+    },
+    {
+      "period": "Q1 2021",
+      "amount": 0.0
+    },
+    {
+      "period": "Q1 2022",
+      "amount": 0.0
+    },
+    {
+      "period": "Q1 2023",
+      "amount": 0.0
+    },
+    {
+      "period": "Q1 2024",
+      "amount": 0.0
+    },
+    {
+      "period": "Q1 2025",
+      "amount": 0.0
+    },
+    {
+      "period": "Q2 2012",
+      "amount": 0.0
+    },
+    {
+      "period": "Q2 2013",
+      "amount": 0.0
+    },
+    {
+      "period": "Q2 2014",
+      "amount": 0.0
+    },
+    {
+      "period": "Q2 2015",
+      "amount": 0.0
+    },
+    {
+      "period": "Q2 2016",
+      "amount": 0.0
+    },
+    {
+      "period": "Q2 2017",
+      "amount": 0.0
+    },
+    {
+      "period": "Q2 2018",
+      "amount": 0.0
+    },
+    {
+      "period": "Q2 2019",
+      "amount": 0.0
+    },
+    {
+      "period": "Q2 2020",
+      "amount": 0.0
+    },
+    {
+      "period": "Q2 2021",
+      "amount": 0.0
+    },
+    {
+      "period": "Q2 2022",
+      "amount": 0.0
+    },
+    {
+      "period": "Q2 2023",
+      "amount": 0.0
+    },
+    {
+      "period": "Q2 2024",
+      "amount": 0.0
+    },
+    {
+      "period": "Q2 2025",
+      "amount": 0.0
+    },
+    {
+      "period": "Q3 2012",
+      "amount": 0.0
+    },
+    {
+      "period": "Q3 2013",
+      "amount": 0.0
+    },
+    {
+      "period": "Q3 2014",
+      "amount": 0.0
+    },
+    {
+      "period": "Q3 2015",
+      "amount": 0.0
+    },
+    {
+      "period": "Q3 2016",
+      "amount": 0.0
+    },
+    {
+      "period": "Q3 2017",
+      "amount": 0.0
+    },
+    {
+      "period": "Q3 2018",
+      "amount": 0.0
+    },
+    {
+      "period": "Q3 2019",
+      "amount": 0.0
+    },
+    {
+      "period": "Q3 2020",
+      "amount": 0.0
+    },
+    {
+      "period": "Q3 2021",
+      "amount": 0.0
+    },
+    {
+      "period": "Q3 2022",
+      "amount": 0.0
+    },
+    {
+      "period": "Q3 2023",
+      "amount": 0.0
+    },
+    {
+      "period": "Q3 2024",
+      "amount": 0.0
+    },
+    {
+      "period": "Q4 2012",
+      "amount": 0.0
+    },
+    {
+      "period": "Q4 2013",
+      "amount": 0.0
+    },
+    {
+      "period": "Q4 2014",
+      "amount": 0.0
+    },
+    {
+      "period": "Q4 2015",
+      "amount": 0.0
+    },
+    {
+      "period": "Q4 2016",
+      "amount": 0.0
+    },
+    {
+      "period": "Q4 2017",
+      "amount": 0.0
+    },
+    {
+      "period": "Q4 2018",
+      "amount": 0.0
+    },
+    {
+      "period": "Q4 2019",
+      "amount": 0.0
+    },
+    {
+      "period": "Q4 2020",
+      "amount": 0.0
+    },
+    {
+      "period": "Q4 2021",
+      "amount": 0.0
+    },
+    {
+      "period": "Q4 2022",
+      "amount": 0.0
+    },
+    {
+      "period": "Q4 2023",
+      "amount": 0.0
+    },
+    {
+      "period": "Q4 2024",
+      "amount": 0.0
+    }
+  ],
+  "relatedOrganizations": []
+}
