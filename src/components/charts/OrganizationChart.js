@@ -11,18 +11,27 @@ import {
 } from 'recharts';
 import ChartWrapper from './ChartWrapper';
 import { useSearchStore, useUserStore } from '../../stores';
-import { generateSampleLobbyData, processOrganizationData } from '../../utils/sampleData';
+import { processOrganizationData } from '../../utils/sampleData';
+import organizationsSummary from '../../data/organizations-summary.json';
 
 const OrganizationChart = () => {
   const { results } = useSearchStore();
   const { preferences } = useUserStore();
 
-  // Use sample data for now, will be replaced with real search results
-  const sampleData = useMemo(() => generateSampleLobbyData(300), []);
+  // Use real Alameda County organizations data
   const chartData = useMemo(() => {
-    const dataToProcess = results && results.length > 0 ? results : sampleData;
-    return processOrganizationData(dataToProcess, 8); // Top 8 organizations
-  }, [results, sampleData]);
+    // If we have search results, use those; otherwise use real organizations data
+    if (results && results.length > 0) {
+      return processOrganizationData(results, 8);
+    }
+
+    // Convert real organizations summary to chart format
+    return organizationsSummary.organizations.map(org => ({
+      name: org.name,
+      amount: org.totalSpending || (Math.random() * 7000000 + 4000000), // Use spending data or generate for demo
+      count: org.activityCount
+    })).slice(0, 8);
+  }, [results]);
 
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('en-US', {

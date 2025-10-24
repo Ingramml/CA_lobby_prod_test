@@ -1,22 +1,14 @@
 // Sample CA Lobby Data Generator for Chart Testing
+// Using real Alameda County organizations from our data set
 
 export const generateSampleLobbyData = (count = 100) => {
   const organizations = [
-    'California Chamber of Commerce',
-    'PG&E Corporation',
-    'California Medical Association',
-    'California Teachers Association',
-    'Amazon.com Inc.',
-    'Google LLC',
-    'Meta Platforms Inc.',
-    'Tesla Inc.',
-    'Apple Inc.',
-    'California Hospital Association',
-    'Chevron Corporation',
-    'AT&T Inc.',
-    'Pharmaceutical Research Association',
-    'California Manufacturers Association',
-    'Real Estate Association'
+    'ALAMEDA COUNTY',
+    'ALAMEDA, CITY OF',
+    'ALAMEDA COUNTY WASTE MANAGEMENT AUTHORITY',
+    'ALAMEDA UNIFIED SCHOOL DISTRICT',
+    'ALAMEDA ALLIANCE FOR HEALTH',
+    'ALAMEDA CORRIDOR-EAST CONSTRUCTION AUTHORITY'
   ];
 
   const lobbyCategories = [
