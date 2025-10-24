@@ -110,6 +110,7 @@ function Search() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    console.log('Search button clicked - handleSearch triggered');
 
     // Allow search with just filters (no query required)
     const hasFilters = filters.organization ||
@@ -118,6 +119,8 @@ function Search() {
                       (filters.dateRange && filters.dateRange !== 'all') ||
                       filters.amountMin ||
                       filters.amountMax;
+
+    console.log('Query:', query, 'Has filters:', hasFilters);
 
     if (!query.trim() && !hasFilters) {
       console.log('No search query or filters provided');
@@ -136,10 +139,13 @@ function Search() {
 
       if (!useBackend) {
         // Use real lobby data (default behavior)
+        console.log('Generating search results...');
         const searchResults = generateSearchResults(query, filters);
+        console.log('Search results generated:', searchResults.length, 'results');
 
         // Update search store with results
         setResults(searchResults);
+        console.log('Results set in store');
 
         // Add current search to history
         addToHistory({
@@ -149,7 +155,7 @@ function Search() {
           timestamp: new Date().toISOString()
         });
 
-        // Search completed - results updated in store
+        console.log('Search completed successfully');
       } else {
         // Backend API mode (requires REACT_APP_USE_BACKEND_API=true in .env)
         const searchParams = new URLSearchParams({
