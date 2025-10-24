@@ -36,7 +36,7 @@ const generateSearchResults = (query, filters) => {
   const allData = searchableData; // Only real data, no legacy demo
 
   // Filter data based on search query and filters
-  return allData.filter(item => {
+  const filtered = allData.filter(item => {
     // If no query provided, show all items (will be filtered by other criteria)
     const matchesQuery = !query || !query.trim() ||
       item.organization.toLowerCase().includes(query.toLowerCase()) ||
@@ -79,9 +79,29 @@ const generateSearchResults = (query, filters) => {
     const matchesAmountMax = !filters.amountMax ||
       item.amount <= parseInt(filters.amountMax);
 
-    return matchesQuery && matchesOrganization && matchesLobbyist &&
+    const passes = matchesQuery && matchesOrganization && matchesLobbyist &&
            matchesCategory && matchesDateRange && matchesAmountMin && matchesAmountMax;
+
+    // Debug first item to see why it fails
+    if (item === allData[0]) {
+      console.log('First item filter check:', {
+        organization: item.organization,
+        matchesQuery,
+        matchesOrganization,
+        matchesLobbyist,
+        matchesCategory,
+        matchesDateRange,
+        matchesAmountMin,
+        matchesAmountMax,
+        passes
+      });
+    }
+
+    return passes;
   }).slice(0, 20); // Limit to 20 results for demo
+
+  console.log('generateSearchResults: filtered', filtered.length, 'from', allData.length, 'items');
+  return filtered;
 };
 
 function Search() {
@@ -121,6 +141,7 @@ function Search() {
                       filters.amountMax;
 
     console.log('Query:', query, 'Has filters:', hasFilters);
+    console.log('Filters object:', JSON.stringify(filters, null, 2));
 
     if (!query.trim() && !hasFilters) {
       console.log('No search query or filters provided');
