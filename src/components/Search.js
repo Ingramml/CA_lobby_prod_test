@@ -40,14 +40,14 @@ const generateSearchResults = (query, filters) => {
     // If no query provided, show all items (will be filtered by other criteria)
     const matchesQuery = !query || !query.trim() ||
       item.organization.toLowerCase().includes(query.toLowerCase()) ||
-      item.lobbyist.toLowerCase().includes(query.toLowerCase()) ||
+      (item.lobbyist && item.lobbyist.toLowerCase().includes(query.toLowerCase())) ||
       item.description.toLowerCase().includes(query.toLowerCase());
 
     const matchesOrganization = !filters.organization ||
       item.organization.toLowerCase().includes(filters.organization.toLowerCase());
 
     const matchesLobbyist = !filters.lobbyist ||
-      item.lobbyist.toLowerCase().includes(filters.lobbyist.toLowerCase());
+      (item.lobbyist && item.lobbyist.toLowerCase().includes(filters.lobbyist.toLowerCase()));
 
     const matchesCategory = !filters.category || filters.category === 'all' ||
       item.category === filters.category;
