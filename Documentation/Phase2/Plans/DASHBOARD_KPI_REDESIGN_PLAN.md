@@ -560,10 +560,10 @@ export default Dashboard;
 - ✅ Add drill-down capability (click to see details)
 
 ### Phase 3 (Advanced Features)
-- ✅ Add time period selector (YTD, Last Quarter, Last Year)
+~~- ✅ Add time period selector (YTD, Last Quarter, Last Year)~~
 - ✅ Add comparison to previous periods
 - ✅ Add sparkline charts within KPI cards
-- ✅ Add export KPI summary to PDF
+~~- ✅ Add export KPI summary to PDF~~
 
 ## Success Metrics
 

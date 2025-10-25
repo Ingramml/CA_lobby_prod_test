@@ -108,9 +108,11 @@ const ActivityList = () => {
               <span className="activity-date">{formatDate(activity.date || activity.filing_date)}</span>
             </div>
             <div className="activity-body">
-              <h4 className="activity-lobbyist">{activity.lobbyist || 'Unknown Lobbyist'}</h4>
+              <h4 className="activity-lobbyist">
+                {activity.lobbyist || activity.firm_name || activity.organization || 'Unknown Lobbyist'}
+              </h4>
               <p className="activity-description">
-                {activity.description || activity.activity_description || 'No description available'}
+                {activity.description || activity.activity_description || `${activity.form_type || 'Filing'} - ${activity.organization_type || 'Lobby Activity'}`}
               </p>
             </div>
             <div className="activity-footer">

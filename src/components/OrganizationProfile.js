@@ -107,12 +107,31 @@ const OrganizationProfile = React.memo(() => {
 
           console.log('Profile loaded:', profileData);
 
-          // Use profile data directly
-          setOrganizationData(profileData.summary);
+          // Transform profile data to match expected format
+          const transformedData = {
+            ...profileData.summary,
+            // Map field names to what ActivitySummary expects
+            totalActivities: profileData.summary.activityCount || 0,
+            averageAmount: profileData.summary.averageSpending || 0,
+            topCategory: profileData.category || 'N/A'
+          };
+
+          setOrganizationData(transformedData);
           setActivities(profileData.activities || []);
-          setLobbyists(profileData.lobbyists || []);
+
+          // Extract lobbyists from activities if not in profile
+          const lobbyistsData = profileData.lobbyists && profileData.lobbyists.length > 0
+            ? profileData.lobbyists
+            : extractLobbyistNetwork(profileData.activities || []);
+          setLobbyists(lobbyistsData);
+
           setSpendingTrends(profileData.spendingTrends || []);
-          setRelatedOrganizations(profileData.relatedOrganizations || []);
+
+          // Find related organizations if not in profile
+          const relatedData = profileData.relatedOrganizations && profileData.relatedOrganizations.length > 0
+            ? profileData.relatedOrganizations
+            : findRelatedOrganizations(decodedOrgName, results, 5);
+          setRelatedOrganizations(relatedData);
 
         } catch (fileError) {
           console.warn(`Profile file not found for ${filename}, falling back to search results`, fileError);
