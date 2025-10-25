@@ -159,10 +159,15 @@ function Dashboard() {
           <h2>CA Lobby Data Insights</h2>
           {chartsEnabled ? (
             <Suspense fallback={<div className="charts-loading">Loading charts...</div>}>
-              <div className="charts-grid">
+              {/* Full-width Lobby Trends Chart */}
+              <div className="chart-full-width">
                 <ChartErrorBoundary>
                   <LobbyTrendsChart onError={handleChartError} />
                 </ChartErrorBoundary>
+              </div>
+
+              {/* Two-column grid for other charts */}
+              <div className="charts-grid">
                 <ChartErrorBoundary>
                   <OrganizationChart onError={handleChartError} />
                 </ChartErrorBoundary>

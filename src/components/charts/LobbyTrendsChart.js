@@ -11,7 +11,7 @@ import {
 } from 'recharts';
 import ChartWrapper from './ChartWrapper';
 import { useSearchStore, useUserStore } from '../../stores';
-import { generateSampleLobbyData, processLobbyTrends } from '../../utils/sampleData';
+import { generateSampleLobbyData, processLobbyTrendsByType } from '../../utils/sampleData';
 import { getMobileChartConfig, getMobileAxisConfig, formatters } from '../../utils/chartConfig';
 
 const LobbyTrendsChart = () => {
@@ -23,7 +23,7 @@ const LobbyTrendsChart = () => {
   const sampleData = useMemo(() => generateSampleLobbyData(200), []);
   const chartData = useMemo(() => {
     const dataToProcess = results && results.length > 0 ? results : sampleData;
-    return processLobbyTrends(dataToProcess, 'quarter');
+    return processLobbyTrendsByType(dataToProcess, 'quarter');
   }, [results, sampleData]);
 
   // Handle responsive behavior
@@ -49,13 +49,17 @@ const LobbyTrendsChart = () => {
     light: {
       background: '#ffffff',
       text: '#333333',
-      line: '#2563eb',
+      total: '#2563eb',
+      city: '#10b981',
+      county: '#8b5cf6',
       grid: '#e5e7eb'
     },
     dark: {
       background: '#1f2937',
       text: '#f9fafb',
-      line: '#60a5fa',
+      total: '#60a5fa',
+      city: '#34d399',
+      county: '#a78bfa',
       grid: '#374151'
     }
   };
@@ -92,7 +96,7 @@ const LobbyTrendsChart = () => {
             tickFormatter={formatCurrency}
           />
           <Tooltip
-            formatter={(value, name) => [formatCurrency(value), name || 'Total Amount']}
+            formatter={(value, name) => [formatCurrency(value), name]}
             labelStyle={{ color: theme.text }}
             contentStyle={{
               backgroundColor: theme.background,
@@ -103,12 +107,30 @@ const LobbyTrendsChart = () => {
           <Legend />
           <Line
             type="monotone"
-            dataKey="amount"
-            stroke={theme.line}
+            dataKey="totalAmount"
+            stroke={theme.total}
             strokeWidth={2}
-            dot={{ fill: theme.line, strokeWidth: 2, r: 4 }}
-            activeDot={{ r: 6, stroke: theme.line, strokeWidth: 2 }}
-            name="Lobby Spending"
+            dot={{ fill: theme.total, strokeWidth: 2, r: 4 }}
+            activeDot={{ r: 6, stroke: theme.total, strokeWidth: 2 }}
+            name="Total Spending"
+          />
+          <Line
+            type="monotone"
+            dataKey="cityAmount"
+            stroke={theme.city}
+            strokeWidth={2}
+            dot={{ fill: theme.city, strokeWidth: 2, r: 4 }}
+            activeDot={{ r: 6, stroke: theme.city, strokeWidth: 2 }}
+            name="City Organizations"
+          />
+          <Line
+            type="monotone"
+            dataKey="countyAmount"
+            stroke={theme.county}
+            strokeWidth={2}
+            dot={{ fill: theme.county, strokeWidth: 2, r: 4 }}
+            activeDot={{ r: 6, stroke: theme.county, strokeWidth: 2 }}
+            name="County Organizations"
           />
         </LineChart>
       </ResponsiveContainer>

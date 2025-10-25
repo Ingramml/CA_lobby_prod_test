@@ -1444,3 +1444,15 @@ a:focus-visible,
     gap: 12px;
   }
 }
+
+/* Full-width chart container */
+.chart-full-width {
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .chart-full-width {
+    margin-bottom: 24px;
+  }
+}

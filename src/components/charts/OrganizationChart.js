@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   BarChart,
   Bar,
@@ -17,21 +17,54 @@ import organizationsSummary from '../../data/organizations-summary.json';
 const OrganizationChart = () => {
   const { results } = useSearchStore();
   const { preferences } = useUserStore();
+  const [dateFilter, setDateFilter] = useState('all');
+
+  // Filter data by date range
+  const filterDataByDate = (data, filter) => {
+    if (filter === 'all') return data;
+
+    const now = new Date();
+    let cutoffDate;
+
+    switch (filter) {
+      case '1y':
+        cutoffDate = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
+        break;
+      case '2y':
+        cutoffDate = new Date(now.getFullYear() - 2, now.getMonth(), now.getDate());
+        break;
+      case '5y':
+        cutoffDate = new Date(now.getFullYear() - 5, now.getMonth(), now.getDate());
+        break;
+      default:
+        return data;
+    }
+
+    return data.filter(item => {
+      const itemDate = new Date(item.date || item.lastActivity);
+      return itemDate >= cutoffDate;
+    });
+  };
 
   // Use real Alameda County organizations data
   const chartData = useMemo(() => {
     // If we have search results, use those; otherwise use real organizations data
     if (results && results.length > 0) {
-      return processOrganizationData(results, 8);
+      const filteredData = filterDataByDate(results, dateFilter);
+      return processOrganizationData(filteredData, 8);
     }
 
     // Convert real organizations summary to chart format
-    return organizationsSummary.organizations.map(org => ({
+    const allOrgs = organizationsSummary.organizations.map(org => ({
       name: org.name,
       amount: org.totalSpending || (Math.random() * 7000000 + 4000000), // Use spending data or generate for demo
-      count: org.activityCount
-    })).slice(0, 8);
-  }, [results]);
+      count: org.activityCount,
+      lastActivity: org.lastActivity
+    }));
+
+    const filteredOrgs = filterDataByDate(allOrgs, dateFilter);
+    return filteredOrgs.slice(0, 8);
+  }, [results, dateFilter]);
 
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('en-US', {
@@ -72,12 +105,45 @@ const OrganizationChart = () => {
     return name;
   };
 
+  const filterOptions = [
+    { value: 'all', label: 'All Time' },
+    { value: '1y', label: 'Last Year' },
+    { value: '2y', label: 'Last 2 Years' },
+    { value: '5y', label: 'Last 5 Years' }
+  ];
+
   return (
     <ChartWrapper
       title="Top Organizations by Lobby Spending"
       height={400}
       className="organization-chart"
     >
+      <div style={{
+        display: 'flex',
+        justifyContent: 'flex-end',
+        marginBottom: '12px',
+        paddingRight: '20px'
+      }}>
+        <select
+          value={dateFilter}
+          onChange={(e) => setDateFilter(e.target.value)}
+          style={{
+            padding: '6px 12px',
+            borderRadius: '4px',
+            border: '1px solid #d1d5db',
+            backgroundColor: theme.background,
+            color: theme.text,
+            fontSize: '14px',
+            cursor: 'pointer'
+          }}
+        >
+          {filterOptions.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={chartData}

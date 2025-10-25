@@ -77,6 +77,48 @@ export const processLobbyTrends = (data, groupBy = 'quarter') => {
   });
 };
 
+// Process data for trend charts with city/county breakdown
+export const processLobbyTrendsByType = (data, groupBy = 'quarter') => {
+  const grouped = data.reduce((acc, item) => {
+    const key = item[groupBy];
+    if (!acc[key]) {
+      acc[key] = {
+        period: key,
+        totalAmount: 0,
+        cityAmount: 0,
+        countyAmount: 0,
+        count: 0
+      };
+    }
+
+    // Categorize organization type
+    const orgName = item.organization || '';
+    const isCity = orgName.includes('CITY OF') || orgName.includes(', CITY OF');
+    const isCounty = (orgName.includes('COUNTY') && !orgName.includes('CITY OF')) ||
+                     orgName.includes('ALAMEDA COUNTY WASTE') ||
+                     orgName === 'ALAMEDA COUNTY';
+
+    acc[key].totalAmount += item.amount;
+    if (isCity) {
+      acc[key].cityAmount += item.amount;
+    }
+    if (isCounty) {
+      acc[key].countyAmount += item.amount;
+    }
+    acc[key].count += 1;
+    return acc;
+  }, {});
+
+  return Object.values(grouped).sort((a, b) => {
+    if (groupBy === 'quarter') {
+      const [qA, yearA] = a.period.split(' ');
+      const [qB, yearB] = b.period.split(' ');
+      return yearA !== yearB ? yearA - yearB : qA.replace('Q', '') - qB.replace('Q', '');
+    }
+    return new Date(a.period) - new Date(b.period);
+  });
+};
+
 // Process data for organization comparison
 export const processOrganizationData = (data, limit = 10) => {
   const grouped = data.reduce((acc, item) => {
