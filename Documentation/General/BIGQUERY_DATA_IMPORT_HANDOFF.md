@@ -49,7 +49,7 @@ Each transaction currently has:
 - ✅ `amount` - Payment amount (REAL data)
 - ✅ `organization` - Who paid (employer)
 - ❌ `firm_name` - **WHO WAS PAID** (lobbying firm)
-- ❌ `date` - **WHEN payment was made**
+- ❌ `date` - **WHEN payment was made** if i can't get this get report data
 - ❌ `from_date` - **Quarter start date**
 - ❌ `thru_date` - **Quarter end date**
 - ❌ `filing_date` - **Date filed with state**
