@@ -1402,3 +1402,45 @@ a:focus-visible,
     scroll-behavior: auto !important;
   }
 }
+
+/* ========================================
+   KPI Dashboard Styles
+   ======================================== */
+
+.kpi-section {
+  margin-bottom: 40px;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 1024px) {
+  .kpi-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .kpi-section {
+    margin-bottom: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .kpi-section {
+    margin-bottom: 24px;
+  }
+
+  .kpi-grid {
+    gap: 12px;
+  }
+}

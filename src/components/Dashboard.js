@@ -1,8 +1,15 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { useSearchStore, useUserStore, useAppStore } from '../stores';
 import { LobbyTrendsChart, OrganizationChart, CategoryChart } from './charts';
 import { API_ENDPOINTS, apiCall } from '../config/api';
+import KPICard from './KPICard';
+import {
+  getTotalYearSpending,
+  getCityGovernmentSpending,
+  getCountyGovernmentSpending,
+  getOrganizationCounts
+} from '../utils/kpiCalculations';
 import './charts/charts.css';
 
 // Error Boundary component for chart protection
@@ -48,6 +55,15 @@ function Dashboard() {
   const { searchHistory, savedSearches } = useSearchStore();
   const { recentActivity, bookmarks, syncWithClerk, isAuthenticated } = useUserStore();
   const { systemStatus, setSystemStatus } = useAppStore();
+
+  // Calculate KPI values (memoized for performance)
+  const currentYear = new Date().getFullYear();
+  const kpiData = useMemo(() => ({
+    totalYearSpending: getTotalYearSpending(),
+    citySpending: getCityGovernmentSpending(),
+    countySpending: getCountyGovernmentSpending(),
+    counts: getOrganizationCounts()
+  }), []);
 
   // Sync user data with Clerk when user changes
   React.useEffect(() => {
@@ -101,13 +117,43 @@ function Dashboard() {
   return (
     <div className="page-container">
       <div className="page-header">
-        <h1>Dashboard</h1>
+        <h1>California Lobbying Dashboard</h1>
         <p className="page-description">
-          Welcome back, {user?.firstName || 'User'}! Monitor system health and access key information.
+          Welcome back, {user?.firstName || 'User'}! Year-to-date lobbying expenditure analysis for {currentYear}
         </p>
       </div>
 
       <div className="page-content">
+        {/* KPI Section */}
+        <div className="kpi-section">
+          <div className="kpi-grid">
+            <KPICard
+              title="Total Lobbying Expenditures"
+              subtitle={`Year-to-Date ${currentYear}`}
+              value={kpiData.totalYearSpending}
+              icon="💰"
+              color="#2563eb"
+              isEstimate={true}
+            />
+            <KPICard
+              title="City Government Lobbying"
+              subtitle={`${kpiData.counts.cityOrganizations} California ${kpiData.counts.cityOrganizations === 1 ? 'City' : 'Cities'}`}
+              value={kpiData.citySpending}
+              icon="🏛️"
+              color="#10b981"
+              isEstimate={true}
+            />
+            <KPICard
+              title="County Government Lobbying"
+              subtitle={`${kpiData.counts.countyOrganizations} California ${kpiData.counts.countyOrganizations === 1 ? 'County' : 'Counties'}`}
+              value={kpiData.countySpending}
+              icon="🏢"
+              color="#8b5cf6"
+              isEstimate={true}
+            />
+          </div>
+        </div>
+
         {/* Visualization Section */}
         <div className="dashboard-section">
           <h2>CA Lobby Data Insights</h2>
