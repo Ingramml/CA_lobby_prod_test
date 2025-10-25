@@ -102,52 +102,51 @@ const OrganizationProfile = React.memo(() => {
 
         console.log(`Loading profile for: ${decodedOrgName} (${filename})`);
 
+        // Find matching organization in summary (for metadata)
+        const summaryOrg = organizationsSummary.organizations.find(
+          org => org.name === decodedOrgName
+        );
+
+        if (!summaryOrg) {
+          throw new Error(`Organization not found in summary: ${decodedOrgName}`);
+        }
+
         try {
-          // Try to load from JSON profile file (Tier 2 data)
-          const profileModule = await import(`../data/profiles/${filename}.json`);
-          const profileData = profileModule.default || profileModule;
+          // Try to load REAL activity data from activities directory
+          const activityModule = await import(`../data/activities/${filename}-activities.json`);
+          const activityData = activityModule.default || activityModule;
 
-          console.log('Profile loaded:', profileData);
+          console.log('Real activity data loaded:', activityData);
 
-          // Find matching organization in summary for correct dates
-          const summaryOrg = organizationsSummary.organizations.find(
-            org => org.name === decodedOrgName || org.name === profileData.name
-          );
-
-          // Transform profile data to match expected format
-          // Prefer dates from organizations-summary.json as they are more accurate
+          // Use data from organizations-summary.json
           const transformedData = {
-            ...profileData.summary,
-            // Map field names to what ActivitySummary expects
-            totalActivities: profileData.summary.activityCount || 0,
-            averageAmount: profileData.summary.averageSpending || 0,
-            topCategory: profileData.category || 'N/A',
-            // Use summary dates if available (more accurate)
-            firstActivity: summaryOrg?.firstActivity || profileData.summary.firstActivity,
-            lastActivity: summaryOrg?.lastActivity || profileData.summary.lastActivity
+            totalActivities: summaryOrg.activityCount || 0,
+            totalSpending: summaryOrg.totalSpending || 0,
+            averageAmount: summaryOrg.averageSpending || 0,
+            topCategory: summaryOrg.category || 'N/A',
+            firstActivity: summaryOrg.firstActivity,
+            lastActivity: summaryOrg.lastActivity
           };
 
-          console.log('Transformed data with corrected dates:', transformedData);
+          console.log('Organization data from summary:', transformedData);
 
           setOrganizationData(transformedData);
-          setActivities(profileData.activities || []);
+          setActivities(activityData.activities || []);
 
-          // Extract lobbyists from activities if not in profile
-          const lobbyistsData = profileData.lobbyists && profileData.lobbyists.length > 0
-            ? profileData.lobbyists
-            : extractLobbyistNetwork(profileData.activities || []);
+          // Extract lobbyists from activities (we don't have this data yet)
+          const lobbyistsData = extractLobbyistNetwork(activityData.activities || []);
           setLobbyists(lobbyistsData);
 
-          setSpendingTrends(profileData.spendingTrends || []);
+          // Calculate spending trends from activities
+          const trends = calculateSpendingTrends(activityData.activities || [], 'quarter');
+          setSpendingTrends(trends);
 
-          // Find related organizations if not in profile
-          const relatedData = profileData.relatedOrganizations && profileData.relatedOrganizations.length > 0
-            ? profileData.relatedOrganizations
-            : findRelatedOrganizations(decodedOrgName, results, 5);
+          // Find related organizations from search results
+          const relatedData = findRelatedOrganizations(decodedOrgName, results, 5);
           setRelatedOrganizations(relatedData);
 
         } catch (fileError) {
-          console.warn(`Profile file not found for ${filename}, falling back to search results`, fileError);
+          console.warn(`Activity file not found for ${filename}, falling back to search results`, fileError);
 
           // Fallback: Filter activities from search results
           const orgActivities = results.filter(
