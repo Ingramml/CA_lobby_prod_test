@@ -13,6 +13,7 @@ import {
   generateOrganizationSummaryCSV,
   sanitizeFilename
 } from '../utils/exportHelpers';
+import organizationsSummary from '../data/organizations-summary.json';
 import ActivitySummary from './ActivitySummary';
 import SpendingTrendsChart from './charts/SpendingTrendsChart';
 import ActivityList from './ActivityList';
@@ -107,14 +108,25 @@ const OrganizationProfile = React.memo(() => {
 
           console.log('Profile loaded:', profileData);
 
+          // Find matching organization in summary for correct dates
+          const summaryOrg = organizationsSummary.organizations.find(
+            org => org.name === decodedOrgName || org.name === profileData.name
+          );
+
           // Transform profile data to match expected format
+          // Prefer dates from organizations-summary.json as they are more accurate
           const transformedData = {
             ...profileData.summary,
             // Map field names to what ActivitySummary expects
             totalActivities: profileData.summary.activityCount || 0,
             averageAmount: profileData.summary.averageSpending || 0,
-            topCategory: profileData.category || 'N/A'
+            topCategory: profileData.category || 'N/A',
+            // Use summary dates if available (more accurate)
+            firstActivity: summaryOrg?.firstActivity || profileData.summary.firstActivity,
+            lastActivity: summaryOrg?.lastActivity || profileData.summary.lastActivity
           };
+
+          console.log('Transformed data with corrected dates:', transformedData);
 
           setOrganizationData(transformedData);
           setActivities(profileData.activities || []);

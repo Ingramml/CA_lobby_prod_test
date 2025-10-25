@@ -35,7 +35,11 @@ const ActivitySummary = () => {
 
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
-    return new Date(dateString).toLocaleDateString('en-US', {
+    // Parse date as UTC to avoid timezone issues
+    // Format: "2012-01-01" should display as "Jan 1, 2012"
+    const [year, month, day] = dateString.split('-').map(Number);
+    const date = new Date(year, month - 1, day); // Use local date constructor
+    return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric'
