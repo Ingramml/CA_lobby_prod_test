@@ -9,18 +9,33 @@ import {
 } from 'recharts';
 import ChartWrapper from './ChartWrapper';
 import { useSearchStore, useUserStore } from '../../stores';
-import { generateSampleLobbyData, processCategoryData } from '../../utils/sampleData';
+import organizationsSummary from '../../data/organizations-summary.json';
 
 const CategoryChart = () => {
   const { results } = useSearchStore();
   const { preferences } = useUserStore();
 
-  // Use sample data for now, will be replaced with real search results
-  const sampleData = useMemo(() => generateSampleLobbyData(250), []);
+  // Use real organization type data from BigQuery views
   const chartData = useMemo(() => {
-    const dataToProcess = results && results.length > 0 ? results : sampleData;
-    return processCategoryData(dataToProcess);
-  }, [results, sampleData]);
+    // Group organizations by category and sum spending
+    const categoryMap = {};
+
+    organizationsSummary.organizations.forEach(org => {
+      const category = org.category || 'Other';
+      if (!categoryMap[category]) {
+        categoryMap[category] = {
+          name: category,
+          amount: 0,
+          count: 0
+        };
+      }
+      categoryMap[category].amount += org.totalSpending || 0;
+      categoryMap[category].count += 1;
+    });
+
+    // Convert to array and sort by amount
+    return Object.values(categoryMap).sort((a, b) => b.amount - a.amount);
+  }, []);
 
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('en-US', {
