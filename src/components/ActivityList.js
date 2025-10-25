@@ -52,6 +52,42 @@ const ActivityList = () => {
     });
   };
 
+  const getExpenseDescription = (activity) => {
+    const parts = [];
+
+    // Form type explanation
+    if (activity.form_type) {
+      const formDescriptions = {
+        'F625': 'Quarterly Report',
+        'F635': 'Periodic Report',
+        'F645': 'Termination Report',
+        'F615': 'Registration Form',
+        'F640': 'Amendment'
+      };
+      parts.push(formDescriptions[activity.form_type] || activity.form_type);
+    }
+
+    // Organization type
+    if (activity.organization_type) {
+      const orgTypes = {
+        'PURCHASER': 'Lobbying Services Purchased',
+        'EMPLOYER': 'In-House Lobbying',
+        'FIRM': 'Lobbying Firm Services',
+        'CONTRACTOR': 'Contract Lobbying'
+      };
+      parts.push(orgTypes[activity.organization_type] || activity.organization_type);
+    }
+
+    // Reporting period
+    if (activity.from_date && activity.thru_date) {
+      const fromDate = formatDate(activity.from_date);
+      const thruDate = formatDate(activity.thru_date);
+      parts.push(`Period: ${fromDate} - ${thruDate}`);
+    }
+
+    return parts.length > 0 ? parts.join(' • ') : activity.description || activity.activity_description || 'Lobby Activity';
+  };
+
   if (loading) {
     return (
       <div className="dashboard-card">
@@ -112,7 +148,7 @@ const ActivityList = () => {
                 {activity.lobbyist || activity.firm_name || activity.organization || 'Unknown Lobbyist'}
               </h4>
               <p className="activity-description">
-                {activity.description || activity.activity_description || `${activity.form_type || 'Filing'} - ${activity.organization_type || 'Lobby Activity'}`}
+                {getExpenseDescription(activity)}
               </p>
             </div>
             <div className="activity-footer">

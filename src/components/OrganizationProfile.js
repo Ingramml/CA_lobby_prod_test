@@ -19,6 +19,7 @@ import SpendingTrendsChart from './charts/SpendingTrendsChart';
 import ActivityList from './ActivityList';
 import LobbyistNetwork from './LobbyistNetwork';
 import RelatedOrganizations from './RelatedOrganizations';
+import TopRecipients from './TopRecipients';
 
 const OrganizationProfile = React.memo(() => {
   const { organizationName } = useParams();
@@ -393,6 +394,10 @@ const OrganizationProfile = React.memo(() => {
           </div>
 
           <div className="profile-sidebar">
+            <div className="dashboard-card">
+              <TopRecipients />
+            </div>
+
             <div className="dashboard-card">
               <LobbyistNetwork />
             </div>
